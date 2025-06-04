@@ -10,7 +10,7 @@
 
 
     <ScrollView
-        android:layout_width="350dp"
+        android:layout_width="395dp"
         android:layout_height="558dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:alignmentMode="alignMargins"
             android:columnCount="4"
-            android:padding="16dp"
+            android:padding="1dp"
             android:useDefaultMargins="true">
 
             <!-- Item 1 - Educación -->
@@ -33,12 +33,13 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:gravity="center"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/button24"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/educacion"
                     android:gravity="center"
@@ -59,12 +60,13 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:gravity="center"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/button26"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/alimento"
                     android:gravity="center"
@@ -85,12 +87,13 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:gravity="center"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/button25"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/transporte"
                     android:gravity="center"
@@ -111,12 +114,13 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:gravity="center"
+                android:layout_margin="15dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/button23"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/hogar"
                     android:gravity="center"
@@ -141,8 +145,8 @@
 
                 <Button
                     android:id="@+id/button18"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/regalo"
                     android:gravity="center"
@@ -167,8 +171,8 @@
 
                 <Button
                     android:id="@+id/button17"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/alimento"
                     android:gravity="center"
@@ -193,8 +197,8 @@
 
                 <Button
                     android:id="@+id/button21"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:drawableTop="@drawable/alimento"
                     android:gravity="center"
@@ -219,8 +223,8 @@
 
                 <Button
                     android:id="@+id/button13"
-                    android:layout_width="57dp"
-                    android:layout_height="57dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:background="@android:color/transparent"
                     android:drawableTop="@drawable/mas"
                     android:gravity="center"
@@ -234,7 +238,6 @@
                     android:textAlignment="center"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
-
         </GridLayout>
     </ScrollView>
 
