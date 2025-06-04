@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#303030"
     android:fitsSystemWindows="true">
 
-
+    <!-- Encabezado -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:background="@drawable/fondo_encabezado"
-        android:elevation="4dp">
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/boton_atras"
@@ -29,7 +25,6 @@
             android:layout_marginEnd="16dp" />
 
         <TextView
-            android:id="@+id/titulo_registro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registrarse"
@@ -38,28 +33,25 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-    <!-- Contenido con padding general -->
+    <!-- Contenido -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:orientation="vertical">
 
-        <!-- Texto de instrucción -->
         <TextView
-            android:id="@+id/texto_instruccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ingrese su dirección de correo electrónico en la que se registró"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="16dp" />
 
-        <!-- Campo de entrada -->
         <EditText
-            android:id="@+id/entrada_correo"
+            android:id="@+id/campo_correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Dirección de correo electrónico"
@@ -67,26 +59,25 @@
             android:textColor="#FFFFFF"
             android:textColorHint="#BBBBBB"
             android:background="@android:color/transparent"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="4dp" />
 
-        <!-- Línea blanca debajo del campo -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#FFFFFF"
             android:layout_marginBottom="32dp" />
 
-        <!-- Botón Siguiente -->
         <Button
             android:id="@+id/boton_siguiente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/boton_redondeado"
-            android:enabled="false"
             android:text="Siguiente"
             android:textSize="17sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
+            android:enabled="false"
+            android:alpha="0.5"
+            android:background="@drawable/boton_redondeado"
             app:backgroundTint="@null" />
     </LinearLayout>
 </LinearLayout>

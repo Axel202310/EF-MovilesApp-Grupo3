@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PFMoviles">
 
-        <!-- Pantalla de bienvenida: LAUNCHER -->
+        <!-- Pantalla de bienvenida -->
         <activity
             android:name=".BienvenidaActividad"
             android:exported="true">
@@ -20,14 +20,18 @@
             </intent-filter>
         </activity>
 
-        <!-- Pantalla de registro -->
+        <!-- Registro -->
         <activity android:name=".RegistroActividad" />
+        <activity android:name=".RegistroCorreoActividad" />
+        <activity android:name=".RegistroContrasenaActividad" />
 
-        <!-- Pantalla para ingresar correo -->
-        <activity android:name=".IngresarCorreoActividad" />
+        <!-- Inicio de sesión -->
+        <activity android:name=".IniciarSesionCorreoActividad" />
+        <activity android:name=".IniciarSesionContrasenaActividad" />
 
-        <!-- MainActivity (la puedes usar más adelante si es necesaria) -->
+        <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
 
     </application>
+
 </manifest>

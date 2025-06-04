@@ -6,27 +6,27 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.asipion.pfmoviles.R
 
-class IngresarCorreoActividad : AppCompatActivity() {
+class IniciarSesionContrasenaActividad : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_ingresar_correo)
+        setContentView(R.layout.actividad_iniciar_sesion_contrasena)
 
         val botonAtras = findViewById<ImageView>(R.id.boton_atras)
+        val campoContrasena = findViewById<EditText>(R.id.campo_contrasena)
         val botonSiguiente = findViewById<Button>(R.id.boton_siguiente)
-        val entradaCorreo = findViewById<EditText>(R.id.entrada_correo)
 
         botonAtras.setOnClickListener {
             finish()
         }
 
-        entradaCorreo.addTextChangedListener(object : TextWatcher {
+        campoContrasena.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val tieneTexto = !s.isNullOrBlank()
-                botonSiguiente.isEnabled = tieneTexto
-                botonSiguiente.alpha = if (tieneTexto) 1f else 0.5f
+                val habilitar = !s.isNullOrBlank()
+                botonSiguiente.isEnabled = habilitar
+                botonSiguiente.alpha = if (habilitar) 1f else 0.5f
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -34,8 +34,7 @@ class IngresarCorreoActividad : AppCompatActivity() {
         })
 
         botonSiguiente.setOnClickListener {
-            val correo = entradaCorreo.text.toString()
-            // Aquí va la lógica para continuar el registro
+            // Aquí podrías ir a MainActivity u otra pantalla
         }
     }
 }

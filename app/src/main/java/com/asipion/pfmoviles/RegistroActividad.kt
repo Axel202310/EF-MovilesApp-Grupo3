@@ -3,6 +3,7 @@ package com.asipion.pfmoviles
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class RegistroActividad : AppCompatActivity() {
@@ -11,8 +12,14 @@ class RegistroActividad : AppCompatActivity() {
         setContentView(R.layout.actividad_registro)
 
         val botonRegistrarse = findViewById<Button>(R.id.boton_registrarse)
+        val textoIniciarSesion = findViewById<TextView>(R.id.texto_iniciar_sesion)
+
         botonRegistrarse.setOnClickListener {
-            startActivity(Intent(this, IngresarCorreoActividad::class.java))
+            startActivity(Intent(this, RegistroCorreoActividad::class.java)) // ✅ corregido
+        }
+
+        textoIniciarSesion.setOnClickListener {
+            startActivity(Intent(this, IniciarSesionCorreoActividad::class.java))
         }
     }
 }
