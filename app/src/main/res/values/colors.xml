@@ -2,4 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="button_primary_color">#D3846A</color>
+    <color name="app_background_dark">#212121</color> <!-- Fondo principal de la app (muy oscuro) -->
+    <color name="card_background_dark">#303030</color> <!-- Fondo de la "tarjeta" o sección principal -->
+    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+    <color name="accent_orange">#FF9500</color>
+    <color name="accent_orange_darker">#E68600</color>
+    <color name="donut_ring_color">#424242</color> <!-- Color para el anillo de la dona -->
 </resources>
