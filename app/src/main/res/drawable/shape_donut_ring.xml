@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:innerRadiusRatio="2.5"  android:thicknessRatio="12"
+    android:useLevel="false">
+    <solid android:color="#606062" /> <!-- Color del anillo, un gris ligeramente diferente -->
+</shape>

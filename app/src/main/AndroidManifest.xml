@@ -29,6 +29,10 @@
         <activity android:name=".IniciarSesionCorreoActividad" />
         <activity android:name=".IniciarSesionContrasenaActividad" />
 
+        <!-- Parte Inicio -->
+        <activity android:name=".InicioActivity" />
+
+
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
 

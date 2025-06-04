@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">PFMoviles</string>
+    <string name="title_activity_main">Android Compact - 14</string>
+    <string name="total_label">Total</string>
+    <string name="gastos">GASTOS</string>
+    <string name="ingresos">INGRESOS</string>
+    <string name="dia">Día</string>
+    <string name="semana">Semana</string>
+    <string name="mes">Mes</string>
+    <string name="ano">Año</string>
+    <string name="no_hubo_gastos_hoy">No hubo\ngastos hoy</string>
+    <string name="sample_date">Hoy, 21 de Abril</string>
+    <string name="sample_amount">3,250.00 S/.</string>
+    <string name="add_transaction_desc">Agregar transacción</string>
 </resources>
