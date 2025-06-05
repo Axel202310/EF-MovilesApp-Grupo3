@@ -27,4 +27,15 @@
     <string name="hint_nombre_cuenta">Introduzca un nombre de cuenta</string>
     <string name="label_simbolos">Símbolos</string>
     <string name="boton_anadir">Añadir</string>
+
+    <string name="titulo_crear_transferencia">Cree una transferencia</string>
+    <string name="label_transferir_de">Transfiera de una cuenta</string>
+    <string name="label_transferir_a">Transfiera a una cuenta</string>
+    <string name="estado_no_seleccionado">No se ha seleccionado</string>
+    <string name="label_transferir_cantidad">Transfiera a una cantidad</string>
+    <string name="label_dia">Día</string>
+    <string name="hint_comentario">Comentario</string>
+    <string name="desc_calculadora">Abrir calculadora</string>
+    <string name="label_comentario">Ingrese algun comentario</string>
+
 </resources>

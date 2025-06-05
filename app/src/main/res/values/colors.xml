@@ -13,4 +13,8 @@
     <!-- NUEVOS COLORES SOLO PARA CUENTAS -->
     <color name="cuentas_icon_dollar_tint">#4CAF50</color> <!-- Verde para ícono de cuenta principal -->
     <color name="cuentas_background_icon_transfer">#B39DDB</color> <!-- Morado claro para fondo de icono -->
+
+    <color name="error_red">#FF3B30</color>
+    <color name="text_hint_dark">#AFAFAF</color>
+
 </resources>
