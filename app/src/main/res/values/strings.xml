@@ -12,4 +12,19 @@
     <string name="sample_date">Hoy, 21 de Abril</string>
     <string name="sample_amount">3,250.00 S/.</string>
     <string name="add_transaction_desc">Agregar transacción</string>
+    <!-- NUEVOS STRINGS SOLO PARA CUENTAS -->
+    <string name="nueva_transferencia">Nueva transferencia</string>
+    <string name="cuenta_principal">Principal</string>
+    <string name="agregar_cuenta_o_transaccion">Añadir cuenta</string>
+    <string name="icono_cuenta">Icono de cuenta</string>
+
+    <!-- Strings para actividad_agregar_cuenta.xml -->
+    <string name="titulo_anadir_cuenta">Añada una cuenta</string>
+    <string name="desc_volver_atras">Volver atrás</string>
+    <string name="hint_saldo_inicial">0</string>
+    <string name="moneda_pen">PEN</string>
+    <string name="label_nombre_cuenta">Nombre de la cuenta</string>
+    <string name="hint_nombre_cuenta">Introduzca un nombre de cuenta</string>
+    <string name="label_simbolos">Símbolos</string>
+    <string name="boton_anadir">Añadir</string>
 </resources>
