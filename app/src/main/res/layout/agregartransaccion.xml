@@ -9,18 +9,14 @@
     tools:context=".MainActivity">
 
     <GridLayout
-        android:id="@+id/gridCategorias1"
+        android:id="@+id/gridCategorias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:layout_marginBottom="22dp"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
-        android:padding="16dp"
+        android:padding="1dp"
         android:useDefaultMargins="true"
-        app:layout_constraintBottom_toTopOf="@+id/etDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8po">
 
@@ -29,13 +25,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2400"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button24"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/educacion"
                 android:gravity="center"
@@ -55,13 +52,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2600"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button26"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/alimento"
                 android:gravity="center"
@@ -81,13 +79,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2500"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button25"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/transporte"
                 android:gravity="center"
@@ -107,13 +106,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2300"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button23"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/hogar"
                 android:gravity="center"
@@ -137,9 +137,9 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button1800"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button18"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/regalo"
                 android:gravity="center"
@@ -163,9 +163,9 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button1700"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button17"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/alimento"
                 android:gravity="center"
@@ -189,9 +189,9 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button2100"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button21"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
                 android:drawableTop="@drawable/alimento"
                 android:gravity="center"
@@ -215,9 +215,9 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button1300"
-                android:layout_width="57dp"
-                android:layout_height="57dp"
+                android:id="@+id/button13"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:background="@android:color/transparent"
                 android:drawableTop="@drawable/mas"
                 android:gravity="center"
@@ -227,11 +227,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Crear"
+                android:text="Más"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
-
     </GridLayout>
 
     <FrameLayout
@@ -291,12 +290,11 @@
         android:id="@+id/textView8po"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="11dp"
         android:text="Categorías"
         android:textColor="#B0B0B0"
-        app:layout_constraintBottom_toTopOf="@+id/gridCategorias1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7hhhh34545" />
 
@@ -304,7 +302,7 @@
         android:id="@+id/textView7hhhh34545"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-12dp"
+        android:layout_marginTop="-7dp"
         android:layout_marginBottom="-10dp"
         android:text="Principal"
         android:textColor="#FF8C00"
@@ -366,10 +364,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <!-- Solo esta parte fue modificada -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <Button
@@ -385,17 +386,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Añadir categoría"
+                android:text="Añadir transacciones"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Solo esta parte fue modificada -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal"
