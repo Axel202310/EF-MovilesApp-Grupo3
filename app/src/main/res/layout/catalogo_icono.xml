@@ -68,7 +68,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -85,7 +84,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -102,7 +100,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -119,7 +116,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -136,7 +132,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -153,7 +148,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -170,9 +164,7 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
-                    android:gravity="center"
-                    android:text="" />
+                    android:gravity="center" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -187,7 +179,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -204,7 +195,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -221,7 +211,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -238,7 +227,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -255,7 +243,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -272,7 +259,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -302,7 +288,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -321,7 +306,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -340,7 +324,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -359,7 +342,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -376,7 +358,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -393,7 +374,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -410,7 +390,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -427,7 +406,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -444,7 +422,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -461,7 +438,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -478,7 +454,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -495,7 +470,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -512,7 +486,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -529,7 +502,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -546,7 +518,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -563,7 +534,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -580,7 +550,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -597,7 +566,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -614,7 +582,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -631,7 +598,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -661,7 +627,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -678,7 +643,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -695,7 +659,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -712,7 +675,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -729,7 +691,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -746,7 +707,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -763,7 +723,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -780,7 +739,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -797,7 +755,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -814,7 +771,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -831,7 +787,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -848,7 +803,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -865,7 +819,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -882,7 +835,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -899,7 +851,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -916,7 +867,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -933,7 +883,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -950,7 +899,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -967,7 +915,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -984,7 +931,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1001,7 +947,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1029,7 +974,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1046,7 +990,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1063,7 +1006,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1080,7 +1022,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1097,7 +1038,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1114,7 +1054,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1131,7 +1070,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1148,7 +1086,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1165,7 +1102,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1182,7 +1118,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1199,7 +1134,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1216,7 +1150,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1233,7 +1166,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1250,7 +1182,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1267,7 +1198,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1284,7 +1214,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1301,7 +1230,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1318,7 +1246,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1346,7 +1273,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1363,7 +1289,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1380,7 +1305,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1397,7 +1321,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1414,7 +1337,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1431,7 +1353,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1448,7 +1369,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1465,7 +1385,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1482,7 +1401,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1499,7 +1417,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1516,7 +1433,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1533,7 +1449,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1550,7 +1465,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1567,7 +1481,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1584,7 +1497,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1601,7 +1513,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1618,7 +1529,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1635,7 +1545,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1665,7 +1574,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1682,7 +1590,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1699,7 +1606,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1716,7 +1622,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1733,7 +1638,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1750,7 +1654,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1767,7 +1670,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1784,7 +1686,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
@@ -1801,7 +1702,6 @@
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop=""
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
