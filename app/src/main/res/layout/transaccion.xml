@@ -80,7 +80,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="11dp"
         android:background="@drawable/contenedor_redondo"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
