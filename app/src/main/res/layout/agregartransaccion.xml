@@ -398,29 +398,24 @@
             android:orientation="horizontal"
             android:gravity="center">
 
-            <TextView
-                android:id="@+id/btnIngreso"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Ingreso"
-                android:textColor="@android:color/white"
-                android:padding="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="16sp" />
-
-            <TextView
+            <Button
                 android:id="@+id/btnGasto"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Gasto"
-                android:textColor="@android:color/white"
-                android:padding="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:textSize="16sp" />
+                android:textSize="18sp"
+                android:text="GASTOS"
+                android:background="@android:color/transparent"/>
+
+            <Button
+                android:id="@+id/btnIngreso"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:text="INGRESOS"
+                android:background="@android:color/transparent"/>
+
         </LinearLayout>
     </LinearLayout>
 
