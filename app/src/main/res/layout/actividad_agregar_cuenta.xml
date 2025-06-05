@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_dark"
+    tools:context=".AgregarCuentaActividad">
+
+    <!-- Flecha de retroceso -->
+    <ImageView
+        android:id="@+id/iv_back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/desc_volver_atras"
+        android:padding="8dp"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tv_titulo_agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_anadir_cuenta"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_back_arrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_back_arrow" />
+
+    <!-- Campo de saldo -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_saldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/background_input_stroked"
+        android:minWidth="180dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_titulo_agregar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/et_saldo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:autofillHints="number"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="@string/hint_saldo_inicial"
+            android:inputType="numberDecimal"
+            android:textColor="@color/white"
+            android:textColorHint="#AFAFAF"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_moneda"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_moneda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/moneda_pen"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/et_saldo"
+            app:layout_constraintTop_toTopOf="@id/et_saldo"
+            app:layout_constraintBottom_toBottomOf="@id/et_saldo"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Nombre de la cuenta -->
+    <TextView
+        android:id="@+id/tv_nombre_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_nombre_cuenta"
+        android:textColor="#FF9F0A"
+        android:textSize="14sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/layout_saldo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/et_nombre_cuenta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="@string/hint_nombre_cuenta"
+        android:inputType="textCapWords"
+        android:autofillHints="name"
+        android:background="@android:color/transparent"
+        android:textColor="@color/white"
+        android:textColorHint="#AFAFAF"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_nombre_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/underline_nombre_cuenta"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#5A5A5A"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/et_nombre_cuenta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Título símbolos -->
+    <TextView
+        android:id="@+id/tv_simbolos_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_simbolos"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/underline_nombre_cuenta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Grid de íconos -->
+    <GridLayout
+        android:id="@+id/grid_iconos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_simbolos_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_yape"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_yape"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="Yape"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/iv_plin"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_plin"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="Plin"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/iv_izipay"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_izipayya"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="Izipay"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/iv_agora"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_agorapay"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="AgoraPay"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/iv_panda"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_panda"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="Panda"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <ImageView
+            android:id="@+id/iv_paypal"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/ic_paypal"
+            android:background="@drawable/bg_icon_selector"
+            android:padding="8dp"
+            android:contentDescription="PayPal"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </GridLayout>
+
+
+    <!-- Botón añadir -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_agregar_cuenta"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/boton_anadir"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#C46F54"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
