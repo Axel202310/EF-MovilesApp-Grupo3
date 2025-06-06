@@ -562,7 +562,7 @@
                     android:background="@drawable/circulo_amarillo" />
 
                 <Button
-                    android:id="@+id/btncat16"
+                    android:id="@+id/btnVerIconos"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:background="@android:color/transparent"

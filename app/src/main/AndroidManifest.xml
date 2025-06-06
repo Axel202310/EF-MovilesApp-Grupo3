@@ -35,6 +35,7 @@
         <!-- Parte Transaccion -->
         <activity android:name=".AnadirCategoriaActividad" />
         <activity android:name=".CrearCategoriaActividad" />
+        <activity android:name=".catalogoIconoActividad" />
 
 
         <!-- Otra actividad principal (inicio después del login/registro) -->

@@ -13,12 +13,22 @@ class CrearCategoriaActividad: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.crear_categoria)
         atras()
+        siguiente()
     }
     private fun atras(){
         val btnRetroceder = findViewById<Button>(R.id.btnRetroceder)
 
         btnRetroceder.setOnClickListener {
             val intent = Intent(this, AnadirCategoriaActividad::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun siguiente(){
+        val btnVerIconos = findViewById<Button>(R.id.btnVerIconos)
+
+        btnVerIconos.setOnClickListener {
+            val intent = Intent(this, catalogoIconoActividad::class.java)
             startActivity(intent)
         }
     }
