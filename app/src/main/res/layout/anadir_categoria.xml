@@ -10,42 +10,65 @@
 
 
     <ScrollView
-        android:layout_width="395dp"
-        android:layout_height="558dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.076">
 
         <GridLayout
             android:id="@+id/gridCategorias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:alignmentMode="alignMargins"
             android:columnCount="4"
             android:padding="1dp"
-            android:useDefaultMargins="true">
+            android:useDefaultMargins="true"
+            app:layout_constraintTop_toBottomOf="@+id/textView8po"
+            tools:layout_editor_absoluteX="0dp">
 
             <!-- Item 1 - Educación -->
             <LinearLayout
+                android:id="@+id/contenedorCat1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_margin="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button24"
+                <FrameLayout
+                    android:id="@+id/fondoCat1"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/educacion"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_rojo" />
+
+                    <Button
+                        android:id="@+id/btncat1"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/educacion"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -56,23 +79,40 @@
 
             <!-- Item 2 - Salud -->
             <LinearLayout
+                android:id="@+id/contenedorCat2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_margin="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button26"
+                <FrameLayout
+                    android:id="@+id/fondoCat2"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/alimento"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_verdeagua" />
+
+                    <Button
+                        android:id="@+id/btncat2"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/alimento"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -83,23 +123,40 @@
 
             <!-- Item 3 - Transporte -->
             <LinearLayout
+                android:id="@+id/contenedorCat3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_margin="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button25"
+                <FrameLayout
+                    android:id="@+id/fondoCat3"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/transporte"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_naranja" />
+
+                    <Button
+                        android:id="@+id/btncat3"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/transporte"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -110,23 +167,40 @@
 
             <!-- Item 4 - Hogar -->
             <LinearLayout
+                android:id="@+id/contenedorCat4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_margin="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button23"
+                <FrameLayout
+                    android:id="@+id/fondoCat4"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/hogar"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_morado" />
+
+                    <Button
+                        android:id="@+id/btncat4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/hogar"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -137,22 +211,40 @@
 
             <!-- Item 5 - Regalos -->
             <LinearLayout
+                android:id="@+id/contenedorCat5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button18"
+                <FrameLayout
+                    android:id="@+id/fondoCat5"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/regalo"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_celeste" />
+
+                    <Button
+                        android:id="@+id/btncat5"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/regalo"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -163,22 +255,40 @@
 
             <!-- Item 6 - Alimentos -->
             <LinearLayout
+                android:id="@+id/contenedorCat6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button17"
+                <FrameLayout
+                    android:id="@+id/fondoCat6"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/alimento"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_rosado" />
+
+                    <Button
+                        android:id="@+id/btncat6"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/alimento"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -189,22 +299,40 @@
 
             <!-- Item 7 - Otros -->
             <LinearLayout
+                android:id="@+id/contenedorCat7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btncat7"
+                <FrameLayout
+                    android:id="@+id/fondoCat7"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:backgroundTint="@android:color/holo_orange_dark"
-                    android:drawableTop="@drawable/alimento"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:id="@+id/vistaFondo7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_verde" />
+
+                    <Button
+                        android:id="@+id/btncat7"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/alimento"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
+                    android:id="@+id/txtCat7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -218,17 +346,31 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/button13"
+                <FrameLayout
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:background="@android:color/transparent"
-                    android:drawableTop="@drawable/mas"
-                    android:gravity="center"
-                    android:text="" />
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circulo_amarillo" />
+
+                    <Button
+                        android:id="@+id/btnCrear"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/alimento"
+                        android:gravity="center"
+                        android:text="" />
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,8 +385,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="416dp"
-        android:layout_height="91dp"
+        android:layout_width="408dp"
+        android:layout_height="110dp"
         android:background="#2C2C2E"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -255,18 +397,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnAtras1"
             android:layout_width="44dp"
             android:layout_height="38dp"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/atras1"
+            android:paddingTop="20dp"
             android:text="" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
+            android:paddingTop="20dp"
             android:text="Añadir categoría"
             android:textColor="@color/white"
             android:textSize="18sp"
