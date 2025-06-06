@@ -160,7 +160,14 @@ class AgregarTransaccionActividad : AppCompatActivity() {
         val btnMas = findViewById<Button>(R.id.btnMas)
 
         btnMas.setOnClickListener {
+            val tipoSeleccionado = if (findViewById<View>(R.id.underlineGasto).visibility == View.VISIBLE) {
+                "gasto"
+            } else {
+                "ingreso"
+            }
+
             val intent = Intent(this, AnadirCategoriaActividad::class.java)
+            intent.putExtra("tipoCategoria", tipoSeleccionado) // Enviar el tipo seleccionado
             startActivity(intent)
         }
     }
