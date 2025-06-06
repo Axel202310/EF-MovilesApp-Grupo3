@@ -9,6 +9,570 @@
     tools:context=".MainActivity">
 
 
+    <GridLayout
+        android:id="@+id/gridCategorias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="4"
+        android:padding="1dp"
+        android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <!-- Item 1 - Educación -->
+        <LinearLayout
+            android:id="@+id/contenedorCat1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat1"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_rojo" />
+
+                <Button
+                    android:id="@+id/btncat1"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 2 - Salud -->
+        <LinearLayout
+            android:id="@+id/contenedorCat2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat2"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_verdeagua" />
+
+                <Button
+                    android:id="@+id/btncat2"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/alimento"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 3 - Transporte -->
+        <LinearLayout
+            android:id="@+id/contenedorCat3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat3"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_naranja" />
+
+                <Button
+                    android:id="@+id/btncat3"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/transporte"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 4 - Hogar -->
+        <LinearLayout
+            android:id="@+id/contenedorCat4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat4"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_morado" />
+
+                <Button
+                    android:id="@+id/btncat4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/hogar"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 5 - Regalos -->
+        <LinearLayout
+            android:id="@+id/contenedorCat5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat5"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_celeste" />
+
+                <Button
+                    android:id="@+id/btncat5"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/regalo"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 6 - Alimentos -->
+        <LinearLayout
+            android:id="@+id/contenedorCat6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat6"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_rosado" />
+
+                <Button
+                    android:id="@+id/btncat6"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/alimento"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 7 - Otros -->
+        <LinearLayout
+            android:id="@+id/contenedorCat7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat7"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_verde" />
+
+                <Button
+                    android:id="@+id/btncat7"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/alimento"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Item 8 - Crear -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_amarillo" />
+
+                <Button
+                    android:id="@+id/btnCrear"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/alimento"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat9"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_verde" />
+
+                <Button
+                    android:id="@+id/btncat9"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat10"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_verdeagua" />
+
+                <Button
+                    android:id="@+id/btncat10"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat11"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_morado" />
+
+                <Button
+                    android:id="@+id/btncat11"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat12"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_naranja" />
+
+                <Button
+                    android:id="@+id/btncat12"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat13"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_rosado" />
+
+                <Button
+                    android:id="@+id/btncat13"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat14"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_rojo" />
+
+                <Button
+                    android:id="@+id/btncat14"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat15"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat15"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_celeste" />
+
+                <Button
+                    android:id="@+id/btncat15"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorCat16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fondoCat16"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/vistaFondo16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circulo_amarillo" />
+
+                <Button
+                    android:id="@+id/btncat16"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
+        </LinearLayout>
+    </GridLayout>
+
     <Button
         android:id="@+id/btnAñadir2"
         android:layout_width="248dp"
@@ -19,10 +583,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridCategorias"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.525" />
 
     <TextView
         android:id="@+id/textView6"
@@ -36,294 +600,6 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-    <GridLayout
-        android:id="@+id/gridCategorias"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="4"
-        android:padding="1dp"
-        android:useDefaultMargins="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-        <!-- Item 1 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo1"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo2"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo3"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo4"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo5"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo6"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo7"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo8"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo9"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo10"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo11"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo12"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo13"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo14"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSimbolo15"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnTransporte3"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-        </LinearLayout>
-    </GridLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -402,6 +678,7 @@
         android:hint="Nombre de la categoría"
         android:inputType="text"
         android:textColorHint="#808080"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSalud"
         app:layout_constraintTop_toTopOf="@+id/linearLayout" />
@@ -421,6 +698,4 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

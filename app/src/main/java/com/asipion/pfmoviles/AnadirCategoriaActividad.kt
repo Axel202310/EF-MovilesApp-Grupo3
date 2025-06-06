@@ -16,6 +16,7 @@ class AnadirCategoriaActividad: AppCompatActivity()  {
         seleccionCategorias()
         retroceder()
         mostrarseleccion()
+        clickSiguiente()
     }
 
     private fun seleccionCategorias() {
@@ -94,15 +95,6 @@ class AnadirCategoriaActividad: AppCompatActivity()  {
         }
     }
 
-    private fun retroceder(){
-        val btnAtras1 = findViewById<Button>(R.id.btnAtras1)
-
-        btnAtras1.setOnClickListener {
-            val intent = Intent(this, AgregarTransaccionActividad::class.java)
-            startActivity(intent)
-        }
-    }
-
     private fun mostrarseleccion(){
         val tipoCategoria = intent.getStringExtra("tipoCategoria") ?: "gasto"
 
@@ -123,6 +115,24 @@ class AnadirCategoriaActividad: AppCompatActivity()  {
 
         textosCategoria.forEachIndexed { index, textView ->
             textView.text = nombresSeleccionados[index]
+        }
+    }
+
+    private fun retroceder(){
+        val btnAtras1 = findViewById<Button>(R.id.btnAtras1)
+
+        btnAtras1.setOnClickListener {
+            val intent = Intent(this, AgregarTransaccionActividad::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun clickSiguiente(){
+        val btnCrear = findViewById<Button>(R.id.btnCrear)
+
+        btnCrear.setOnClickListener {
+            val intent = Intent(this, CrearCategoriaActividad::class.java)
+            startActivity(intent)
         }
     }
 }
