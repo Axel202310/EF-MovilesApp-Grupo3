@@ -12,31 +12,46 @@
         android:id="@+id/gridCategorias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
         android:padding="1dp"
         android:useDefaultMargins="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8po">
+        app:layout_constraintTop_toBottomOf="@+id/textView8po"
+        tools:layout_editor_absoluteX="0dp">
 
         <!-- Item 1 - Educación -->
         <LinearLayout
+            android:id="@+id/contenedorCat1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btncat1"
+            <FrameLayout
+                android:id="@+id/fondoCat1"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:drawableTop="@drawable/educacion"
-                android:gravity="center"
-                android:text="" />
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
+                <View
+                    android:id="@+id/vistaFondo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circulo_rojo"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/btncat1"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/educacion"
+                    android:gravity="center"
+                    android:text="" />
+            </FrameLayout>
             <TextView
                 android:id="@+id/txtcat1"
                 android:layout_width="wrap_content"
@@ -49,20 +64,36 @@
 
         <!-- Item 2 - Salud -->
         <LinearLayout
+            android:id="@+id/contenedorCat2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fondoCat2"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
+
+            <View
+                android:id="@+id/vistaFondo2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_verdeagua"
+                android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/btncat2"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:drawableTop="@drawable/alimento"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtCat2"
@@ -76,20 +107,36 @@
 
         <!-- Item 3 - Transporte -->
         <LinearLayout
+            android:id="@+id/contenedorCat3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fondoCat3"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
+
+            <View
+                android:id="@+id/vistaFondo3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_naranja"
+                android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/btncat3"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:drawableTop="@drawable/transporte"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtCat3"
@@ -103,6 +150,7 @@
 
         <!-- Item 4 - Hogar -->
         <LinearLayout
+            android:id="@+id/contenedorCat4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -110,13 +158,28 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btncat4"
+            <FrameLayout
+                android:id="@+id/fondoCat4"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:drawableTop="@drawable/hogar"
-                android:gravity="center"
-                android:text="" />
+                android:clipToPadding="false"
+                android:clipChildren="false">
+
+                <View
+                    android:id="@+id/vistaFondo4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/circulo_morado"
+                    android:layout_gravity="center"/>
+                <Button
+                    android:id="@+id/btncat4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/hogar"
+                    android:text=""
+                    android:gravity="center"/>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtCat4"
@@ -130,19 +193,35 @@
 
         <!-- Item 5 - Regalos -->
         <LinearLayout
+            android:id="@+id/contenedorCat5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fondoCat5"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
+            <View
+                android:id="@+id/vistaFondo5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_celeste"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btncat5"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:drawableTop="@drawable/regalo"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/txtCat5"
@@ -156,20 +235,35 @@
 
         <!-- Item 6 - Alimentos -->
         <LinearLayout
+            android:id="@+id/contenedorCat6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fondoCat6"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
+            <View
+                android:id="@+id/vistaFondo6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_rosado"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btncat6"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
+                android:background="@android:color/transparent"
                 android:drawableTop="@drawable/alimento"
                 android:gravity="center"
                 android:text="" />
-
+            </FrameLayout>
             <TextView
                 android:id="@+id/txtCat6"
                 android:layout_width="wrap_content"
@@ -182,20 +276,35 @@
 
         <!-- Item 7 - Otros -->
         <LinearLayout
+            android:id="@+id/contenedorCat7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:id="@+id/fondoCat7"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
+            <View
+                android:id="@+id/vistaFondo7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_verde"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btncat7"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:drawableTop="@drawable/alimento"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="" />
-
+            </FrameLayout>
             <TextView
                 android:id="@+id/txtCat7"
                 android:layout_width="wrap_content"
@@ -211,17 +320,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:layout_margin="15dp"
             android:gravity="center"
             android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:clipToPadding="false"
+                android:clipChildren="false">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circulo_amarillo"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btnMas"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:drawableTop="@drawable/alimento"
+                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="" />
-
+            </FrameLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -289,11 +410,12 @@
         android:id="@+id/textView8po"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="-5dp"
+        android:layout_marginTop="16dp"
         android:text="Categorías"
         android:textColor="#B0B0B0"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCuenta" />
 
@@ -314,18 +436,18 @@
 
     <Button
         android:id="@+id/btnAñadir"
-        android:layout_width="224dp"
-        android:layout_height="45dp"
+        android:layout_width="248dp"
+        android:layout_height="54dp"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Añadir"
-        android:textColor="@android:color/black"
+        android:textColor="#262624"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDate"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <EditText
         android:id="@+id/etDate"
@@ -342,15 +464,15 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8po"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintTop_toBottomOf="@+id/gridCategorias"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="410dp"
+        android:layout_height="160dp"
         android:background="#2C2C2E"
         android:gravity="center_vertical"
         android:orientation="vertical"
@@ -368,8 +490,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
             android:gravity="start|center_vertical"
-            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <Button
@@ -395,29 +517,61 @@
             android:id="@+id/selector_tipo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnGasto"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
-                android:text="GASTOS"
-                android:background="@android:color/transparent"/>
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
 
-            <Button
-                android:id="@+id/btnIngreso"
+                <Button
+                    android:id="@+id/btnGasto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="GASTOS"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"/>
+
+                <View
+                    android:id="@+id/underlineGasto"
+                    android:layout_width="70dp"
+                    android:layout_height="3dp"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="-8dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="18sp"
-                android:text="INGRESOS"
-                android:background="@android:color/transparent"/>
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnIngreso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="INGRESOS"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"/>
+
+                <View
+                    android:id="@+id/underlineIngreso"
+                    android:layout_width="70dp"
+                    android:layout_height="3dp"
+                    android:background="@android:color/white"
+                    android:layout_marginTop="-8dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
