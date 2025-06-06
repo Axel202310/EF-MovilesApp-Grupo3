@@ -5,18 +5,67 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class AnadirCategoriaActividad: AppCompatActivity()  {
+
+class MenuCategoriasActividad : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.anadir_categoria)
+        setContentView(R.layout.menu_categorias)
+        seleccion()
         seleccionCategorias()
-        retroceder()
-        mostrarseleccion()
-        clickSiguiente()
+        abrirmodificar()
+        pasarVistaAñadir()
+    }
+    private fun abrirmodificar(){
+        val btncat1 = findViewById<Button>(R.id.btncat1)
+
+        btncat1.setOnClickListener {
+            val intent = Intent(this, ModificarCategoriaActividad::class.java)
+            startActivity(intent)
+        }
+    }
+    private fun seleccion() {
+        val btnGasto = findViewById<Button>(R.id.btnGasto)
+        val btnIngreso = findViewById<Button>(R.id.btnIngreso)
+        val underlineGasto = findViewById<View>(R.id.underlineGasto)
+        val underlineIngreso = findViewById<View>(R.id.underlineIngreso)
+
+        val textosCategoria = listOf(
+            findViewById<TextView>(R.id.txtcat1),
+            findViewById<TextView>(R.id.txtCat2),
+            findViewById<TextView>(R.id.txtCat3),
+            findViewById<TextView>(R.id.txtCat4),
+            findViewById<TextView>(R.id.txtCat5),
+            findViewById<TextView>(R.id.txtCat6),
+            findViewById<TextView>(R.id.txtCat7)
+        )
+
+        val nombresGasto = listOf("Educacion", "Salud", "Transporte", "Hogar", "Regalos", "Alimentos", "Otros")
+        val nombresIngreso = listOf("Sueldo", "Ventas", "Inversiones", "Premios", "Ahorros", "Bonos", "Otros")
+
+        btnGasto.setOnClickListener {
+            underlineGasto.visibility = View.VISIBLE
+            underlineIngreso.visibility = View.GONE
+
+            textosCategoria.forEachIndexed { index, textView ->
+                textView.text = nombresGasto[index]
+            }
+        }
+
+        btnIngreso.setOnClickListener {
+            underlineIngreso.visibility = View.VISIBLE
+            underlineGasto.visibility = View.GONE
+
+            textosCategoria.forEachIndexed { index, textView ->
+                textView.text = nombresIngreso[index]
+            }
+        }
     }
 
     private fun seleccionCategorias() {
@@ -95,42 +144,10 @@ class AnadirCategoriaActividad: AppCompatActivity()  {
         }
     }
 
-    private fun mostrarseleccion(){
-        val tipoCategoria = intent.getStringExtra("tipoCategoria") ?: "gasto"
+    private fun pasarVistaAñadir(){
+        val btnMas = findViewById<Button>(R.id.btnMas)
 
-        val textosCategoria = listOf(
-            findViewById<TextView>(R.id.txtCat1),
-            findViewById<TextView>(R.id.txtCat2),
-            findViewById<TextView>(R.id.txtCat3),
-            findViewById<TextView>(R.id.txtCat4),
-            findViewById<TextView>(R.id.txtCat5),
-            findViewById<TextView>(R.id.txtCat6),
-            findViewById<TextView>(R.id.txtCat7)
-        )
-
-        val nombresGasto = listOf("Educación", "Salud", "Transporte", "Hogar", "Regalos", "Alimentos", "Otros")
-        val nombresIngreso = listOf("Sueldo", "Ventas", "Inversiones", "Premios", "Ahorros", "Bonos", "Otros")
-
-        val nombresSeleccionados = if (tipoCategoria == "gasto") nombresGasto else nombresIngreso
-
-        textosCategoria.forEachIndexed { index, textView ->
-            textView.text = nombresSeleccionados[index]
-        }
-    }
-
-    private fun retroceder(){
-        val btnAtras1 = findViewById<Button>(R.id.btnAtras1)
-
-        btnAtras1.setOnClickListener {
-            val intent = Intent(this, AgregarTransaccionActividad::class.java)
-            startActivity(intent)
-        }
-    }
-
-    private fun clickSiguiente(){
-        val btnCrear = findViewById<Button>(R.id.btnCrear)
-
-        btnCrear.setOnClickListener {
+        btnMas.setOnClickListener {
             val intent = Intent(this, CrearCategoriaActividad::class.java)
             startActivity(intent)
         }

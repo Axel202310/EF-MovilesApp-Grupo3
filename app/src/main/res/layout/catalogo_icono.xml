@@ -12,8 +12,9 @@
     <Button
         android:id="@+id/btnSeleccionar"
         android:layout_width="224dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="62dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Seleccionar"
         android:textColor="#262624"
@@ -22,15 +23,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.463" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="395dp"
-        android:layout_height="450dp"
-        android:layout_marginTop="-140dp"
+        android:layout_height="490dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnSeleccionar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -59,8 +59,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -71,12 +71,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -87,12 +88,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -103,12 +105,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -119,12 +122,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -135,12 +139,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -151,12 +156,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -166,12 +172,13 @@
                     android:backgroundTint="@android:color/holo_orange_dark"
                     android:gravity="center" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -182,12 +189,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -198,12 +206,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -214,12 +223,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -230,12 +240,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -246,12 +257,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -279,8 +291,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -297,8 +309,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -315,8 +327,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -333,8 +345,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -345,12 +357,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -361,12 +374,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -377,12 +391,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -393,12 +408,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -409,12 +425,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -425,12 +442,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -441,12 +459,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -457,12 +476,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -473,12 +493,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -489,12 +510,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -505,12 +527,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -521,12 +544,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -537,12 +561,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -553,12 +578,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -569,12 +595,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -585,12 +612,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -618,8 +646,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -630,12 +658,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -646,12 +675,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -662,12 +692,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -678,12 +709,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -694,12 +726,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -710,12 +743,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -726,12 +760,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -742,12 +777,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -758,12 +794,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -774,12 +811,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -790,12 +828,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -806,12 +845,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -822,12 +862,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -838,12 +879,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -854,12 +896,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -870,12 +913,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -886,12 +930,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -902,12 +947,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -918,12 +964,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -934,12 +981,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -961,12 +1009,13 @@
                 android:text="Casa"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -977,12 +1026,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -993,12 +1043,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1009,12 +1060,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1025,12 +1077,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1041,12 +1094,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1057,12 +1111,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1073,12 +1128,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1089,12 +1145,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1105,12 +1162,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1121,12 +1179,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1137,12 +1196,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1153,12 +1213,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1169,12 +1230,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1185,12 +1247,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1201,12 +1264,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1217,12 +1281,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1233,12 +1298,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1260,12 +1326,13 @@
                 android:text="Rutina"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1276,12 +1343,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1292,12 +1360,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1308,12 +1377,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1324,12 +1394,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1340,12 +1411,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1356,12 +1428,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1372,12 +1445,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1388,12 +1462,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1404,12 +1479,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1420,12 +1496,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1436,12 +1513,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1452,12 +1530,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1468,12 +1547,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1484,12 +1564,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1500,12 +1581,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1516,12 +1598,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1532,12 +1615,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1565,8 +1649,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1577,12 +1661,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1593,12 +1678,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1609,12 +1695,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1625,12 +1712,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1641,12 +1729,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1657,12 +1746,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1673,12 +1763,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1689,12 +1780,13 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:gravity="center"
                 android:layout_marginEnd="15dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
@@ -1705,29 +1797,28 @@
                     android:gravity="center"
                     android:text="" />
             </LinearLayout>
-
-
         </GridLayout>
     </ScrollView>
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="427dp"
-        android:layout_height="91dp"
+        android:layout_width="412dp"
+        android:layout_height="118dp"
         android:background="#2C2C2E"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnRetroceder"
             android:layout_width="44dp"
             android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/atras1"
             android:text="" />
@@ -1737,10 +1828,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
             android:text="Catálogo de iconos"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

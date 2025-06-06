@@ -12,7 +12,7 @@
 
         <!-- Pantalla de bienvenida -->
         <activity
-            android:name=".BienvenidaActividad"
+            android:name=".AgregarTransaccionActividad"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,13 +35,11 @@
         <!-- Parte Transaccion -->
         <activity android:name=".AnadirCategoriaActividad" />
         <activity android:name=".CrearCategoriaActividad" />
-        <activity android:name=".AgregarTransaccionActividad" />
 
 
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".GraficosActivity" />
 
     </application>
 
