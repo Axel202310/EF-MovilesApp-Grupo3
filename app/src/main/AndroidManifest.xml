@@ -39,6 +39,7 @@
 
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
+        <activity android:name=".PerfilActivity" />
 
     </application>
 
