@@ -38,4 +38,20 @@
     <string name="desc_calculadora">Abrir calculadora</string>
     <string name="label_comentario">Ingrese algun comentario</string>
 
+    <!-- Strings para la pantalla de Perfil -->
+    <string name="perfil_title">Perfil</string>
+    <string name="profile_image_desc">Imagen de perfil del usuario</string>
+    <string name="email_icon_desc">Icono de correo electrónico</string>
+    <string name="edit_icon_desc">Icono de editar</string>
+    <string name="password_icon_desc">Icono de contraseña</string>
+    <string name="email_label">Direccion de correo electronico</string>
+    <string name="user_email">usuario1@gmail.com</string>
+    <string name="password_label">Contraseña</string>
+    <string name="password_modify">Modificar</string>
+    <string name="user_id">ID: 10983593</string>
+    <string name="delete_account_desc">Borrar cuenta</string>
+    <string name="logout_button">Salir</string>
+
+
+
 </resources>
