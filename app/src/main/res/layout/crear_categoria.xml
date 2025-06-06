@@ -9,47 +9,45 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Simbolos"
-        android:textAlignment="center"
-        android:textColor="#A9A9A9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
     <Button
-        android:id="@+id/btnSeleccionar2"
-        android:layout_width="224dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="62dp"
+        android:id="@+id/btnAñadir2"
+        android:layout_width="248dp"
+        android:layout_height="54dp"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Añadir"
         android:textColor="#262624"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridCategorias"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Simbolos"
+        android:textAlignment="center"
+        android:textColor="#A9A9A9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <GridLayout
         android:id="@+id/gridCategorias"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="41dp"
+        android:layout_marginTop="4dp"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
         android:padding="1dp"
         android:useDefaultMargins="true"
-        app:layout_constraintBottom_toTopOf="@+id/btnSeleccionar2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6">
 
@@ -63,25 +61,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud1"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:backgroundTint="@android:color/holo_orange_dark"
-                android:gravity="center"
-                android:text="" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnSalud2"
+                android:id="@+id/btnSimbolo1"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -98,7 +78,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud3"
+                android:id="@+id/btnSimbolo2"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -115,7 +95,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud4"
+                android:id="@+id/btnSimbolo3"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -132,7 +112,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud5"
+                android:id="@+id/btnSimbolo4"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -149,7 +129,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud6"
+                android:id="@+id/btnSimbolo5"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -166,7 +146,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud7"
+                android:id="@+id/btnSimbolo6"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -183,7 +163,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud8"
+                android:id="@+id/btnSimbolo7"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -200,7 +180,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud9"
+                android:id="@+id/btnSimbolo8"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -217,7 +197,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud10"
+                android:id="@+id/btnSimbolo9"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -234,7 +214,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud11"
+                android:id="@+id/btnSimbolo10"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -251,7 +231,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud12"
+                android:id="@+id/btnSimbolo11"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -268,7 +248,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSalud13"
+                android:id="@+id/btnSimbolo12"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -285,7 +265,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnTransporte1"
+                android:id="@+id/btnSimbolo13"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -302,7 +282,24 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnTransporte2"
+                android:id="@+id/btnSimbolo14"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:backgroundTint="@android:color/holo_orange_dark"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnSimbolo15"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:backgroundTint="@android:color/holo_orange_dark"
@@ -331,20 +328,24 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="412dp"
-        android:layout_height="99dp"
+        android:layout_height="118dp"
         android:background="#2C2C2E"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtNombreCategoria"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnRetroceder"
             android:layout_width="44dp"
             android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/atras1"
             android:text="" />
@@ -355,6 +356,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Crear categoría"
+            android:layout_marginTop="20dp"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -364,19 +366,20 @@
         android:id="@+id/radioGroup"
         android:layout_width="296dp"
         android:layout_height="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSalud">
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreCategoria">
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gastos"
             android:layout_marginEnd="40dp"
+            android:text="Gastos"
             android:textColor="@android:color/white" />
 
         <RadioButton
@@ -391,8 +394,9 @@
         android:id="@+id/txtNombreCategoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="136dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="140dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="Nombre de la categoría"
@@ -400,20 +404,23 @@
         android:textColorHint="#808080"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSalud"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/btnSalud"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:gravity="center"
         android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/txtNombreCategoria"
-        app:layout_constraintHorizontal_bias="0.615"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="148dp" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
