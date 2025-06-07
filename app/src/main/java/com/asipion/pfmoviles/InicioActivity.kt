@@ -1,46 +1,44 @@
 package com.asipion.pfmoviles
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.asipion.pfmoviles.databinding.ActivityInicioBinding // IMPORTANTE: Cambia esto al binding correcto
+import com.asipion.pfmoviles.databinding.ActivityInicioBinding
 import com.google.android.material.tabs.TabLayout
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-// Asegúrate que el nombre de la clase coincida con tu Activity
 class InicioActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityInicioBinding // CAMBIA ActivityInicioBinding al nombre correcto
+    private lateinit var binding: ActivityInicioBinding
     private var currentCalendar: Calendar = Calendar.getInstance()
-    // Formato español para "Hoy, 21 de Abril" o "Vie, 21 de Abril"
+
     private val dayMonthFormat = SimpleDateFormat("dd 'de' MMMM", Locale("es", "ES"))
     private val dayNameFormat = SimpleDateFormat("EEE", Locale("es", "ES"))
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInicioBinding.inflate(layoutInflater) // CAMBIA ActivityInicioBinding
+        binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.topAppBar)
-        // Para que el icono de navegación (menú) sea clickeable:
+
         binding.topAppBar.setNavigationOnClickListener {
-            // Lógica para abrir el drawer o menú
             Toast.makeText(this, "Menú presionado", Toast.LENGTH_SHORT).show()
         }
 
         setupTabs()
         setupDateNavigation()
-        updateDateDisplay() // Mostrar fecha inicial
+        updateDateDisplay()
 
+        // Al hacer clic en el botón flotante, abrir la actividad para agregar transacción
         binding.fabAdd.setOnClickListener {
-            Toast.makeText(this, "Agregar transacción", Toast.LENGTH_SHORT).show()
-            // Aquí iría la lógica para abrir una nueva pantalla o diálogo para agregar gasto/ingreso
+            val intent = Intent(this, AgregarTransaccionActividad::class.java)
+            startActivity(intent)
         }
 
-        // Seleccionar "GASTOS" y "Día" por defecto al iniciar
         binding.tabLayoutType.getTabAt(0)?.select()
         binding.tabLayoutPeriod.getTabAt(0)?.select()
     }
@@ -49,53 +47,47 @@ class InicioActivity : AppCompatActivity() {
         binding.tabLayoutType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
-                    0 -> { // GASTOS
+                    0 -> {
                         binding.textViewDonutCenterText.text = "No hubo\ngastos ${getCurrentPeriodText().lowercase()}"
                     }
-                    1 -> { // INGRESOS
+                    1 -> {
                         binding.textViewDonutCenterText.text = "No hubo\ningresos ${getCurrentPeriodText().lowercase()}"
                     }
                 }
-                // Lógica para recargar datos basados en GASTOS/INGRESOS
                 Toast.makeText(this@InicioActivity, "${tab?.text} seleccionado", Toast.LENGTH_SHORT).show()
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
         binding.tabLayoutPeriod.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                currentCalendar = Calendar.getInstance() // Resetear a hoy al cambiar tipo de periodo
+                currentCalendar = Calendar.getInstance()
                 updateDateDisplay()
                 updateDonutTextWithPeriod()
-                // Lógica para recargar datos basados en Día, Semana, Mes, Año
                 Toast.makeText(this@InicioActivity, "${tab?.text} seleccionado", Toast.LENGTH_SHORT).show()
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
     private fun setupDateNavigation() {
-        binding.buttonPreviousDate.setOnClickListener {
-            changeDate(-1)
-        }
-        binding.buttonNextDate.setOnClickListener {
-            changeDate(1)
-        }
+        binding.buttonPreviousDate.setOnClickListener { changeDate(-1) }
+        binding.buttonNextDate.setOnClickListener { changeDate(1) }
     }
 
     private fun changeDate(amount: Int) {
-        val selectedPeriodTab = binding.tabLayoutPeriod.selectedTabPosition
-        when (selectedPeriodTab) {
-            0 -> currentCalendar.add(Calendar.DAY_OF_YEAR, amount) // Día
-            1 -> currentCalendar.add(Calendar.WEEK_OF_YEAR, amount) // Semana
-            2 -> currentCalendar.add(Calendar.MONTH, amount)        // Mes
-            3 -> currentCalendar.add(Calendar.YEAR, amount)         // Año
+        when (binding.tabLayoutPeriod.selectedTabPosition) {
+            0 -> currentCalendar.add(Calendar.DAY_OF_YEAR, amount)
+            1 -> currentCalendar.add(Calendar.WEEK_OF_YEAR, amount)
+            2 -> currentCalendar.add(Calendar.MONTH, amount)
+            3 -> currentCalendar.add(Calendar.YEAR, amount)
         }
         updateDateDisplay()
-        updateDonutTextWithPeriod() // Actualizar texto de la dona también
-        // Aquí también deberías recargar los datos para la nueva fecha/periodo
+        updateDonutTextWithPeriod()
     }
 
     private fun updateDateDisplay() {
@@ -103,34 +95,31 @@ class InicioActivity : AppCompatActivity() {
         val selectedPeriodTab = binding.tabLayoutPeriod.selectedTabPosition
         var dateText = ""
 
-        // Capitalizar primera letra de formatos
         val currentDayName = dayNameFormat.format(currentCalendar.time).replaceFirstChar { it.titlecase(Locale("es", "ES")) }
         val currentDayMonth = dayMonthFormat.format(currentCalendar.time)
 
-
         when (selectedPeriodTab) {
-            0 -> { // Día
+            0 -> {
                 dateText = if (isSameDay(currentCalendar, todayCalendar)) {
-                    "Hoy, ${currentDayMonth.substringAfter("de ")}" // Ej: Hoy, 21 de Abril
+                    "Hoy, ${currentDayMonth.substringAfter("de ")}"
                 } else {
-                    "$currentDayName, $currentDayMonth" // Ej: Vie, 21 de Abril
+                    "$currentDayName, $currentDayMonth"
                 }
             }
-            1 -> { // Semana
+            1 -> {
                 val startOfWeek = currentCalendar.clone() as Calendar
-                startOfWeek.set(Calendar.DAY_OF_WEEK, startOfWeek.firstDayOfWeek) // Cuidado: firstDayOfWeek depende de Locale
+                startOfWeek.set(Calendar.DAY_OF_WEEK, startOfWeek.firstDayOfWeek)
                 val endOfWeek = startOfWeek.clone() as Calendar
                 endOfWeek.add(Calendar.DAY_OF_YEAR, 6)
-
                 val startStr = SimpleDateFormat("dd MMM", Locale("es", "ES")).format(startOfWeek.time)
                 val endStr = SimpleDateFormat("dd MMM", Locale("es", "ES")).format(endOfWeek.time)
                 dateText = "Semana: $startStr - $endStr"
             }
-            2 -> { // Mes
+            2 -> {
                 dateText = SimpleDateFormat("MMMM 'de' yyyy", Locale("es", "ES")).format(currentCalendar.time)
-                dateText = dateText.replaceFirstChar { it.titlecase(Locale("es", "ES")) }
+                    .replaceFirstChar { it.titlecase(Locale("es", "ES")) }
             }
-            3 -> { // Año
+            3 -> {
                 dateText = SimpleDateFormat("yyyy", Locale("es", "ES")).format(currentCalendar.time)
             }
         }
@@ -151,8 +140,9 @@ class InicioActivity : AppCompatActivity() {
             else -> ""
         }
     }
+
     private fun updateDonutTextWithPeriod() {
-        val typeText = if (binding.tabLayoutType.selectedTabPosition == 0) "gastos" else "ingresos"
-        binding.textViewDonutCenterText.text = "No hubo\n$typeText ${getCurrentPeriodText()}"
+        val tipo = if (binding.tabLayoutType.selectedTabPosition == 0) "gastos" else "ingresos"
+        binding.textViewDonutCenterText.text = "No hubo\n$tipo ${getCurrentPeriodText()}"
     }
 }
