@@ -13,9 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PFMoviles">
 
-        <!-- Declaración de todas las actividades de tu aplicación -->
-
-        <!-- Actividad de Bienvenida - Pantalla inicial (Launcher) -->
+        <!-- Pantalla de bienvenida -->
         <activity android:name=".BienvenidaActividad" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,44 +21,42 @@
             </intent-filter>
         </activity>
 
-        <!-- Actividades del flujo de Registro -->
+        <!-- Registro -->
         <activity android:name=".RegistroActividad" />
         <activity android:name=".RegistroCorreoActividad" />
         <activity android:name=".RegistroContrasenaActividad" />
 
-        <!-- Actividades del flujo de Inicio de Sesión -->
+        <!-- Inicio de sesión -->
         <activity android:name=".IniciarSesionCorreoActividad" />
         <activity android:name=".IniciarSesionContrasenaActividad" />
 
-        <!-- ¡Actividades que faltaban y causaban el problema! -->
-        <!-- Declara SeleccionarDivisaActividad -->
+        <!-- Selección de divisa y saldo -->
         <activity android:name=".SeleccionarDivisaActividad" />
-        <!-- Declara IngresarSaldoActividad -->
         <activity android:name=".IngresarSaldoActividad" />
-        <!-- Fin de actividades que faltaban -->
 
-        <!-- Actividad de Inicio principal (después del onboarding/login) -->
+        <!-- Parte Inicio -->
         <activity android:name=".InicioActivity" />
 
-        <!-- Posible MainActivity, si la usas -->
+        <!-- Parte Perfil -->
+        <activity android:name=".PerfilActivity" />
+        <activity android:name=".PerfilFinancieroActivity" />
+
+        <!-- Parte Gráficos -->
+        <activity android:name=".GraficosActivity" />
+
+        <!-- Parte Categorías -->
+        <activity android:name=".MenuCategoriasActividad" />
+        <activity android:name=".ModificarCategoriaActividad" />
+        <activity android:name=".CrearCategoriaActividad" />
+
+        <!-- Parte Transacciones -->
+        <activity android:name=".AgregarTransaccionActividad" />
+        <activity android:name=".AnadirCategoriaActividad" />
+        <activity android:name=".catalogoIconoActividad" />
+        <activity android:name=".DetalleTransaccionActividad" />
+
+        <!-- Actividad raíz (opcional) -->
         <activity android:name=".MainActivity" />
-
-        <!-- Es una buena práctica declarar también los servicios, receptores, etc.
-             que tu app pueda usar, como los de Firebase. Firebase SDKs a menudo
-             añaden las declaraciones necesarias automáticamente si usas
-             el plugin google-services, pero a veces puede ser necesario revisarlas o añadirlas.
-             Por ejemplo:
-             <service
-                android:name="com.google.firebase.components.ComponentDiscoveryService"
-                android:exported="false">
-                <meta-data android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
-                    android:value="com.google.firebase.components.ComponentRegistrar" />
-                <meta-data android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
-                    android:value="com.google.firebase.components.ComponentRegistrar"/>
-                ... otros componentes de Firebase que uses ...
-            </service>
-             -->
-
     </application>
 
 </manifest>
