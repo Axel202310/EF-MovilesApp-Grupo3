@@ -41,20 +41,19 @@
 
         <!-- Parte Categorias -->
         <activity android:name=".MenuCategoriasActividad" />
-
         <activity android:name=".ModificarCategoriaActividad"/>
+        <activity android:name=".CrearCategoriaActividad" />
 
         <!-- Parte Transaccion -->
         <activity android:name=".AgregarTransaccionActividad" />
         <activity android:name=".AnadirCategoriaActividad" />
-        <activity android:name=".CrearCategoriaActividad" />
         <activity android:name=".catalogoIconoActividad" />
+
+        <activity android:name=".DetalleTransaccionActividad" />
+
 
 
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
-
-
     </application>
-
 </manifest>

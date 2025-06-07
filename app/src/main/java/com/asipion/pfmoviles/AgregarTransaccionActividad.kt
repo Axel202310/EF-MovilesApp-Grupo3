@@ -32,14 +32,20 @@ class AgregarTransaccionActividad : AppCompatActivity() {
             datePicker.show(supportFragmentManager, "selector_fecha")
         }
 
-        // Cerrar esta Activity con el botón de retroceso
-        btnAtras.setOnClickListener {
-            //finish()
-        }
+
         seleccion()
         seleccionCategorias()
-
+        atras()
         pasarVistaAñadir()
+    }
+
+    private fun atras(){
+        val btnAtras = findViewById<Button>(R.id.btnAtras)
+
+        btnAtras.setOnClickListener {
+            val intent = Intent(this, InicioActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun seleccion() {
