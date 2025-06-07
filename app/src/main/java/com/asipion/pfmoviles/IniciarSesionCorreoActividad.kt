@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class IniciarSesionCorreoActividad : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_iniciar_sesion_correo)
@@ -32,7 +33,10 @@ class IniciarSesionCorreoActividad : AppCompatActivity() {
         })
 
         botonSiguiente.setOnClickListener {
-            startActivity(Intent(this, IniciarSesionContrasenaActividad::class.java))
+            val correo = campoCorreo.text.toString().trim()
+            val intent = Intent(this, IniciarSesionContrasenaActividad::class.java)
+            intent.putExtra("correo", correo)
+            startActivity(intent)
         }
     }
 }

@@ -1,60 +1,111 @@
 package com.asipion.pfmoviles
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.asipion.pfmoviles.databinding.ActivityInicioBinding
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 class InicioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInicioBinding
-    private var currentCalendar: Calendar = Calendar.getInstance()
+    private lateinit var drawerToggle: ActionBarDrawerToggle
+    private val currentCalendar: Calendar = Calendar.getInstance()
 
-    private val dayMonthFormat = SimpleDateFormat("dd 'de' MMMM", Locale("es", "ES"))
-    private val dayNameFormat = SimpleDateFormat("EEE", Locale("es", "ES"))
+    private val formatoFechaDiaMes = SimpleDateFormat("dd 'de' MMMM", Locale("es", "ES"))
+    private val formatoNombreDia = SimpleDateFormat("EEE", Locale("es", "ES"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.topAppBar)
+        configurarToolbarYMenu()
+        configurarTabs()
+        configurarNavegacionFechas()
+        mostrarFechaActual()
+        obtenerDatosUsuarioDesdeFirestore()
 
-        binding.topAppBar.setNavigationOnClickListener {
-            Toast.makeText(this, "Menú presionado", Toast.LENGTH_SHORT).show()
-        }
-
-        setupTabs()
-        setupDateNavigation()
-        updateDateDisplay()
-
-        // Al hacer clic en el botón flotante, abrir la actividad para agregar transacción
         binding.fabAdd.setOnClickListener {
-            val intent = Intent(this, AgregarTransaccionActividad::class.java)
-            startActivity(intent)
+            Toast.makeText(this, "Agregar transacción", Toast.LENGTH_SHORT).show()
         }
 
         binding.tabLayoutType.getTabAt(0)?.select()
         binding.tabLayoutPeriod.getTabAt(0)?.select()
     }
 
-    private fun setupTabs() {
+    private fun configurarToolbarYMenu() {
+        setSupportActionBar(binding.topAppBar)
+
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        drawerToggle = ActionBarDrawerToggle(this, drawerLayout, binding.topAppBar, R.string.open_drawer, R.string.close_drawer)
+        drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        binding.topAppBar.setNavigationOnClickListener {
+            drawerLayout.open()
+        }
+    }
+
+    private fun obtenerDatosUsuarioDesdeFirestore() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val correo = FirebaseAuth.getInstance().currentUser?.email ?: "Usuario desconocido"
+
+        if (uid == null) {
+            Log.e("Firestore", "Usuario no autenticado.")
+            return
+        }
+
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { documento ->
+                if (documento.exists()) {
+                    val saldo = documento.getDouble("saldo") ?: 0.0
+                    val divisa = documento.getString("divisa") ?: "PEN"
+
+                    val formato = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("es", "PE")).apply {
+                        groupingSeparator = '.'
+                        decimalSeparator = ','
+                    })
+
+                    val saldoFormateado = "${formato.format(saldo)} ${divisa.takeLast(3)}"
+
+                    // Actualiza el saldo en la pantalla principal
+                    binding.textViewTotalAmount.text = saldoFormateado
+
+                    // Actualiza el saldo y correo en el header del menú lateral
+                    val headerView: View = binding.navegacionLateral.getHeaderView(0)
+                    val textoSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
+                    val textoCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
+
+                    textoSaldo.text = "Balance: $saldoFormateado"
+                    textoCorreo.text = correo
+                }
+            }
+            .addOnFailureListener {
+                Log.e("Firestore", "Error al obtener datos del usuario", it)
+            }
+    }
+
+    private fun configurarTabs() {
         binding.tabLayoutType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> {
-                        binding.textViewDonutCenterText.text = "No hubo\ngastos ${getCurrentPeriodText().lowercase()}"
-                    }
-                    1 -> {
-                        binding.textViewDonutCenterText.text = "No hubo\ningresos ${getCurrentPeriodText().lowercase()}"
-                    }
-                }
-                Toast.makeText(this@InicioActivity, "${tab?.text} seleccionado", Toast.LENGTH_SHORT).show()
+                val texto = if (tab?.position == 0) "gastos" else "ingresos"
+                binding.textViewDonutCenterText.text = "No hubo\n$texto ${obtenerTextoPeriodoActual()}"
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -63,10 +114,9 @@ class InicioActivity : AppCompatActivity() {
 
         binding.tabLayoutPeriod.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                currentCalendar = Calendar.getInstance()
-                updateDateDisplay()
-                updateDonutTextWithPeriod()
-                Toast.makeText(this@InicioActivity, "${tab?.text} seleccionado", Toast.LENGTH_SHORT).show()
+                currentCalendar.time = Date()
+                mostrarFechaActual()
+                actualizarTextoDonut()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -74,64 +124,59 @@ class InicioActivity : AppCompatActivity() {
         })
     }
 
-    private fun setupDateNavigation() {
-        binding.buttonPreviousDate.setOnClickListener { changeDate(-1) }
-        binding.buttonNextDate.setOnClickListener { changeDate(1) }
+    private fun configurarNavegacionFechas() {
+        binding.buttonPreviousDate.setOnClickListener { cambiarFecha(-1) }
+        binding.buttonNextDate.setOnClickListener { cambiarFecha(1) }
     }
 
-    private fun changeDate(amount: Int) {
+    private fun cambiarFecha(cantidad: Int) {
         when (binding.tabLayoutPeriod.selectedTabPosition) {
-            0 -> currentCalendar.add(Calendar.DAY_OF_YEAR, amount)
-            1 -> currentCalendar.add(Calendar.WEEK_OF_YEAR, amount)
-            2 -> currentCalendar.add(Calendar.MONTH, amount)
-            3 -> currentCalendar.add(Calendar.YEAR, amount)
+            0 -> currentCalendar.add(Calendar.DAY_OF_YEAR, cantidad)
+            1 -> currentCalendar.add(Calendar.WEEK_OF_YEAR, cantidad)
+            2 -> currentCalendar.add(Calendar.MONTH, cantidad)
+            3 -> currentCalendar.add(Calendar.YEAR, cantidad)
         }
-        updateDateDisplay()
-        updateDonutTextWithPeriod()
+        mostrarFechaActual()
+        actualizarTextoDonut()
     }
 
-    private fun updateDateDisplay() {
-        val todayCalendar = Calendar.getInstance()
-        val selectedPeriodTab = binding.tabLayoutPeriod.selectedTabPosition
-        var dateText = ""
+    private fun mostrarFechaActual() {
+        val hoy = Calendar.getInstance()
+        val posicion = binding.tabLayoutPeriod.selectedTabPosition
+        val diaNombre = formatoNombreDia.format(currentCalendar.time).replaceFirstChar { it.uppercase() }
+        val fecha = formatoFechaDiaMes.format(currentCalendar.time)
 
-        val currentDayName = dayNameFormat.format(currentCalendar.time).replaceFirstChar { it.titlecase(Locale("es", "ES")) }
-        val currentDayMonth = dayMonthFormat.format(currentCalendar.time)
+        val textoFecha = when (posicion) {
+            0 -> if (esMismoDia(currentCalendar, hoy)) "Hoy, ${fecha.substringAfter("de ")}"
+            else "$diaNombre, $fecha"
 
-        when (selectedPeriodTab) {
-            0 -> {
-                dateText = if (isSameDay(currentCalendar, todayCalendar)) {
-                    "Hoy, ${currentDayMonth.substringAfter("de ")}"
-                } else {
-                    "$currentDayName, $currentDayMonth"
-                }
-            }
             1 -> {
-                val startOfWeek = currentCalendar.clone() as Calendar
-                startOfWeek.set(Calendar.DAY_OF_WEEK, startOfWeek.firstDayOfWeek)
-                val endOfWeek = startOfWeek.clone() as Calendar
-                endOfWeek.add(Calendar.DAY_OF_YEAR, 6)
-                val startStr = SimpleDateFormat("dd MMM", Locale("es", "ES")).format(startOfWeek.time)
-                val endStr = SimpleDateFormat("dd MMM", Locale("es", "ES")).format(endOfWeek.time)
-                dateText = "Semana: $startStr - $endStr"
+                val inicio = (currentCalendar.clone() as Calendar).apply {
+                    set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+                }
+                val fin = (inicio.clone() as Calendar).apply {
+                    add(Calendar.DAY_OF_YEAR, 6)
+                }
+                val formato = SimpleDateFormat("dd MMM", Locale("es", "ES"))
+                "Semana: ${formato.format(inicio.time)} - ${formato.format(fin.time)}"
             }
-            2 -> {
-                dateText = SimpleDateFormat("MMMM 'de' yyyy", Locale("es", "ES")).format(currentCalendar.time)
-                    .replaceFirstChar { it.titlecase(Locale("es", "ES")) }
-            }
-            3 -> {
-                dateText = SimpleDateFormat("yyyy", Locale("es", "ES")).format(currentCalendar.time)
-            }
+
+            2 -> SimpleDateFormat("MMMM 'de' yyyy", Locale("es", "ES"))
+                .format(currentCalendar.time).replaceFirstChar { it.uppercase() }
+
+            3 -> SimpleDateFormat("yyyy", Locale("es", "ES")).format(currentCalendar.time)
+            else -> ""
         }
-        binding.textViewCurrentDate.text = dateText
+
+        binding.textViewCurrentDate.text = textoFecha
     }
 
-    private fun isSameDay(cal1: Calendar, cal2: Calendar): Boolean {
+    private fun esMismoDia(cal1: Calendar, cal2: Calendar): Boolean {
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
     }
 
-    private fun getCurrentPeriodText(): String {
+    private fun obtenerTextoPeriodoActual(): String {
         return when (binding.tabLayoutPeriod.selectedTabPosition) {
             0 -> "hoy"
             1 -> "esta semana"
@@ -141,8 +186,8 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateDonutTextWithPeriod() {
+    private fun actualizarTextoDonut() {
         val tipo = if (binding.tabLayoutType.selectedTabPosition == 0) "gastos" else "ingresos"
-        binding.textViewDonutCenterText.text = "No hubo\n$tipo ${getCurrentPeriodText()}"
+        binding.textViewDonutCenterText.text = "No hubo\n$tipo ${obtenerTextoPeriodoActual()}"
     }
 }

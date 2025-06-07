@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:orientation="vertical"
+    android:background="#202020"
+    android:padding="16dp"
+    android:gravity="bottom">
+
+    <!-- Imagen de perfil -->
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/perfil"
+        android:contentDescription="Imagen de usuario"
+        android:layout_marginBottom="8dp"
+        app:tint="#FFFFFF" />
+
+    <!-- Correo del usuario -->
+    <TextView
+        android:id="@+id/textViewCorreoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="usuario@gmail.com"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Balance del usuario -->
+    <TextView
+        android:id="@+id/textViewSaldoMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Balance: 0.00 S/."
+        android:textColor="#BBBBBB"
+        android:textSize="14sp" />
+</LinearLayout>

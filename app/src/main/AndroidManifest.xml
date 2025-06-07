@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asipion.pfmoviles">
 
+    <!-- Permiso necesario para acceder a Internet, especialmente importante para Firebase Auth -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,53 +13,54 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PFMoviles">
 
-        <!-- Pantalla de bienvenida -->
-        <activity
-            android:name=".BienvenidaActividad"
-            android:exported="true">
+        <!-- Declaración de todas las actividades de tu aplicación -->
+
+        <!-- Actividad de Bienvenida - Pantalla inicial (Launcher) -->
+        <activity android:name=".BienvenidaActividad" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Registro -->
+        <!-- Actividades del flujo de Registro -->
         <activity android:name=".RegistroActividad" />
         <activity android:name=".RegistroCorreoActividad" />
         <activity android:name=".RegistroContrasenaActividad" />
 
-        <!-- Inicio de sesión -->
+        <!-- Actividades del flujo de Inicio de Sesión -->
         <activity android:name=".IniciarSesionCorreoActividad" />
         <activity android:name=".IniciarSesionContrasenaActividad" />
 
+        <!-- ¡Actividades que faltaban y causaban el problema! -->
+        <!-- Declara SeleccionarDivisaActividad -->
+        <activity android:name=".SeleccionarDivisaActividad" />
+        <!-- Declara IngresarSaldoActividad -->
+        <activity android:name=".IngresarSaldoActividad" />
+        <!-- Fin de actividades que faltaban -->
 
-        <!-- Parte Inicio -->
+        <!-- Actividad de Inicio principal (después del onboarding/login) -->
         <activity android:name=".InicioActivity" />
 
-
-        <!-- Parte Perfil -->
-        <activity android:name=".PerfilActivity" />
-        <activity android:name=".PerfilFinancieroActivity" />
-
-        <!-- Parte Graficos -->
-        <activity android:name=".GraficosActivity"/>
-
-
-        <!-- Parte Categorias -->
-        <activity android:name=".MenuCategoriasActividad" />
-        <activity android:name=".ModificarCategoriaActividad"/>
-        <activity android:name=".CrearCategoriaActividad" />
-
-        <!-- Parte Transaccion -->
-        <activity android:name=".AgregarTransaccionActividad" />
-        <activity android:name=".AnadirCategoriaActividad" />
-        <activity android:name=".catalogoIconoActividad" />
-
-        <activity android:name=".DetalleTransaccionActividad" />
-
-
-
-        <!-- Otra actividad principal (inicio después del login/registro) -->
+        <!-- Posible MainActivity, si la usas -->
         <activity android:name=".MainActivity" />
+
+        <!-- Es una buena práctica declarar también los servicios, receptores, etc.
+             que tu app pueda usar, como los de Firebase. Firebase SDKs a menudo
+             añaden las declaraciones necesarias automáticamente si usas
+             el plugin google-services, pero a veces puede ser necesario revisarlas o añadirlas.
+             Por ejemplo:
+             <service
+                android:name="com.google.firebase.components.ComponentDiscoveryService"
+                android:exported="false">
+                <meta-data android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+                    android:value="com.google.firebase.components.ComponentRegistrar" />
+                <meta-data android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+                    android:value="com.google.firebase.components.ComponentRegistrar"/>
+                ... otros componentes de Firebase que uses ...
+            </service>
+             -->
+
     </application>
+
 </manifest>

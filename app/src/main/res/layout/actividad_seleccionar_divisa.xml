@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#303030"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/texto_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Establezca su divisa\npredeterminada"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="20dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/campo_divisa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Seleccionar divisa"
+        android:dropDownVerticalOffset="8dp"
+        android:background="@drawable/borde_campo"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#AAAAAA"
+        android:padding="12dp"
+        android:completionThreshold="1"
+        android:focusable="false"
+        android:cursorVisible="false"
+        android:inputType="none"
+        android:longClickable="false" />
+
+    <Button
+        android:id="@+id/boton_siguiente"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/boton_redondeado"
+        android:layout_marginTop="400dp"
+        app:backgroundTint="@null" />
+</LinearLayout>

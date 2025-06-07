@@ -18,9 +18,7 @@ class RegistroCorreoActividad : AppCompatActivity() {
         val campoCorreo = findViewById<EditText>(R.id.campo_correo)
         val botonSiguiente = findViewById<Button>(R.id.boton_siguiente)
 
-        botonAtras.setOnClickListener {
-            finish()
-        }
+        botonAtras.setOnClickListener { finish() }
 
         campoCorreo.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -34,7 +32,11 @@ class RegistroCorreoActividad : AppCompatActivity() {
         })
 
         botonSiguiente.setOnClickListener {
-            startActivity(Intent(this, RegistroContrasenaActividad::class.java))
+            val correo = campoCorreo.text.toString().trim()
+            val intent = Intent(this, RegistroContrasenaActividad::class.java)
+            intent.putExtra("correo", correo)
+            startActivity(intent)
         }
+
     }
 }

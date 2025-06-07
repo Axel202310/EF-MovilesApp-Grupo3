@@ -15,7 +15,7 @@ class RegistroActividad : AppCompatActivity() {
         val textoIniciarSesion = findViewById<TextView>(R.id.texto_iniciar_sesion)
 
         botonRegistrarse.setOnClickListener {
-            startActivity(Intent(this, RegistroCorreoActividad::class.java)) // ✅ corregido
+            startActivity(Intent(this, RegistroCorreoActividad::class.java))
         }
 
         textoIniciarSesion.setOnClickListener {
