@@ -12,7 +12,7 @@
 
         <!-- Pantalla de bienvenida -->
         <activity
-            android:name=".MenuPrincipalActividad"
+            android:name=".BienvenidaActividad"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +29,10 @@
         <activity android:name=".IniciarSesionCorreoActividad" />
         <activity android:name=".IniciarSesionContrasenaActividad" />
 
+
         <!-- Parte Inicio -->
         <activity android:name=".InicioActivity" />
+
 
         <!-- Parte Perfil -->
         <activity android:name=".PerfilActivity" />
