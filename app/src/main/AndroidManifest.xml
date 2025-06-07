@@ -12,7 +12,7 @@
 
         <!-- Pantalla de bienvenida -->
         <activity
-            android:name=".BienvenidaActividad"
+            android:name=".MenuPrincipalActividad"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
 
         <!-- Parte Categorias -->
         <activity android:name=".MenuCategoriasActividad" />
-        <activity android:name=".MenuPrincipalActividad"/>
+
         <activity android:name=".ModificarCategoriaActividad"/>
 
         <!-- Parte Transaccion -->
