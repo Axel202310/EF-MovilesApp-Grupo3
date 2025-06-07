@@ -12,7 +12,7 @@
 
         <!-- Pantalla de bienvenida -->
         <activity
-            android:name=".MenuPrincipalActividad"
+            android:name=".BienvenidaActividad"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,8 +39,7 @@
         <activity android:name=".catalogoIconoActividad" />
 
         <!-- Parte Categorias -->
-        <activity android:name=".MenuCategoriasActividad" />
-        <activity android:name=".ModificarCategoriaActividad" />
+
 
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
