@@ -32,18 +32,28 @@
         <!-- Parte Inicio -->
         <activity android:name=".InicioActivity" />
 
+        <!-- Parte Perfil -->
+        <activity android:name=".PerfilActivity" />
+
+        <!-- Parte Graficos -->
+        <activity android:name=".GraficosActivity"/>
+
+
+        <!-- Parte Categorias -->
+        <activity android:name=".MenuCategoriasActividad" />
+        <activity android:name=".MenuPrincipalActividad"/>
+        <activity android:name=".ModificarCategoriaActividad"/>
+
         <!-- Parte Transaccion -->
         <activity android:name=".AgregarTransaccionActividad" />
         <activity android:name=".AnadirCategoriaActividad" />
         <activity android:name=".CrearCategoriaActividad" />
         <activity android:name=".catalogoIconoActividad" />
 
-        <!-- Parte Categorias -->
-
 
         <!-- Otra actividad principal (inicio después del login/registro) -->
         <activity android:name=".MainActivity" />
-        <activity android:name=".PerfilActivity" />
+
 
     </application>
 
