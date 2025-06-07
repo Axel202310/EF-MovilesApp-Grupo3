@@ -21,12 +21,22 @@ class MenuCategoriasActividad : AppCompatActivity() {
         seleccionCategorias()
         abrirmodificar()
         pasarVistaAñadir()
+        irmenu()
     }
     private fun abrirmodificar(){
         val btncat1 = findViewById<Button>(R.id.btncat1)
 
         btncat1.setOnClickListener {
             val intent = Intent(this, ModificarCategoriaActividad::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun irmenu(){
+        val btnAtras = findViewById<Button>(R.id.btnAtras)
+
+        btnAtras.setOnClickListener {
+            val intent = Intent(this, MenuPrincipalActividad::class.java)
             startActivity(intent)
         }
     }

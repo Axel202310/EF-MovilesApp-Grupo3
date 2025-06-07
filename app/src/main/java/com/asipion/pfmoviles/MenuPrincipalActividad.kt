@@ -10,6 +10,7 @@ class MenuPrincipalActividad : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_principal)
         ircategorias()
+
     }
     private fun ircategorias(){
         val btnCategoria = findViewById<Button>(R.id.btnCategoria)
@@ -19,4 +20,5 @@ class MenuPrincipalActividad : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }

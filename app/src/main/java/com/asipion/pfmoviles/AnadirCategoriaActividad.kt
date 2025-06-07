@@ -119,9 +119,9 @@ class AnadirCategoriaActividad: AppCompatActivity()  {
     }
 
     private fun retroceder(){
-        val btnAtras1 = findViewById<Button>(R.id.btnAtras1)
+        val btnRetroceder = findViewById<Button>(R.id.btnRetroceder)
 
-        btnAtras1.setOnClickListener {
+        btnRetroceder.setOnClickListener {
             val intent = Intent(this, AgregarTransaccionActividad::class.java)
             startActivity(intent)
         }
