@@ -1,15 +1,14 @@
 package com.asipion.pfmoviles
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.asipion.pfmoviles.databinding.ActivityInicioBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,8 +37,10 @@ class InicioActivity : AppCompatActivity() {
         mostrarFechaActual()
         obtenerDatosUsuarioDesdeFirestore()
 
+        // ✅ Redirigir al hacer clic en el botón flotante "+"
         binding.fabAdd.setOnClickListener {
-            Toast.makeText(this, "Agregar transacción", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, AgregarTransaccionActividad::class.java)
+            startActivity(intent)
         }
 
         binding.tabLayoutType.getTabAt(0)?.select()
