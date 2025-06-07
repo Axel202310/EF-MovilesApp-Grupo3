@@ -1,0 +1,34 @@
+<!-- res/drawable/ic_profile_unknown_placeholder.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Círculo exterior gris -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#9E9E9E"/>
+            <size
+                android:width="120dp"
+                android:height="120dp"/>
+        </shape>
+    </item>
+
+    <!-- Medalla interior gris claro -->
+    <item android:gravity="center"
+        android:width="100dp"
+        android:height="110dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#BDBDBD" />
+            <corners
+                android:bottomLeftRadius="8dp"
+                android:bottomRightRadius="8dp"
+                android:topLeftRadius="50dp"
+                android:topRightRadius="50dp" />
+        </shape>
+    </item>
+
+    <!-- Signo de interrogación (ahora usando el vector corregido) -->
+    <item
+        android:width="48dp"
+        android:height="48dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_question_mark" />
+</layer-list>

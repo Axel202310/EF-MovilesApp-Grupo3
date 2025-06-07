@@ -36,6 +36,7 @@
 
         <!-- Parte Perfil -->
         <activity android:name=".PerfilActivity" />
+        <activity android:name=".PerfilFinancieroActivity" />
 
         <!-- Parte Graficos -->
         <activity android:name=".GraficosActivity"/>
