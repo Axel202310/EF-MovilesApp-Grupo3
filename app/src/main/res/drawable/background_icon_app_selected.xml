@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+    <item android:left="2dp" android:right="2dp" android:top="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <!-- Reemplaza @color/app_icon_background por un color si no lo tienes -->
+            <solid android:color="@color/app_icon_background"/>
+            <corners android:radius="18dp"/>
+        </shape>
+    </item>
+</layer-list>

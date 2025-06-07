@@ -17,4 +17,9 @@
     <color name="error_red">#FF3B30</color>
     <color name="text_hint_dark">#AFAFAF</color>
 
+    <color name="button_orange">#EF6C40</color>
+
+    <color name="encabezado_dark">#2C2C2E</color>
+    <color name="app_icon_background">#1C5441</color>
+
 </resources>
