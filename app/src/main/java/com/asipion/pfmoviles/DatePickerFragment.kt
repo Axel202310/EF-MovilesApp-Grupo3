@@ -30,9 +30,7 @@ class DatePickerFragment(val listener: (day: Int, month: Int, year: Int) -> Unit
             val headerView = picker.findViewById<View>(headerId)
             headerView?.visibility = View.GONE
         }
-
         return picker
     }
-
 }
 

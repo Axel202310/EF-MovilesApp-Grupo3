@@ -11,43 +11,35 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class AgregarTransaccionActividad : AppCompatActivity() {
+class MenuCategoriasActividad : AppCompatActivity() {
 
-
-    private lateinit var etDate: EditText
-    private lateinit var btnAtras: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.agregartransaccion)
-        etDate = findViewById(R.id.etDate)
-        btnAtras = findViewById(R.id.btnAtras)
-
-        // Mostrar selector de fecha al hacer click
-        etDate.setOnClickListener {
-            val datePicker = DatePickerFragment { day, month, year ->
-                val fechaFormateada = "%02d/%02d/%04d".format(day, month + 1, year)
-                etDate.setText(fechaFormateada)
-            }
-            datePicker.show(supportFragmentManager, "selector_fecha")
-        }
-
-
+        setContentView(R.layout.menu_categorias)
         seleccion()
         seleccionCategorias()
-        atras()
+        abrirmodificar()
         pasarVistaAñadir()
+        irmenu()
     }
+    private fun abrirmodificar(){
+        val btncat1 = findViewById<Button>(R.id.btncat1)
 
-    private fun atras(){
-        val btnAtras = findViewById<Button>(R.id.btnAtras)
-
-        btnAtras.setOnClickListener {
-            val intent = Intent(this, InicioActivity::class.java)
+        btncat1.setOnClickListener {
+            val intent = Intent(this, ModificarCategoriaActividad::class.java)
             startActivity(intent)
         }
     }
 
+    private fun irmenu(){
+        val btnAtras = findViewById<Button>(R.id.btnAtras)
+
+        btnAtras.setOnClickListener {
+            val intent = Intent(this, MenuPrincipalActividad::class.java)
+            startActivity(intent)
+        }
+    }
     private fun seleccion() {
         val btnGasto = findViewById<Button>(R.id.btnGasto)
         val btnIngreso = findViewById<Button>(R.id.btnIngreso)
@@ -166,14 +158,7 @@ class AgregarTransaccionActividad : AppCompatActivity() {
         val btnMas = findViewById<Button>(R.id.btnMas)
 
         btnMas.setOnClickListener {
-            val tipoSeleccionado = if (findViewById<View>(R.id.underlineGasto).visibility == View.VISIBLE) {
-                "gasto"
-            } else {
-                "ingreso"
-            }
-
-            val intent = Intent(this, AnadirCategoriaActividad::class.java)
-            intent.putExtra("tipoCategoria", tipoSeleccionado) // Enviar el tipo seleccionado
+            val intent = Intent(this, CrearCategoriaActividad::class.java)
             startActivity(intent)
         }
     }

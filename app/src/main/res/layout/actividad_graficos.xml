@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212121"
+    tools:context=".GraficosActivity">
+
+    <!-- Barra superior (Toolbar) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_menu"
+        app:title="Graficos"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white" />
+
+    <!-- Pestañas principales: GENERAL, GASTOS, INGRESOS -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_principal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:tabIndicatorColor="#FFA726"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="#FFA726"
+        app:tabTextColor="#BDBDBD">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GENERAL" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GASTOS" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INGRESOS" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- Contenedor para el área del gráfico -->
+    <LinearLayout
+        android:id="@+id/chart_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_chart_container"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tabs_principal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Pestañas de período -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_periodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:tabIndicatorColor="#FFA726"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="#FFA726"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
+            app:tabTextColor="#BDBDBD">
+
+            <com.google.android.material.tabs.TabItem android:text="por año" />
+            <com.google.android.material.tabs.TabItem android:text="por mes" />
+            <com.google.android.material.tabs.TabItem android:text="por semana" />
+            <com.google.android.material.tabs.TabItem android:text="por día" />
+        </com.google.android.material.tabs.TabLayout>
+
+        <!-- Gráfico -->
+        <View
+            android:id="@+id/grafico_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="24dp" />
+
+        <!-- Eje X con los meses -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView style="@style/AxisLabel" android:text="dic" />
+            <TextView style="@style/AxisLabel" android:text="ene" />
+            <TextView style="@style/AxisLabel" android:text="feb" />
+            <TextView style="@style/AxisLabel" android:text="mar" />
+            <TextView style="@style/AxisLabel" android:text="abr" />
+        </LinearLayout>
+
+        <!-- Línea del eje X -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#424242"
+            android:layout_marginTop="-10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Etiqueta del año -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="2025"
+            android:textColor="#BDBDBD"
+            android:textSize="14sp" />
+
+        <!-- Leyenda del gráfico -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/legend_ingresos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/legend_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/legend_gastos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/legend_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/legend_beneficio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/legend_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/legend_perdida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <include layout="@layout/legend_item" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

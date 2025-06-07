@@ -16,6 +16,12 @@
 
     <color name="error_red">#FF3B30</color>
     <color name="text_hint_dark">#AFAFAF</color>
+    <!-- Colores específicos para la pantalla de Perfil -->
+    <color name="dark_background">#2C2C2C</color>
+    <color name="appbar_background">#333333</color>
+    <color name="icon_tint">#AFAFAF</color>
+    <color name="text_secondary">#CFCFCF</color>
+    <color name="accent_green">#4CAF50</color>
 
     <color name="button_orange">#EF6C40</color>
 
