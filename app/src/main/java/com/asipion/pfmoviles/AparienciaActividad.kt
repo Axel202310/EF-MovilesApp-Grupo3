@@ -2,52 +2,42 @@ package com.asipion.pfmoviles
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.asipion.pfmoviles.databinding.ActividadAparienciaBinding
 
 class AparienciaActividad : AppCompatActivity() {
 
-    private lateinit var botonAtras: ImageView
-    private lateinit var itemIdioma: LinearLayout
-    private lateinit var itemTema: LinearLayout
-
-    private lateinit var iconBilletera: ImageView
-    private lateinit var iconBolsa: ImageView
-    private lateinit var iconCerdito: ImageView
-    private lateinit var iconGato: ImageView
+    private lateinit var binding: ActividadAparienciaBinding
     private lateinit var listaDeIconos: List<ImageView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_apariencia)
+        binding = ActividadAparienciaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         inicializarVistas()
         configurarEventos()
     }
 
     private fun inicializarVistas() {
-        botonAtras = findViewById(R.id.iv_back)
-        itemIdioma = findViewById(R.id.item_idioma)
-        itemTema = findViewById(R.id.item_tema)
-
-        iconBilletera = findViewById(R.id.icon_billetera)
-        iconBolsa = findViewById(R.id.icon_bolsa)
-        iconCerdito = findViewById(R.id.icon_cerdito)
-        iconGato = findViewById(R.id.icon_gato)
-
-        listaDeIconos = listOf(iconBilletera, iconBolsa, iconCerdito, iconGato)
+        listaDeIconos = listOf(
+            binding.iconBilletera,
+            binding.iconBolsa,
+            binding.iconCerdito,
+            binding.iconGato
+        )
     }
 
     private fun configurarEventos() {
-        botonAtras.setOnClickListener { finish() }
+        binding.ivBack.setOnClickListener { finish() }
 
-        itemIdioma.setOnClickListener {
+        binding.itemIdioma.setOnClickListener {
             Toast.makeText(this, "Selector de idioma", Toast.LENGTH_SHORT).show()
         }
 
-        itemTema.setOnClickListener {
+        binding.itemTema.setOnClickListener {
             Toast.makeText(this, "Selector de tema", Toast.LENGTH_SHORT).show()
         }
 
@@ -72,7 +62,7 @@ class AparienciaActividad : AppCompatActivity() {
     }
 
     private fun guardarPreferenciaDeIcono(idIconoSeleccionado: String) {
-        // Este método puede ser adaptado para guardar en SharedPreferences
+        // Guardar en preferencias locales en el futuro
         Toast.makeText(this, "Icono seleccionado: $idIconoSeleccionado", Toast.LENGTH_SHORT).show()
     }
 }

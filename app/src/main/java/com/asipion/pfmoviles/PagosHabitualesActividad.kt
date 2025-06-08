@@ -2,32 +2,20 @@ package com.asipion.pfmoviles
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.asipion.pfmoviles.databinding.ActividadPagosHabitualesBinding
 
 class PagosHabitualesActividad : AppCompatActivity() {
 
-    private lateinit var layoutCrearPago: LinearLayout
+    private lateinit var binding: ActividadPagosHabitualesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_pagos_habituales)
+        binding = ActividadPagosHabitualesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        inicializarVista()
-        configurarEventos()
-    }
-
-    private fun inicializarVista() {
-        layoutCrearPago = findViewById(R.id.layout_crear_pago)
-    }
-
-    private fun configurarEventos() {
-        layoutCrearPago.setOnClickListener {
-            abrirPantallaCrearRecordatorio()
+        binding.layoutCrearPago.setOnClickListener {
+            startActivity(Intent(this, CrearRecordatorioActividad::class.java))
         }
-    }
-
-    private fun abrirPantallaCrearRecordatorio() {
-        startActivity(Intent(this, CrearRecordatorioActividad::class.java))
     }
 }

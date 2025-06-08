@@ -1,34 +1,34 @@
 package com.asipion.pfmoviles
 
 import android.os.Bundle
-import android.widget.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.asipion.pfmoviles.databinding.ActividadAgregarCuentaBinding
 
 class AgregarCuentaActividad : AppCompatActivity() {
 
-    private lateinit var etNombreCuenta: EditText
-    private lateinit var etSaldo: EditText
-    private lateinit var btnAgregar: Button
+    private lateinit var binding: ActividadAgregarCuentaBinding
     private lateinit var iconos: List<ImageView>
-    private var iconoSeleccionado: Int? = null  // ID del recurso seleccionado
+    private var iconoSeleccionado: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_agregar_cuenta)
+        binding = ActividadAgregarCuentaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Vincular vistas
-        etNombreCuenta = findViewById(R.id.et_nombre_cuenta)
-        etSaldo = findViewById(R.id.et_saldo)
-        btnAgregar = findViewById(R.id.btn_agregar_cuenta)
+        inicializarIconos()
+        configurarEventos()
+    }
 
-        // Inicializar íconos
+    private fun inicializarIconos() {
         iconos = listOf(
-            findViewById(R.id.iv_yape),
-            findViewById(R.id.iv_plin),
-            findViewById(R.id.iv_izipay),
-            findViewById(R.id.iv_agora),
-            findViewById(R.id.iv_panda),
-            findViewById(R.id.iv_paypal)
+            binding.ivYape,
+            binding.ivPlin,
+            binding.ivIzipay,
+            binding.ivAgora,
+            binding.ivPanda,
+            binding.ivPaypal
         )
 
         for (icono in iconos) {
@@ -37,20 +37,20 @@ class AgregarCuentaActividad : AppCompatActivity() {
                 resaltarIconoSeleccionado(icono.id)
             }
         }
+    }
 
-        btnAgregar.setOnClickListener {
-            val nombreCuenta = etNombreCuenta.text.toString().trim()
-            val saldoInicial = etSaldo.text.toString().toDoubleOrNull()
+    private fun configurarEventos() {
+        binding.btnAgregarCuenta.setOnClickListener {
+            val nombreCuenta = binding.etNombreCuenta.text.toString().trim()
+            val saldoInicial = binding.etSaldo.text.toString().toDoubleOrNull()
 
             if (nombreCuenta.isEmpty() || saldoInicial == null || iconoSeleccionado == null) {
                 Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Aquí puedes guardar la cuenta en la base de datos, lista temporal, etc.
             Toast.makeText(this, "Cuenta '$nombreCuenta' añadida correctamente", Toast.LENGTH_SHORT).show()
-
-            finish() // Cerramos esta actividad
+            finish()
         }
     }
 
@@ -58,9 +58,9 @@ class AgregarCuentaActividad : AppCompatActivity() {
         for (icono in iconos) {
             icono.setBackgroundResource(
                 if (icono.id == idSeleccionado)
-                    R.drawable.bg_icon_selector  // el fondo seleccionado
+                    R.drawable.bg_icon_selector
                 else
-                    android.R.color.transparent   // fondo transparente para los demás
+                    android.R.color.transparent
             )
         }
     }

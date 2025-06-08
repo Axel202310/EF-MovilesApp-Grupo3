@@ -8,11 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.tabs.TabLayout
 import com.asipion.pfmoviles.databinding.ActividadGraficosBinding
-
-
-
+import com.google.android.material.tabs.TabLayout
 
 class GraficosActivity : AppCompatActivity() {
 
@@ -23,12 +20,12 @@ class GraficosActivity : AppCompatActivity() {
         binding = ActividadGraficosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
-        setupLegend()
-        setupTabs()
+        configurarToolbar()
+        configurarLeyenda()
+        configurarTabs()
     }
 
-    private fun setupToolbar() {
+    private fun configurarToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
@@ -37,42 +34,34 @@ class GraficosActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLegend() {
-        setupLegendItem(findViewById(R.id.legend_ingresos), "ingresos", "#4DB6AC")
-        setupLegendItem(findViewById(R.id.legend_gastos), "gastos", "#FFCA28")
-        setupLegendItem(findViewById(R.id.legend_beneficio), "beneficio", "#4FC3F7")
-        setupLegendItem(findViewById(R.id.legend_perdida), "pérdida", "#FF8A65")
+    private fun configurarLeyenda() {
+        configurarItemLeyenda(binding.legendIngresos, "ingresos", "#4DB6AC")
+        configurarItemLeyenda(binding.legendGastos, "gastos", "#FFCA28")
+        configurarItemLeyenda(binding.legendBeneficio, "beneficio", "#4FC3F7")
+        configurarItemLeyenda(binding.legendPerdida, "pérdida", "#FF8A65")
     }
 
+    private fun configurarItemLeyenda(item: ViewGroup, etiqueta: String, colorHex: String) {
+        val texto = item.findViewById<TextView>(R.id.legendText)
+        val punto = item.findViewById<View>(R.id.legendDot)
 
-    private fun setupLegendItem(item: ViewGroup, label: String, color: String) {
-        val legendText = item.findViewById<TextView>(R.id.legendText)
-        val legendDot = item.findViewById<View>(R.id.legendDot)
-        legendText.text = label
+        texto.text = etiqueta
+        (punto.background as? GradientDrawable)?.setColor(Color.parseColor(colorHex))
+    }
 
-        val background = legendDot.background
-        if (background is GradientDrawable) {
-            background.setColor(Color.parseColor(color))
+    private fun configurarTabs() {
+        binding.tabsPrincipal.addOnTabSelectedListener(tabListener("Pestaña"))
+        binding.tabsPeriodo.addOnTabSelectedListener(tabListener("Período"))
+    }
+
+    private fun tabListener(tipo: String): TabLayout.OnTabSelectedListener {
+        return object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                Toast.makeText(this@GraficosActivity, "$tipo: ${tab?.text}", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         }
-    }
-
-    private fun setupTabs() {
-        binding.tabsPrincipal.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(this@GraficosActivity, "Pestaña: ${tab?.text}", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-
-        binding.tabsPeriodo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                Toast.makeText(this@GraficosActivity, "Período: ${tab?.text}", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
     }
 }

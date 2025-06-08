@@ -58,6 +58,42 @@ class InicioActivity : AppCompatActivity() {
         binding.topAppBar.setNavigationOnClickListener {
             drawerLayout.open()
         }
+
+        // NUEVO: Manejo del menú lateral
+        binding.navegacionLateral.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_inicio -> {
+                    Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
+                }
+                R.id.item_cuentas -> {
+                    startActivity(Intent(this, CuentasActividad::class.java))
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                }
+                R.id.item_graficos -> {
+                    startActivity(Intent(this, GraficosActivity::class.java))
+                }
+                R.id.item_categorias -> {
+                    startActivity(Intent(this, MenuCategoriasActividad::class.java))
+                }
+                R.id.item_pagos_habituales -> {
+                    startActivity(Intent(this, PagosHabitualesActividad::class.java))
+                }
+                R.id.item_recordatorios -> {
+                    startActivity(Intent(this, RecordatoriosActividad::class.java))
+                }
+                R.id.item_ajustes -> {
+                    startActivity(Intent(this, AjustesActividad::class.java))
+                }
+                R.id.item_cerrar_sesion -> {
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, BienvenidaActividad::class.java))
+                    finish()
+                }
+            }
+            binding.drawerLayout.closeDrawers()
+            true
+        }
     }
 
     private fun obtenerDatosUsuarioDesdeFirestore() {

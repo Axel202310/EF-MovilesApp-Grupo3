@@ -28,7 +28,7 @@ class CrearCategoriaActividad: AppCompatActivity() {
         val btnVerIconos = findViewById<Button>(R.id.btnVerIconos)
 
         btnVerIconos.setOnClickListener {
-            val intent = Intent(this, catalogoIconoActividad::class.java)
+            val intent = Intent(this, CatalogoIconoActividad::class.java)
             startActivity(intent)
         }
     }
