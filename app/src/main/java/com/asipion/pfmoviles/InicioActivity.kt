@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -37,7 +38,7 @@ class InicioActivity : AppCompatActivity() {
         mostrarFechaActual()
         obtenerDatosUsuarioDesdeFirestore()
 
-        // ✅ Redirigir al hacer clic en el botón flotante "+"
+        // Redirigir al hacer clic en el botón flotante "+"
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, AgregarTransaccionActividad::class.java)
             startActivity(intent)
