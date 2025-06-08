@@ -8,6 +8,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.asipion.pfmoviles.model.*
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegistroContrasenaActividad : AppCompatActivity() {
 
@@ -45,12 +50,46 @@ class RegistroContrasenaActividad : AppCompatActivity() {
             val contrasena = campoContrasena.text.toString().trim()
 
             if (contrasena.length < 6) {
-                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "La contraseña debe tener al menos 6 caracteres",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
             botonSiguiente.isEnabled = false
             progreso.visibility = ProgressBar.VISIBLE
+
+
+            //PARTE DE LA BASE DE DATOS
+            val usuario = Usuario(0,correo, contrasena)
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = RetrofitClient.webService.agregarUsuario(usuario)
+                    if (response.isSuccessful) {
+                        val mensajeRespuesta = response.body()?.mensajeResponse ?: "Usuario agregado"
+                        runOnUiThread {
+                            Toast.makeText(this@RegistroContrasenaActividad, mensajeRespuesta, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val errorBody = response.errorBody()?.string()
+                        runOnUiThread {
+                            Toast.makeText(this@RegistroContrasenaActividad, "Error backend: $errorBody", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    runOnUiThread {
+                        Toast.makeText(this@RegistroContrasenaActividad, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+
+
+
+
 
             auth.createUserWithEmailAndPassword(correo, contrasena)
                 .addOnCompleteListener { task ->
@@ -71,16 +110,23 @@ class RegistroContrasenaActividad : AppCompatActivity() {
                         )
                         firestore.collection("users").document(uid).set(datosUsuario)
 
-                        Toast.makeText(this, "Registro exitoso. Verifique su correo.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            "Registro exitoso. Verifique su correo.",
+                            Toast.LENGTH_LONG
+                        ).show()
 
                         // 🔄 Redirigir a RegistroActividad
                         val intent = Intent(this, RegistroActividad::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
         }
+
     }
 }
