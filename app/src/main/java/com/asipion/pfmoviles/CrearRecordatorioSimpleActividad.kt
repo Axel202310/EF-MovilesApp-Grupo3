@@ -3,67 +3,39 @@ package com.asipion.pfmoviles
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
+import com.asipion.pfmoviles.databinding.ActividadCrearRecordatorioSimpleBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class CrearRecordatorioSimpleActividad : AppCompatActivity() {
 
-    // Referencias a las vistas
-    private lateinit var ivBack: ImageView
-    private lateinit var etNombre: EditText
-    private lateinit var tvFrecuencia: TextView
-    private lateinit var tvDia: TextView
-    private lateinit var tvHora: TextView
-    private lateinit var etComentario: EditText
-    private lateinit var btnCrear: MaterialButton
-
-    // Manejador global de fecha y hora
+    private lateinit var binding: ActividadCrearRecordatorioSimpleBinding
     private val calendario = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_crear_recordatorio_simple)
+        binding = ActividadCrearRecordatorioSimpleBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        inicializarVistas()
         configurarEventos()
         actualizarCamposFechaYHora()
     }
 
-    private fun inicializarVistas() {
-        ivBack = findViewById(R.id.iv_back)
-        etNombre = findViewById(R.id.et_nombre)
-        tvFrecuencia = findViewById(R.id.tv_frecuencia)
-        tvDia = findViewById(R.id.tv_dia)
-        tvHora = findViewById(R.id.tv_hora)
-        etComentario = findViewById(R.id.et_comentario)
-        btnCrear = findViewById(R.id.btn_crear)
-    }
-
     private fun configurarEventos() {
-        ivBack.setOnClickListener {
-            finish()
-        }
+        binding.ivBack.setOnClickListener { finish() }
 
-        tvDia.setOnClickListener {
-            mostrarDialogoFecha()
-        }
+        binding.tvDia.setOnClickListener { mostrarDialogoFecha() }
 
-        tvHora.setOnClickListener {
-            mostrarDialogoHora()
-        }
+        binding.tvHora.setOnClickListener { mostrarDialogoHora() }
 
-        tvFrecuencia.setOnClickListener {
+        binding.tvFrecuencia.setOnClickListener {
             Toast.makeText(this, "Selector de frecuencia presionado", Toast.LENGTH_SHORT).show()
         }
 
-        btnCrear.setOnClickListener {
+        binding.btnCrear.setOnClickListener {
             crearRecordatorio()
         }
     }
@@ -103,34 +75,29 @@ class CrearRecordatorioSimpleActividad : AppCompatActivity() {
 
     private fun actualizarCamposFechaYHora() {
         val formatoFecha = SimpleDateFormat("dd 'de' MMMM, yyyy", Locale("es", "ES"))
-        val fechaFormateada = formatoFecha.format(calendario.time)
+        binding.tvDia.text = formatoFecha.format(calendario.time)
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
-        tvDia.text = fechaFormateada
 
         val formatoHora = SimpleDateFormat("HH:mm", Locale.getDefault())
-        tvHora.text = formatoHora.format(calendario.time)
+        binding.tvHora.text = formatoHora.format(calendario.time)
     }
 
     private fun crearRecordatorio() {
-        val nombre = etNombre.text.toString().trim()
+        val nombre = binding.etNombre.text.toString().trim()
 
         if (nombre.isEmpty()) {
-            etNombre.error = "Campo requerido"
+            binding.etNombre.error = "Campo requerido"
             Toast.makeText(this, "Por favor, ingrese un nombre para el recordatorio", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val frecuencia = tvFrecuencia.text.toString()
-        val comentario = etComentario.text.toString()
+        val frecuencia = binding.tvFrecuencia.text.toString()
+        val comentario = binding.etComentario.text.toString()
         val fechaHora = calendario.timeInMillis
 
         Toast.makeText(this, "Recordatorio '$nombre' creado!", Toast.LENGTH_LONG).show()
 
-        // Aquí se puede guardar a una base de datos si se desea.
-        // Ejemplo:
-        // val recordatorio = Recordatorio(nombre, frecuencia, fechaHora, comentario)
-        // viewModel.guardar(recordatorio)
-
+        // Aquí podrías guardar el recordatorio en base de datos
         finish()
     }
 }

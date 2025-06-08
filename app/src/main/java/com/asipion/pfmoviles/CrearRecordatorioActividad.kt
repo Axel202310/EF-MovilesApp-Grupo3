@@ -1,42 +1,31 @@
 package com.asipion.pfmoviles
 
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.asipion.pfmoviles.databinding.ActividadCrearRecordatorioBinding
 import com.google.android.material.tabs.TabLayout
 
 class CrearRecordatorioActividad : AppCompatActivity() {
 
-    // Estado para saber si estamos en modo Gasto (true) o Ingreso (false)
+    private lateinit var binding: ActividadCrearRecordatorioBinding
     private var esModoGasto: Boolean = true
-
-    // Referencias a los componentes de la vista
-    private lateinit var tabLayout: TabLayout
-    private lateinit var botonAtras: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_crear_recordatorio)
+        binding = ActividadCrearRecordatorioBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        inicializarVista()
         configurarEventos()
-
-        // Por defecto iniciar en el modo Gastos
-        actualizarVistaParaGastos()
-    }
-
-    private fun inicializarVista() {
-        tabLayout = findViewById(R.id.tab_layout)
-        botonAtras = findViewById(R.id.iv_back)
+        actualizarVistaParaGastos() // Por defecto
     }
 
     private fun configurarEventos() {
-        botonAtras.setOnClickListener {
-            finish() // Volver a la pantalla anterior
+        binding.ivBack.setOnClickListener {
+            finish()
         }
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 esModoGasto = (tab?.position == 0)
                 if (esModoGasto) {
@@ -52,19 +41,12 @@ class CrearRecordatorioActividad : AppCompatActivity() {
     }
 
     private fun actualizarVistaParaGastos() {
-        // Aquí puedes cargar categorías de gastos, cambiar colores, etc.
         Toast.makeText(this, "Modo: Gastos", Toast.LENGTH_SHORT).show()
-
-        // Ejemplo futuro:
-        // val campoCategoria = findViewById<TextView>(R.id.tv_category_value)
-        // campoCategoria.setOnClickListener { abrirDialogoCategorias("gastos") }
+        // Aquí puedes actualizar visualmente los elementos del layout.
     }
 
     private fun actualizarVistaParaIngresos() {
         Toast.makeText(this, "Modo: Ingresos", Toast.LENGTH_SHORT).show()
-
-        // Ejemplo futuro:
-        // val campoCategoria = findViewById<TextView>(R.id.tv_category_value)
-        // campoCategoria.setOnClickListener { abrirDialogoCategorias("ingresos") }
+        // Aquí puedes actualizar visualmente los elementos del layout.
     }
 }

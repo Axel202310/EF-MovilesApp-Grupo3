@@ -1,5 +1,6 @@
 package com.asipion.pfmoviles
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.asipion.pfmoviles.databinding.ActivityInicioBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -38,8 +38,10 @@ class InicioActivity : AppCompatActivity() {
         mostrarFechaActual()
         obtenerDatosUsuarioDesdeFirestore()
 
+        // Redirigir al hacer clic en el botón flotante "+"
         binding.fabAdd.setOnClickListener {
-            Toast.makeText(this, "Agregar transacción", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, AgregarTransaccionActividad::class.java)
+            startActivity(intent)
         }
 
         binding.tabLayoutType.getTabAt(0)?.select()
@@ -56,6 +58,42 @@ class InicioActivity : AppCompatActivity() {
 
         binding.topAppBar.setNavigationOnClickListener {
             drawerLayout.open()
+        }
+
+        // NUEVO: Manejo del menú lateral
+        binding.navegacionLateral.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_inicio -> {
+                    Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
+                }
+                R.id.item_cuentas -> {
+                    startActivity(Intent(this, CuentasActividad::class.java))
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                }
+                R.id.item_graficos -> {
+                    startActivity(Intent(this, GraficosActivity::class.java))
+                }
+                R.id.item_categorias -> {
+                    startActivity(Intent(this, MenuCategoriasActividad::class.java))
+                }
+                R.id.item_pagos_habituales -> {
+                    startActivity(Intent(this, PagosHabitualesActividad::class.java))
+                }
+                R.id.item_recordatorios -> {
+                    startActivity(Intent(this, RecordatoriosActividad::class.java))
+                }
+                R.id.item_ajustes -> {
+                    startActivity(Intent(this, AjustesActividad::class.java))
+                }
+                R.id.item_cerrar_sesion -> {
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, BienvenidaActividad::class.java))
+                    finish()
+                }
+            }
+            binding.drawerLayout.closeDrawers()
+            true
         }
     }
 

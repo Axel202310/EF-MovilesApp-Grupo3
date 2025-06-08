@@ -3,17 +3,33 @@
 
     <item
         android:id="@+id/item_inicio"
-
         android:title="Inicio" />
 
     <item
-        android:id="@+id/item_ajustes"
+        android:id="@+id/item_cuentas"
+        android:title="Cuentas" />
 
+    <item
+        android:id="@+id/item_graficos"
+        android:title="Gráficos" />
+
+    <item
+        android:id="@+id/item_categorias"
+        android:title="Categorías" />
+
+    <item
+        android:id="@+id/item_pagos_habituales"
+        android:title="Pagos Habituales" />
+
+    <item
+        android:id="@+id/item_recordatorios"
+        android:title="Recordatorios" />
+
+    <item
+        android:id="@+id/item_ajustes"
         android:title="Ajustes" />
 
     <item
         android:id="@+id/item_cerrar_sesion"
-
         android:title="Cerrar sesión" />
-
 </menu>
