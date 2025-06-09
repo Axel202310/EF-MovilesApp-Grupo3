@@ -24,6 +24,8 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_iniciar_sesion_contrasena)
 
+        validarUsuarioGuardado() // 👈 Llama aquí al iniciar
+
         // Inicializa tus vistas del layout usando los IDs de tu XML
         val botonAtras = findViewById<ImageView>(R.id.boton_atras)
         campoContrasena = findViewById(R.id.campo_contrasena)
@@ -121,15 +123,43 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
 
         }
     }
+    private fun validarUsuarioGuardado() {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        val idGuardado = prefs.getInt("id_usuario", -1)
+
+        if (idGuardado != -1) {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val response = RetrofitClient.webService.cargarUsuarios()
+                    if (response.isSuccessful) {
+                        val usuarios = response.body()?.listaUsuarios ?: emptyList()
+                        val usuarioExiste = usuarios.any { it.id_usuario == idGuardado }
+
+                        if (!usuarioExiste) {
+                            // ID guardado ya no existe en base de datos
+                            prefs.edit().clear().apply()
+                            runOnUiThread {
+                                Toast.makeText(this@IniciarSesionContrasenaActividad, "Sesión expirada. Inicia sesión nuevamente.", Toast.LENGTH_LONG).show()
+                                startActivity(Intent(this@IniciarSesionContrasenaActividad, IniciarSesionCorreoActividad::class.java))
+                                finish()
+                            }
+                        }
+                    } else {
+                        Log.e("ValidarUsuario", "Error al cargar usuarios: ${response.code()}")
+                    }
+                } catch (e: Exception) {
+                    Log.e("ValidarUsuario", "Excepción al validar usuario guardado", e)
+                }
+            }
+        }
+    }
     private fun usuarioTieneSaldoRegistrado(idUsuario: Int): Boolean {
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
         return prefs.getBoolean("flujo_completo_$idUsuario", false)
     }
+
     private fun guardarIdUsuario(idUsuario: Int) {
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
-        // Limpiamos los datos anteriores
-        prefs.edit().clear().apply()
-
         // Guardamos el nuevo ID
         prefs.edit().putInt("id_usuario", idUsuario).apply()
     }
