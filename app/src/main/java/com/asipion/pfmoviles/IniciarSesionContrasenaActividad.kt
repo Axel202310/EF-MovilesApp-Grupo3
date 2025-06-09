@@ -127,6 +127,10 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
     }
     private fun guardarIdUsuario(idUsuario: Int) {
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        // Limpiamos los datos anteriores
+        prefs.edit().clear().apply()
+
+        // Guardamos el nuevo ID
         prefs.edit().putInt("id_usuario", idUsuario).apply()
     }
 
