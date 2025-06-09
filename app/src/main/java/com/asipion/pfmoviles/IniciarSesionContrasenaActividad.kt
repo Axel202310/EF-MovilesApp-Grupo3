@@ -8,15 +8,16 @@ import android.util.Log
 // No necesitamos importar View para ProgressBar.GONE/VISIBLE si no hay ProgressBar
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.asipion.pfmoviles.model.Usuario
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class IniciarSesionContrasenaActividad : AppCompatActivity() {
 
     private lateinit var campoContrasena: EditText
     private lateinit var botonIniciarSesion: Button
-    private lateinit var auth: FirebaseAuth
     // Eliminamos la referencia a ProgressBar ya que no está en el layout proporcionado
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +30,6 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
         botonIniciarSesion = findViewById(R.id.boton_siguiente)
         // No hay ProgressBar con el id 'progreso_login' en el layout, así que no la inicializamos
 
-        // Inicializa Firebase Auth
-        auth = FirebaseAuth.getInstance()
 
         // Obtener el correo pasado desde la actividad anterior
         // Usamos un valor por defecto vacío si no se encuentra el extra "correo"
@@ -60,6 +59,8 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
         botonIniciarSesion.setOnClickListener {
             val contrasena = campoContrasena.text.toString().trim()
 
+
+
             // Validación simple: verificar que el campo de contraseña no esté vacío
             if (contrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor, ingrese su contraseña", Toast.LENGTH_SHORT).show()
@@ -70,91 +71,63 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
             botonIniciarSesion.isEnabled = false
             // Como no hay ProgressBar, no mostramos progreso visual aquí.
 
-            // Llamada a Firebase Authentication para iniciar sesión con correo y contraseña
-            auth.signInWithEmailAndPassword(correo, contrasena)
-                .addOnCompleteListener(this) { task ->
-                    // Volver a habilitar el botón al completar la operación, sin importar el resultado
-                    botonIniciarSesion.isEnabled = true
-                    // No hay ProgressBar para ocultar.
 
-                    if (task.isSuccessful) {
-                        // El inicio de sesión con Firebase fue exitoso
-                        val usuario = auth.currentUser
-                        if (usuario != null && usuario.isEmailVerified) {
-                            // El usuario está autenticado Y su correo está verificado. ¡Perfecto!
-                            Toast.makeText(this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show()
-                            Log.d("IniciarSesion", "Usuario ${usuario.uid} ha iniciado sesión y correo verificado.")
+            val usuario = Usuario(0, correo, contrasena)
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = RetrofitClient.webService.iniciarSesion(usuario)
+                if (response.isSuccessful && response.body()?.mensaje == "Login exitoso") {
+                    val usuarioRespuesta = response.body()?.usuario
+                    usuarioRespuesta?.let { usuario ->
+                        val idUsuario = usuario.id_usuario
+                        if (idUsuario != null) {
+                            guardarIdUsuario(idUsuario)
 
-                            // Navegar a la siguiente pantalla principal (SeleccionarDivisaActividad)
-                            // Usamos FLAG_ACTIVITY_NEW_TASK y FLAG_ACTIVITY_CLEAR_TASK
-                            // para asegurar que la pila de actividades se limpia y el usuario
-                            // no pueda volver a las pantallas de login con el botón físico atrás.
-                            val intent = Intent(this, SeleccionarDivisaActividad::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
-                            // No necesitas finish() aquí porque CLEAR_TASK ya se encarga de las actividades anteriores.
-
-                        } else if (usuario != null && !usuario.isEmailVerified){
-                            // El usuario está autenticado PERO su correo NO está verificado.
-                            Toast.makeText(this, "Verifica tu correo electrónico primero.", Toast.LENGTH_LONG).show()
-                            Log.w("IniciarSesion", "Usuario ${usuario.uid} inició sesión pero correo no verificado.")
-
-                            // Opcional: enviar el correo de verificación de nuevo para recordarle al usuario
-                            usuario.sendEmailVerification()
-                                .addOnCompleteListener { sendTask ->
-                                    if (sendTask.isSuccessful) {
-                                        Log.d("IniciarSesion", "Correo de verificación enviado.")
-                                        // Puedes comentar el Toast de envío si no quieres dos Toasts seguidos
-                                        Toast.makeText(this, "Correo de verificación enviado.", Toast.LENGTH_SHORT).show()
+                            val transaccionesResponse = RetrofitClient.webService.obtenerTransacciones(idUsuario)
+                            if (transaccionesResponse.isSuccessful) {
+                                val transacciones = transaccionesResponse.body()?.listaTransacciones
+                                runOnUiThread {
+                                    if (!transacciones.isNullOrEmpty() || usuarioTieneSaldoRegistrado(idUsuario)) {
+                                        // Ya tiene transacciones o flujo completo guardado → ir al inicio
+                                        startActivity(Intent(this@IniciarSesionContrasenaActividad, InicioActivity::class.java))
                                     } else {
-                                        Log.e("IniciarSesion", "Error al enviar correo de verificación.", sendTask.exception)
-                                        // Opcional: mostrar un Toast si no se pudo enviar el correo de verificación
+                                        // No tiene nada → ir a seleccionar divisa
+                                        val intent = Intent(this@IniciarSesionContrasenaActividad, SeleccionarDivisaActividad::class.java)
+                                        intent.putExtra("divisa", "PEN") // o ajusta si manejas otra lógica de divisa
+                                        startActivity(intent)
                                     }
+                                    finish()
                                 }
-
-                            // Cerrar la sesión del usuario que no ha verificado su correo
-                            auth.signOut()
-                            Log.d("IniciarSesion", "Sesión cerrada por correo no verificado.")
-
-                            // *** Acción Importante: Cerrar esta actividad para regresar a la pantalla de correo
-                            // Esto guía al usuario de vuelta al inicio del flujo de login si necesita verificar.
-                            finish()
-
+                            } else {
+                                runOnUiThread {
+                                    Toast.makeText(this@IniciarSesionContrasenaActividad, "Error al verificar transacciones", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this@IniciarSesionContrasenaActividad, InicioActivity::class.java))
+                                    finish()
+                                }
+                            }
                         } else {
-                            // Este bloque maneja un caso inesperado: task.isSuccessful es true, pero auth.currentUser es nulo.
-                            // Esto no debería ocurrir normalmente justo después de un inicio de sesión exitoso.
-                            Toast.makeText(this, "Error inesperado: No se pudo obtener el usuario autenticado.", Toast.LENGTH_LONG).show()
-                            Log.e("IniciarSesion", "Error inesperado: usuario nulo después de task.isSuccessful.")
-
-                            // *** Acción Importante: Cerrar esta actividad en caso de estado inesperado
-                            finish()
+                            runOnUiThread {
+                                Toast.makeText(this@IniciarSesionContrasenaActividad, "El ID de usuario es nulo", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    } else {
-                        // El inicio de sesión con Firebase Falló (correo/contraseña incorrecta, etc.)
-                        val exception = task.exception
-                        // Preparamos un mensaje de error más amigable basado en el tipo de excepción
-                        val mensajeError = when (exception) {
-                            is FirebaseAuthInvalidCredentialsException -> "Contraseña incorrecta. Por favor, inténtalo de nuevo."
-                            is FirebaseAuthInvalidUserException -> "No existe una cuenta con este correo. Considera registrarte."
-                            // Puedes añadir más casos aquí para otros errores comunes si lo deseas:
-                            // is FirebaseAuthUserDisabledException -> "Tu cuenta ha sido deshabilitada."
-                            // is FirebaseAuthTooManyRequestsException -> "Demasiados intentos fallidos. Intenta más tarde."
-                            else -> task.exception?.message ?: "Error desconocido al iniciar sesión." // Mensaje genérico si no es una excepción conocida
-                        }
-
-                        // Mostramos el mensaje de error al usuario
-                        Toast.makeText(this, "Error: $mensajeError", Toast.LENGTH_LONG).show()
-                        // Registramos el error completo en Logcat para depuración
-                        Log.e("IniciarSesion", "Error al iniciar sesión: $mensajeError", exception)
-
-                        // *** Acción Importante: Cerrar esta actividad si el inicio de sesión falla.
-                        // Al cerrar esta actividad, el sistema regresa automáticamente a la actividad anterior,
-                        // que es IniciarSesionCorreoActividad, replicando el comportamiento que viste.
-                        // Puedes decidir si quieres limpiar el campo de contraseña antes de llamar a finish() si lo prefieres.
-                        // campoContrasena.setText("") // Descomenta si quieres limpiar el campo
-                        finish()
+                    }
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@IniciarSesionContrasenaActividad, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                        botonIniciarSesion.isEnabled = true
                     }
                 }
+            }
+
+
         }
     }
+    private fun usuarioTieneSaldoRegistrado(idUsuario: Int): Boolean {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        return prefs.getBoolean("flujo_completo_$idUsuario", false)
+    }
+    private fun guardarIdUsuario(idUsuario: Int) {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        prefs.edit().putInt("id_usuario", idUsuario).apply()
+    }
+
 }

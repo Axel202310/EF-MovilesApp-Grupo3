@@ -6,8 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.asipion.pfmoviles.model.*
 import com.asipion.pfmoviles.servicio.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +16,6 @@ class RegistroContrasenaActividad : AppCompatActivity() {
 
     private lateinit var campoContrasena: EditText
     private lateinit var botonSiguiente: Button
-    private lateinit var auth: FirebaseAuth
     private lateinit var progreso: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +27,7 @@ class RegistroContrasenaActividad : AppCompatActivity() {
         botonSiguiente = findViewById(R.id.boton_siguiente)
         progreso = ProgressBar(this).apply { visibility = ProgressBar.GONE }
 
-        auth = FirebaseAuth.getInstance()
+
         val correo = intent.getStringExtra("correo") ?: ""
 
         botonAtras.setOnClickListener { finish() }
@@ -68,9 +65,12 @@ class RegistroContrasenaActividad : AppCompatActivity() {
                 try {
                     val response = RetrofitClient.webService.agregarUsuario(usuario)
                     if (response.isSuccessful) {
-                        val mensajeRespuesta = response.body()?.mensajeResponse ?: "Usuario agregado"
+                        val mensajeRespuesta = response.body()?.mensaje ?: "Usuario agregado"
                         runOnUiThread {
                             Toast.makeText(this@RegistroContrasenaActividad, mensajeRespuesta, Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@RegistroContrasenaActividad, RegistroActividad::class.java)
+                            startActivity(intent)
+                            finish()
                         }
                     } else {
                         val errorBody = response.errorBody()?.string()
@@ -85,47 +85,6 @@ class RegistroContrasenaActividad : AppCompatActivity() {
                     }
                 }
             }
-
-
-
-
-
-
-            auth.createUserWithEmailAndPassword(correo, contrasena)
-                .addOnCompleteListener { task ->
-                    botonSiguiente.isEnabled = true
-                    progreso.visibility = ProgressBar.GONE
-
-                    if (task.isSuccessful) {
-                        auth.currentUser?.sendEmailVerification()
-
-                        val user = auth.currentUser
-                        val uid = user?.uid ?: ""
-                        val firestore = FirebaseFirestore.getInstance()
-                        val datosUsuario = hashMapOf(
-                            "uid" to uid,
-                            "email" to correo,
-                            "nombre" to correo.substringBefore("@"),
-                            "profesion" to "Desconocida"
-                        )
-                        firestore.collection("users").document(uid).set(datosUsuario)
-
-                        Toast.makeText(
-                            this,
-                            "Registro exitoso. Verifique su correo.",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                        // 🔄 Redirigir a RegistroActividad
-                        val intent = Intent(this, RegistroActividad::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG)
-                            .show()
-                    }
-                }
         }
 
     }

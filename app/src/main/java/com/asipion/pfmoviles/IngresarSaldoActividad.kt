@@ -6,15 +6,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.asipion.pfmoviles.model.Transaccion
+import com.asipion.pfmoviles.model.Usuario
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class IngresarSaldoActividad : AppCompatActivity() {
 
     private lateinit var campoSaldo: EditText
     private lateinit var botonSiguiente: Button
-    private val auth = FirebaseAuth.getInstance()
-    private val firestore = FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,34 +49,53 @@ class IngresarSaldoActividad : AppCompatActivity() {
         })
 
         botonSiguiente.setOnClickListener {
-            val saldo = campoSaldo.text.toString().toDoubleOrNull()
-            val divisa = intent.getStringExtra("divisa") ?: "PEN"
+            val saldo = campoSaldo.text.toString().toDouble()
+            val divisaCompleta = intent.getStringExtra("divisa") ?: "PEN"
+            val divisa = divisaCompleta.takeLast(3)  // <-- Extrae solo las 3 letras finales
+            val idUsuario = obtenerIdUsuario()
 
-            val usuario = auth.currentUser
-            if (usuario != null && saldo != null && saldo > 0) {
-                val datosUsuario = hashMapOf(
-                    "correo" to usuario.email,
-                    "divisa" to divisa,
-                    "saldo" to saldo
-                )
+            if (idUsuario == -1) {
+                Toast.makeText(this, "Error: usuario no autenticado", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                firestore.collection("usuarios").document(usuario.uid)
-                    .set(datosUsuario)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, InicioActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+            // 🔹 GUARDAR EN SharedPreferences para mostrarlo en InicioActivity
+            val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+            val editor = prefs.edit()
+            editor.putString("moneda_$idUsuario", divisa)
+            editor.putFloat("monto_$idUsuario", saldo.toFloat())
+            editor.putBoolean("flujo_completo_$idUsuario", true)
+            editor.apply()
+
+            val transaccion = Transaccion(
+                id_transaccion = null,  // null porque es autoincremental en la DB
+                monto_transaccion = saldo,
+                moneda = divisa,
+                fecha = null,  // puedes agregar fecha en backend o aquí si quieres
+                id_usuario = idUsuario,
+                id_categoria = null,
+                idcuenta = null
+            )
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = RetrofitClient.webService.agregarTransaccion(transaccion)
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        startActivity(Intent(this@IngresarSaldoActividad, InicioActivity::class.java))
+                        finish()
                     }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error al guardar en Firestore: ${e.message}", Toast.LENGTH_LONG).show()
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(this@IngresarSaldoActividad, "Salgo o Tipo incorrectos", Toast.LENGTH_SHORT).show()
                     }
-            } else {
-                Toast.makeText(this, "Ingrese un saldo válido", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
+    private fun obtenerIdUsuario(): Int {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        return prefs.getInt("id_usuario", -1) // -1 si no existe
+    }
     private fun activarBoton() {
         botonSiguiente.isEnabled = true
         botonSiguiente.alpha = 1.0f

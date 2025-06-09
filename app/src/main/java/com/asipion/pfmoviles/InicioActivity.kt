@@ -11,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.asipion.pfmoviles.databinding.ActivityInicioBinding
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.SimpleDateFormat
@@ -23,6 +21,9 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private val currentCalendar: Calendar = Calendar.getInstance()
+
+
+
 
     private val formatoFechaDiaMes = SimpleDateFormat("dd 'de' MMMM", Locale("es", "ES"))
     private val formatoNombreDia = SimpleDateFormat("EEE", Locale("es", "ES"))
@@ -36,7 +37,16 @@ class InicioActivity : AppCompatActivity() {
         configurarTabs()
         configurarNavegacionFechas()
         mostrarFechaActual()
-        obtenerDatosUsuarioDesdeFirestore()
+
+        // Aquí solo muestras un dato: moneda y monto
+        val txtMoneda = binding.txtMoneda
+        val txtMonto = binding.txtMonto
+
+        val moneda = obtenerMoneda()
+        val monto = obtenerMonto()           // lo que el usuario ingresó
+
+        txtMoneda.text = moneda
+        txtMonto.text = monto.toString()
 
         // Redirigir al hacer clic en el botón flotante "+"
         binding.fabAdd.setOnClickListener {
@@ -46,6 +56,18 @@ class InicioActivity : AppCompatActivity() {
 
         binding.tabLayoutType.getTabAt(0)?.select()
         binding.tabLayoutPeriod.getTabAt(0)?.select()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val id = obtenerIdUsuario()
+        Log.d("Inicio", "Usuario ID: $id - Moneda: ${obtenerMoneda()}, Monto: ${obtenerMonto()}")
+        actualizarMonedaYMonto()
+    }
+    private fun actualizarMonedaYMonto() {
+        binding.txtMoneda.text = obtenerMoneda()
+        binding.txtMonto.text = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("es", "ES")))
+            .format(obtenerMonto())
     }
 
     private fun configurarToolbarYMenu() {
@@ -86,7 +108,6 @@ class InicioActivity : AppCompatActivity() {
                     startActivity(Intent(this, AjustesActividad::class.java))
                 }
                 R.id.item_cerrar_sesion -> {
-                    FirebaseAuth.getInstance().signOut()
                     Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, BienvenidaActividad::class.java))
                     finish()
@@ -95,48 +116,6 @@ class InicioActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawers()
             true
         }
-    }
-
-    private fun obtenerDatosUsuarioDesdeFirestore() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-        val correo = FirebaseAuth.getInstance().currentUser?.email ?: "Usuario desconocido"
-
-        if (uid == null) {
-            Log.e("Firestore", "Usuario no autenticado.")
-            return
-        }
-
-        FirebaseFirestore.getInstance()
-            .collection("usuarios")
-            .document(uid)
-            .get()
-            .addOnSuccessListener { documento ->
-                if (documento.exists()) {
-                    val saldo = documento.getDouble("saldo") ?: 0.0
-                    val divisa = documento.getString("divisa") ?: "PEN"
-
-                    val formato = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("es", "PE")).apply {
-                        groupingSeparator = '.'
-                        decimalSeparator = ','
-                    })
-
-                    val saldoFormateado = "${formato.format(saldo)} ${divisa.takeLast(3)}"
-
-                    // Actualiza el saldo en la pantalla principal
-                    binding.textViewTotalAmount.text = saldoFormateado
-
-                    // Actualiza el saldo y correo en el header del menú lateral
-                    val headerView: View = binding.navegacionLateral.getHeaderView(0)
-                    val textoSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
-                    val textoCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
-
-                    textoSaldo.text = "Balance: $saldoFormateado"
-                    textoCorreo.text = correo
-                }
-            }
-            .addOnFailureListener {
-                Log.e("Firestore", "Error al obtener datos del usuario", it)
-            }
     }
 
     private fun configurarTabs() {
@@ -228,4 +207,22 @@ class InicioActivity : AppCompatActivity() {
         val tipo = if (binding.tabLayoutType.selectedTabPosition == 0) "gastos" else "ingresos"
         binding.textViewDonutCenterText.text = "No hubo\n$tipo ${obtenerTextoPeriodoActual()}"
     }
+
+    private fun obtenerIdUsuario(): Int {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        return prefs.getInt("id_usuario", -1)
+    }
+
+    private fun obtenerMoneda(): String {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        val idUsuario = obtenerIdUsuario()
+        return prefs.getString("moneda_$idUsuario", "USD") ?: "USD"
+    }
+
+    private fun obtenerMonto(): Float {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        val idUsuario = obtenerIdUsuario()
+        return prefs.getFloat("monto_$idUsuario", 0.0f)
+    }
+
 }

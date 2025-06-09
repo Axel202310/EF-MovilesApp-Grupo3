@@ -53,7 +53,7 @@
         <!-- Parte Transacciones -->
         <activity android:name=".AgregarTransaccionActividad" />
         <activity android:name=".AnadirCategoriaActividad" />
-        <activity android:name=".catalogoIconoActividad" />
+        <activity android:name=".CatalogoIconoActividad" />
         <activity android:name=".DetalleTransaccionActividad" />
 
         <!-- Actividad raíz (opcional) -->
