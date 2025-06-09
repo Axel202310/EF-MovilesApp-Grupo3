@@ -1,7 +1,7 @@
 package com.asipion.pfmoviles.model
 import java.util.Date
 
-class Transaccion (
+data class Transaccion (
     var id_transaccion: Int? = null,
     var monto_transaccion: Double,
     var moneda: String,
