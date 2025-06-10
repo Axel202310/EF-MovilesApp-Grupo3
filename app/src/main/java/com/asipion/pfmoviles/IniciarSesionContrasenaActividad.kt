@@ -83,6 +83,7 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
                         val idUsuario = usuario.id_usuario
                         if (idUsuario != null) {
                             guardarIdUsuario(idUsuario)
+                            guardarCorreoUsuario(correo) // 👈 AGREGA ESTO AQUÍ
 
                             val transaccionesResponse = RetrofitClient.webService.obtenerTransacciones(idUsuario)
                             if (transaccionesResponse.isSuccessful) {
@@ -162,6 +163,11 @@ class IniciarSesionContrasenaActividad : AppCompatActivity() {
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
         // Guardamos el nuevo ID
         prefs.edit().putInt("id_usuario", idUsuario).apply()
+    }
+
+    private fun guardarCorreoUsuario(correo: String) {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        prefs.edit().putString("correo_usuario", correo).apply()
     }
 
 }

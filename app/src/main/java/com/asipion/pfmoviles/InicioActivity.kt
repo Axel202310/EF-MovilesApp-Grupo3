@@ -22,9 +22,6 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private val currentCalendar: Calendar = Calendar.getInstance()
 
-
-
-
     private val formatoFechaDiaMes = SimpleDateFormat("dd 'de' MMMM", Locale("es", "ES"))
     private val formatoNombreDia = SimpleDateFormat("EEE", Locale("es", "ES"))
 
@@ -34,6 +31,7 @@ class InicioActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         configurarToolbarYMenu()
+        actualizarHeaderMenuLateral()
         configurarTabs()
         configurarNavegacionFechas()
         mostrarFechaActual()
@@ -63,6 +61,7 @@ class InicioActivity : AppCompatActivity() {
         val id = obtenerIdUsuario()
         Log.d("Inicio", "Usuario ID: $id - Moneda: ${obtenerMoneda()}, Monto: ${obtenerMonto()}")
         actualizarMonedaYMonto()
+        actualizarHeaderMenuLateral()
     }
     private fun actualizarMonedaYMonto() {
         binding.txtMoneda.text = obtenerMoneda()
@@ -117,6 +116,7 @@ class InicioActivity : AppCompatActivity() {
             true
         }
     }
+
 
     private fun configurarTabs() {
         binding.tabLayoutType.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -224,5 +224,21 @@ class InicioActivity : AppCompatActivity() {
         val idUsuario = obtenerIdUsuario()
         return prefs.getFloat("monto_$idUsuario", 0.0f)
     }
+
+    private fun actualizarHeaderMenuLateral() {
+        val headerView = binding.navegacionLateral.getHeaderView(0)
+        val textCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
+        val textSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
+
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        val idUsuario = prefs.getInt("id_usuario", -1)
+        val correoUsuario = prefs.getString("correo_usuario", "usuario@example.com") ?: "usuario@example.com"
+        val moneda = prefs.getString("moneda_$idUsuario", "PEN") ?: "PEN"
+        val monto = prefs.getFloat("monto_$idUsuario", 0.0f)
+
+        textCorreo.text = correoUsuario
+        textSaldo.text = "Balance: ${String.format("%.2f", monto)} $moneda"
+    }
+
 
 }
