@@ -19,6 +19,11 @@ class AgregarCuentaActividad : AppCompatActivity() {
 
         inicializarIconos()
         configurarEventos()
+
+        // ← Botón de retroceso
+        binding.ivBackArrow.setOnClickListener {
+            finish()
+        }
     }
 
     private fun inicializarIconos() {
@@ -50,9 +55,12 @@ class AgregarCuentaActividad : AppCompatActivity() {
             }
 
             Toast.makeText(this, "Cuenta '$nombreCuenta' añadida correctamente", Toast.LENGTH_SHORT).show()
-            finish()
+
         }
+
     }
+
+
 
     private fun resaltarIconoSeleccionado(idSeleccionado: Int) {
         for (icono in iconos) {

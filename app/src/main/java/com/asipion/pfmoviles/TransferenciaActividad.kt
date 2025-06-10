@@ -5,9 +5,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.asipion.pfmoviles.databinding.ActividadAgregarCuentaBinding
 import com.google.android.material.button.MaterialButton
 
 class TransferenciaActividad : AppCompatActivity() {
+
+    private lateinit var binding: ActividadAgregarCuentaBinding
 
     private lateinit var backArrow: ImageView
     private lateinit var fromAccountLayout: LinearLayout
@@ -24,10 +27,16 @@ class TransferenciaActividad : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActividadAgregarCuentaBinding.inflate(layoutInflater)
         setContentView(R.layout.actividad_transferencia)
 
         inicializarVista()
         configurarEventos()
+
+        // ← Botón de retroceso
+        binding.ivBackArrow.setOnClickListener {
+            finish()
+        }
     }
 
     private fun inicializarVista() {
