@@ -88,22 +88,26 @@ class InicioActivity : AppCompatActivity() {
                     Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
                 }
                 R.id.item_cuentas -> {
+                    Toast.makeText(this, "Ya estás en Cuentas", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, CuentasActividad::class.java))
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 }
                 R.id.item_graficos -> {
+                    Toast.makeText(this, "Ya estás en Graficos", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, GraficosActivity::class.java))
                 }
                 R.id.item_categorias -> {
+                    Toast.makeText(this, "Ya estás en Categorias", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, MenuCategoriasActividad::class.java))
                 }
                 R.id.item_pagos_habituales -> {
+                    Toast.makeText(this, "Ya estás en Pagos Habituales", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, PagosHabitualesActividad::class.java))
                 }
                 R.id.item_recordatorios -> {
                     startActivity(Intent(this, RecordatoriosActividad::class.java))
                 }
                 R.id.item_ajustes -> {
+                    Toast.makeText(this, "Ya estás en Ajustes", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, AjustesActividad::class.java))
                 }
                 R.id.item_cerrar_sesion -> {

@@ -42,6 +42,13 @@
         <activity android:name=".PerfilActivity" />
         <activity android:name=".PerfilFinancieroActivity" />
 
+        <!-- Parte Cuentas -->
+        <activity android:name=".CuentasActividad" />
+        <activity android:name=".TransferenciaActividad" />
+        <activity android:name=".AgregarCuentaActividad" />
+
+
+
         <!-- Parte Gráficos -->
         <activity android:name=".GraficosActivity" />
 
@@ -55,6 +62,16 @@
         <activity android:name=".AnadirCategoriaActividad" />
         <activity android:name=".CatalogoIconoActividad" />
         <activity android:name=".DetalleTransaccionActividad" />
+
+        <!-- Parte Pagos Habituales -->
+        <activity android:name=".PagosHabitualesActividad" />
+
+        <!-- Parte Pagos Habituales -->
+        <activity android:name=".RecordatoriosActividad" />
+
+        <!-- Parte Ajustes-->
+        <activity android:name=".AjustesActividad" />
+
 
         <!-- Actividad raíz (opcional) -->
         <activity android:name=".MainActivity" />
