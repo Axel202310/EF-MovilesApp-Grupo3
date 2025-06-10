@@ -111,6 +111,9 @@ class InicioActivity : AppCompatActivity() {
                     startActivity(Intent(this, AjustesActividad::class.java))
                 }
                 R.id.item_cerrar_sesion -> {
+                    val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+                    prefs.edit().clear().apply() // 🔥 Borra toda la sesión
+
                     Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, BienvenidaActividad::class.java))
                     finish()

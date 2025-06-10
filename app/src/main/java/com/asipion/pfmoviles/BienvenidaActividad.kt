@@ -31,8 +31,9 @@ class BienvenidaActividad : AppCompatActivity() {
                 // Usuario no autenticado, enviar a login o flujo inicial
                 startActivity(Intent(this, RegistroActividad::class.java))
             }
-            val intent = Intent(this, RegistroActividad::class.java)
-            startActivity(intent)
+            // ❌ Este bloque de abajo es innecesario y sobrescribe lo anterior
+            // val intent = Intent(this, RegistroActividad::class.java)
+            // startActivity(intent)
         }
     }
 }
