@@ -21,7 +21,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
         seleccionCategorias()
         abrirmodificar()
         pasarVistaAñadir()
-
     }
     private fun abrirmodificar(){
         val btncat1 = findViewById<Button>(R.id.btncat1)
@@ -31,7 +30,7 @@ class MenuCategoriasActividad : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    
     private fun seleccion() {
         val btnGasto = findViewById<Button>(R.id.btnGasto)
         val btnIngreso = findViewById<Button>(R.id.btnIngreso)

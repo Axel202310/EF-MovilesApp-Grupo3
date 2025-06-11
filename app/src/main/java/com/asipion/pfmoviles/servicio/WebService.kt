@@ -36,6 +36,10 @@ interface WebService {
 
     @GET("transacciones/{id_usuario}")
     suspend fun obtenerTransacciones(@Path("id_usuario") idUsuario: Int): Response<TransaccionResponse>
+
+    @GET("/usuario/configuracion/{id_usuario}")
+    fun obtenerConfiguracionInicial(@Path("id_usuario") idUsuario: Int): Call<ConfiguracionResponse>
+
 }
 object RetrofitClient {
     val webService: WebService by lazy {
