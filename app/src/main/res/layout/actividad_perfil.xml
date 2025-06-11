@@ -1,170 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<!-- DrawerLayout es el contenedor raíz para incluir el menú lateral -->
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_perfil"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_background"
-    tools:context=".PerfilActivity">
+    android:background="@color/dark_background">
 
-    <!-- Barra superior (AppBar) -->
-    <com.google.android.material.appbar.AppBarLayout
+    <!-- Contenido principal con barra superior -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/appbar_background"
-        app:elevation="0dp">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <!-- AppBar con la toolbar -->
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:navigationIcon="@drawable/ic_menu"
-            app:title="@string/perfil_title"
-            app:titleTextColor="@android:color/white" />
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            app:elevation="0dp">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <!-- Toolbar personalizada -->
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBarPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="Mi Perfil"
+                app:titleTextColor="#FFFFFF"
+                app:navigationIcon="@drawable/ic_menu_24"
+                app:navigationIconTint="#FFFFFF" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Contenido principal de la pantalla -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        <!-- Contenido de la pantalla de perfil -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contenido_perfil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <!-- Imagen de perfil -->
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/profile_image_desc"
+                android:src="@drawable/ic_profile_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Ícono de correo -->
+            <ImageView
+                android:id="@+id/email_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="48dp"
+                android:contentDescription="@string/email_icon_desc"
+                android:src="@drawable/ic_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_image"
+                app:tint="@color/icon_tint" />
+
+            <!-- Etiqueta correo -->
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/email_label"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/email_icon"
+                app:layout_constraintTop_toTopOf="@id/email_icon" />
+
+            <!-- Valor del correo -->
+            <TextView
+                android:id="@+id/email_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="usuario@correo.com"
+                android:textColor="@color/accent_orange"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/email_label"
+                app:layout_constraintTop_toBottomOf="@id/email_label" />
+
+
+
+            <!-- Ícono de contraseña -->
+            <ImageView
+                android:id="@+id/password_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/password_icon_desc"
+                android:src="@drawable/ic_lock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_value"
+                app:tint="@color/icon_tint" />
+
+            <!-- Etiqueta de contraseña -->
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/password_label"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/password_icon"
+                app:layout_constraintTop_toTopOf="@id/password_icon" />
+
+            <!-- Modificar contraseña -->
+            <TextView
+                android:id="@+id/password_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password_modify"
+                android:textColor="@color/accent_green"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/password_label"
+                app:layout_constraintTop_toBottomOf="@id/password_label" />
+
+            <!-- ID de usuario -->
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="ID: 12345"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/password_modify"
+                app:layout_constraintTop_toBottomOf="@id/password_modify" />
+
+            <!-- Botón eliminar cuenta -->
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_account_desc"
+                android:padding="8dp"
+                android:src="@drawable/ic_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/accent_orange" />
+
+            <!-- Botón cerrar sesión -->
+            <TextView
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/logout_button"
+                android:textColor="@color/accent_orange"
+                android:textSize="16sp"
+                android:drawablePadding="8dp"
+                app:drawableEndCompat="@drawable/ic_logout"
+                app:drawableTint="@color/accent_orange"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- Menú lateral que reutiliza el layout y menú del Inicio -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navegacion_lateral_perfil"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="24dp">
-
-        <!-- Imagen de perfil -->
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="32dp"
-            android:contentDescription="@string/profile_image_desc"
-            android:src="@drawable/ic_profile_placeholder"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Sección de Correo Electrónico -->
-        <ImageView
-            android:id="@+id/email_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="48dp"
-            android:contentDescription="@string/email_icon_desc"
-            android:src="@drawable/ic_email"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image"
-            app:tint="@color/icon_tint" />
-
-        <TextView
-            android:id="@+id/email_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/email_label"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/email_icon"
-            app:layout_constraintTop_toTopOf="@id/email_icon" />
-
-        <TextView
-            android:id="@+id/email_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_email"
-            android:textColor="@color/accent_orange"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/email_label"
-            app:layout_constraintTop_toBottomOf="@id/email_label" />
-
-        <ImageView
-            android:id="@+id/edit_email_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/edit_icon_desc"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@id/email_value"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/email_label"
-            app:tint="@color/accent_orange" />
-
-        <!-- Sección de Contraseña -->
-        <ImageView
-            android:id="@+id/password_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="32dp"
-            android:contentDescription="@string/password_icon_desc"
-            android:src="@drawable/ic_lock"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_value"
-            app:tint="@color/icon_tint" />
-
-        <TextView
-            android:id="@+id/password_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/password_label"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/password_icon"
-            app:layout_constraintTop_toTopOf="@id/password_icon" />
-
-        <TextView
-            android:id="@+id/password_modify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password_modify"
-            android:textColor="@color/accent_green"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/password_label"
-            app:layout_constraintTop_toBottomOf="@id/password_label" />
-
-        <!-- ID de Usuario -->
-        <TextView
-            android:id="@+id/user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/user_id"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/password_modify"
-            app:layout_constraintTop_toBottomOf="@id/password_modify" />
-
-        <!-- Botón de Borrar Cuenta -->
-        <ImageButton
-            android:id="@+id/delete_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/delete_account_desc"
-            android:padding="8dp"
-            android:src="@drawable/ic_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tint="@color/accent_orange" />
-
-        <!-- Botón de Salir (Logout) -->
-        <TextView
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/logout_button"
-            android:textColor="@color/accent_orange"
-            android:textSize="16sp"
-            app:drawableEndCompat="@drawable/ic_logout"
-            app:drawableTint="@color/accent_orange"
-            android:drawablePadding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_gravity="start"
+        android:background="#212121"
+        app:headerLayout="@layout/header_menu_lateral"
+        app:menu="@menu/menu_lateral" />
+</androidx.drawerlayout.widget.DrawerLayout>

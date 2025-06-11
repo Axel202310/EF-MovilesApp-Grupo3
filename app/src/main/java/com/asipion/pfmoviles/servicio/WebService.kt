@@ -9,13 +9,14 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
 object AppConstantes {
-    const val BASE_URL= "http://192.168.18.158:3000"
+    const val BASE_URL= "http://192.168.1.126:3000"
 }
 
 interface WebService {
@@ -37,8 +38,12 @@ interface WebService {
     @GET("transacciones/{id_usuario}")
     suspend fun obtenerTransacciones(@Path("id_usuario") idUsuario: Int): Response<TransaccionResponse>
 
-    @GET("/usuario/configuracion/{id_usuario}")
-    fun obtenerConfiguracionInicial(@Path("id_usuario") idUsuario: Int): Call<ConfiguracionResponse>
+    @DELETE("/usuario/eliminar/{id}")
+    suspend fun eliminarUsuario(@Path("id") idUsuario: Int): Response<Void>
+
+    @PUT("/usuario/modificar")
+    suspend fun modificarUsuario(@Body usuario: Usuario): Response<MensajeResponse>
+
 
 }
 object RetrofitClient {

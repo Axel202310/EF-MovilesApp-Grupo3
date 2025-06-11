@@ -252,7 +252,14 @@ class InicioActivity : AppCompatActivity() {
 
         textCorreo.text = correoUsuario
         textSaldo.text = "Balance: ${String.format("%.2f", monto)} $moneda"
+
+        // 🚀 Aquí se agrega el listener al header
+        headerView.setOnClickListener {
+            startActivity(Intent(this, PerfilActivity::class.java))
+            binding.drawerLayout.closeDrawers()
+        }
     }
+
 
 
 }
