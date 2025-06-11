@@ -44,7 +44,8 @@ interface WebService {
     @PUT("/usuario/modificar")
     suspend fun modificarUsuario(@Body usuario: Usuario): Response<MensajeResponse>
 
-
+    @GET("/usuario/configuracion/{id_usuario}")
+    fun obtenerConfiguracionInicial(@Path("id_usuario") idUsuario: Int): Call<ConfiguracionResponse>
 }
 object RetrofitClient {
     val webService: WebService by lazy {
