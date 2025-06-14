@@ -28,4 +28,14 @@
     <color name="encabezado_dark">#2C2C2E</color>
     <color name="app_icon_background">#1C5441</color>
 
+    <color name="rojo_gasto">#F44336</color>
+    <color name="verde_ingreso">#4CAF50</color>
+
+    <!-- En res/values/colors.xml -->
+    <color name="grafico_color_1">#EF5350</color>
+    <color name="grafico_color_2">#66BB6A</color>
+    <color name="grafico_color_3">#FFA726</color>
+    <color name="grafico_color_4">#5C6BC0</color>
+    <color name="grafico_color_5">#29B6F6</color>
+
 </resources>

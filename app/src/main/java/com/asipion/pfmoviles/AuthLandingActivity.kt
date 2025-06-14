@@ -6,20 +6,21 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class RegistroActividad : AppCompatActivity() {
+class AuthLandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Usamos tu layout existente que tiene los dos botones.
         setContentView(R.layout.actividad_registro)
 
         val botonRegistrarse = findViewById<Button>(R.id.boton_registrarse)
         val textoIniciarSesion = findViewById<TextView>(R.id.texto_iniciar_sesion)
 
         botonRegistrarse.setOnClickListener {
-            startActivity(Intent(this, RegistroCorreoActividad::class.java))
+            startActivity(Intent(this, RegistroActivity::class.java))
         }
 
         textoIniciarSesion.setOnClickListener {
-            startActivity(Intent(this, IniciarSesionCorreoActividad::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

@@ -1,12 +1,25 @@
 package com.asipion.pfmoviles.model
-import java.util.Date
+import com.google.gson.annotations.SerializedName
 
-data class Transaccion (
-    var id_transaccion: Int? = null,
-    var monto_transaccion: Double,
-    var moneda: String,
-    var fecha: Date? = null,
-    var id_usuario: Int,
-    var id_categoria: Int? = null,
-    var idcuenta: Int? = null,
-    )
+// Este modelo representa una Transacción COMPLETA que RECIBES de la API
+data class Transaccion(
+    @SerializedName("id_transaccion")
+    val idTransaccion: Int,
+    @SerializedName("id_cuenta")
+    val idCuenta: Int,
+    @SerializedName("id_categoria")
+    val idCategoria: Int,
+    @SerializedName("monto_transaccion")
+    val montoTransaccion: Double,
+    @SerializedName("descripcion")
+    val descripcion: String?,
+    @SerializedName("fecha_transaccion")
+    val fechaTransaccion: String,
+    // --- Campos extra que añade la API con el JOIN ---
+    @SerializedName("tipo_categoria")
+    val tipoTransaccion: String,
+    @SerializedName("nombre_categoria")
+    val nombreCategoria: String?,
+    @SerializedName("img_categoria")
+    val imgCategoria: String?
+)

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.asipion.pfmoviles">
 
-    <!-- Permiso necesario para acceder a Internet, especialmente importante para Firebase Auth -->
+    <!-- Permisos esenciales. INTERNET es clave para la API. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,69 +13,87 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/Theme.PFMoviles">
+        android:theme="@style/Theme.PFMoviles"
+        tools:targetApi="31">
 
-        <!-- Pantalla de bienvenida -->
-        <activity android:name=".BienvenidaActividad" android:exported="true">
+        <!-- ============================================================== -->
+        <!-- FLUJO DE ENTRADA Y AUTENTICACIÓN (CORREGIDO Y CONSOLIDADO) -->
+        <!-- ============================================================== -->
+
+        <!-- CORREGIDO: Actividad de bienvenida, es el punto de entrada a la app. -->
+        <activity android:name=".BienvenidaActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Registro -->
-        <activity android:name=".RegistroActividad" />
-        <activity android:name=".RegistroCorreoActividad" />
-        <activity android:name=".RegistroContrasenaActividad" />
+        <!-- NUEVO: Actividad que muestra los botones "Registrarse" o "Iniciar Sesión". -->
+        <activity android:name=".AuthLandingActivity" />
 
-        <!-- Inicio de sesión -->
-        <activity android:name=".IniciarSesionCorreoActividad" />
-        <activity android:name=".IniciarSesionContrasenaActividad" />
+        <!-- CONSOLIDADO: Pantalla única para el registro. -->
+        <activity android:name=".RegistroActivity" />
 
-        <!-- Selección de divisa y saldo -->
-        <activity android:name=".SeleccionarDivisaActividad" />
-        <activity android:name=".IngresarSaldoActividad" />
+        <!-- CONSOLIDADO: Pantalla única para el inicio de sesión. -->
+        <activity android:name=".LoginActivity" />
 
-        <!-- Parte Inicio -->
+
+        <!-- ============================================================== -->
+        <!-- FLUJO DE ONBOARDING (CONFIGURACIÓN INICIAL DEL USUARIO) -->
+        <!-- ============================================================== -->
+
+        <activity android:name=".SeleccionarDivisaActivity" />
+        <activity android:name=".IngresarSaldoActivity" />
+
+
+        <!-- ============================================================== -->
+        <!-- PANTALLAS PRINCIPALES DE LA APP -->
+        <!-- ============================================================== -->
+
+        <!-- El Dashboard principal después del login/onboarding. -->
         <activity android:name=".InicioActivity" />
 
-        <!-- Parte Perfil -->
+        <!-- Pantalla para ver y gestionar el perfil del usuario. -->
         <activity android:name=".PerfilActivity" />
-        <activity android:name=".PerfilFinancieroActivity" />
 
-        <!-- Parte Cuentas -->
+        <!-- Pantalla para ver y gestionar las cuentas. -->
         <activity android:name=".CuentasActividad" />
-        <activity android:name=".TransferenciaActividad" />
-        <activity android:name=".AgregarCuentaActividad" />
 
-
-
-        <!-- Parte Gráficos -->
-        <activity android:name=".GraficosActivity" />
-
-        <!-- Parte Categorías -->
-        <activity android:name=".MenuCategoriasActividad" />
-        <activity android:name=".ModificarCategoriaActividad" />
-        <activity android:name=".CrearCategoriaActividad" />
-
-        <!-- Parte Transacciones -->
+        <!-- Pantalla para añadir nuevas transacciones. -->
         <activity android:name=".AgregarTransaccionActividad" />
-        <activity android:name=".AnadirCategoriaActividad" />
-        <activity android:name=".CatalogoIconoActividad" />
+
+        <!-- Pantalla para gestionar las categorías. -->
+        <activity android:name=".MenuCategoriasActividad" />
+
+        <activity android:name=".DetalleTransaccionActivity" />
+
+
+        <!-- ============================================================== -->
+        <!-- OTRAS ACTIVIDADES (MANTENIDAS POR AHORA) -->
+        <!-- ============================================================== -->
+        <!-- Estas actividades se mantienen por ahora. Podéis decidir si se consolidan o eliminan más adelante. -->
+        <activity android:name=".GraficosActivity" />
+        <activity android:name=".PagosHabitualesActividad" />
+        <activity android:name=".RecordatoriosActividad" />
+        <activity android:name=".AjustesActividad" />
         <activity android:name=".DetalleTransaccionActividad" />
 
-        <!-- Parte Pagos Habituales -->
-        <activity android:name=".PagosHabitualesActividad" />
-
-        <!-- Parte Pagos Habituales -->
-        <activity android:name=".RecordatoriosActividad" />
-
-        <!-- Parte Ajustes-->
-        <activity android:name=".AjustesActividad" />
-
-
-        <!-- Actividad raíz (opcional) -->
+        <!-- ============================================================== -->
+        <!-- ACTIVIDADES ELIMINADAS (YA NO SON NECESARIAS) -->
+        <!-- ============================================================== -->
+        <!--
+        <activity android:name=".RegistroCorreoActividad" />
+        <activity android:name=".RegistroContrasenaActividad" />
+        <activity android:name=".IniciarSesionCorreoActividad" />
+        <activity android:name=".IniciarSesionContrasenaActividad" />
+        <activity android:name=".PerfilFinancieroActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".TransferenciaActividad" />
+        <activity android:name=".AnadirCategoriaActividad" />
+        <activity android:name=".ModificarCategoriaActividad" />
+        <activity android:name=".CrearCategoriaActividad" />
+        -->
+
     </application>
 
 </manifest>

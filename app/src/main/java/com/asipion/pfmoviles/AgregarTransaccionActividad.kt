@@ -1,180 +1,209 @@
 package com.asipion.pfmoviles
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.recyclerview.widget.RecyclerView
+import com.asipion.pfmoviles.model.Categoria
+import com.asipion.pfmoviles.model.Cuenta
+import com.asipion.pfmoviles.model.TransaccionParaCrear
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AgregarTransaccionActividad : AppCompatActivity() {
 
+    // Vistas de la UI
+    private lateinit var tabLayoutTipo: TabLayout
+    private lateinit var montoEditText: EditText
+    private lateinit var cuentasSpinner: Spinner
+    private lateinit var categoriasRecyclerView: RecyclerView
+    private lateinit var fechaEditText: EditText
+    private lateinit var btnAnadir: Button
+    private lateinit var btnAtras: ImageButton
 
-    private lateinit var etDate: EditText
-    private lateinit var btnAtras: Button
+    // Adaptadores y datos
+    private lateinit var categoriaAdapter: CategoriaAdapter
+    private var listaCuentas: List<Cuenta> = emptyList()
+
+    // Estado de la selección
+    private var tipoSeleccionado = "gasto" // Por defecto
+    private var cuentaSeleccionada: Cuenta? = null
+    private var categoriaSeleccionada: Categoria? = null
+    private var fechaSeleccionada: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.agregartransaccion)
-        etDate = findViewById(R.id.etDate)
+
+        inicializarVistas()
+        configurarListeners()
+
+        // Inicialmente cargamos los datos para "gasto"
+        cargarDatosIniciales()
+    }
+
+    private fun inicializarVistas() {
+        tabLayoutTipo = findViewById(R.id.tab_layout_tipo)
+        montoEditText = findViewById(R.id.txtMonto)
+        cuentasSpinner = findViewById(R.id.spinner_cuentas)
+        categoriasRecyclerView = findViewById(R.id.recycler_view_categorias)
+        fechaEditText = findViewById(R.id.etDate)
+        btnAnadir = findViewById(R.id.btnAnadir)
         btnAtras = findViewById(R.id.btnAtras)
 
-        // Mostrar selector de fecha al hacer click
-        etDate.setOnClickListener {
+        // Configurar el RecyclerView
+        categoriaAdapter = CategoriaAdapter(emptyList()) { categoria ->
+            categoriaSeleccionada = categoria
+        }
+        categoriasRecyclerView.adapter = categoriaAdapter
+    }
+
+    private fun configurarListeners() {
+        btnAtras.setOnClickListener { finish() } // Manera correcta de volver atrás
+
+        tabLayoutTipo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tipoSeleccionado = if (tab?.position == 0) "gasto" else "ingreso"
+                cargarCategorias()
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        fechaEditText.setOnClickListener {
             val datePicker = DatePickerFragment { day, month, year ->
-                val fechaFormateada = "%02d/%02d/%04d".format(day, month + 1, year)
-                etDate.setText(fechaFormateada)
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day)
+
+                val formatoApi = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                fechaSeleccionada = formatoApi.format(calendar.time)
+
+                val formatoVista = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                fechaEditText.setText(formatoVista.format(calendar.time))
             }
             datePicker.show(supportFragmentManager, "selector_fecha")
         }
 
-
-        seleccion()
-        seleccionCategorias()
-        atras()
-        pasarVistaAñadir()
-    }
-
-    private fun atras(){
-        val btnAtras = findViewById<Button>(R.id.btnAtras)
-
-        btnAtras.setOnClickListener {
-            val intent = Intent(this, InicioActivity::class.java)
-            startActivity(intent)
+        btnAnadir.setOnClickListener {
+            guardarTransaccion()
         }
     }
 
-    private fun seleccion() {
-        val btnGasto = findViewById<Button>(R.id.btnGasto)
-        val btnIngreso = findViewById<Button>(R.id.btnIngreso)
-        val underlineGasto = findViewById<View>(R.id.underlineGasto)
-        val underlineIngreso = findViewById<View>(R.id.underlineIngreso)
-
-        val textosCategoria = listOf(
-            findViewById<TextView>(R.id.txtcat1),
-            findViewById<TextView>(R.id.txtCat2),
-            findViewById<TextView>(R.id.txtCat3),
-            findViewById<TextView>(R.id.txtCat4),
-            findViewById<TextView>(R.id.txtCat5),
-            findViewById<TextView>(R.id.txtCat6),
-            findViewById<TextView>(R.id.txtCat7)
-        )
-
-        val nombresGasto = listOf("Educacion", "Salud", "Transporte", "Hogar", "Regalos", "Alimentos", "Otros")
-        val nombresIngreso = listOf("Sueldo", "Ventas", "Inversiones", "Premios", "Ahorros", "Bonos", "Otros")
-
-        btnGasto.setOnClickListener {
-            underlineGasto.visibility = View.VISIBLE
-            underlineIngreso.visibility = View.GONE
-
-            textosCategoria.forEachIndexed { index, textView ->
-                textView.text = nombresGasto[index]
-            }
+    private fun cargarDatosIniciales() {
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        if (idUsuario == -1) {
+            Toast.makeText(this, "Error de sesión", Toast.LENGTH_SHORT).show()
+            finish()
+            return
         }
 
-        btnIngreso.setOnClickListener {
-            underlineIngreso.visibility = View.VISIBLE
-            underlineGasto.visibility = View.GONE
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Cargamos cuentas y categorías en paralelo (más eficiente)
+                val cuentasResponse = RetrofitClient.webService.obtenerCuentas(idUsuario)
+                val categoriasResponse = RetrofitClient.webService.obtenerCategorias(idUsuario, tipoSeleccionado)
 
-            textosCategoria.forEachIndexed { index, textView ->
-                textView.text = nombresIngreso[index]
-            }
-        }
-    }
-
-    private fun seleccionCategorias() {
-        val categorias = listOf(
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat1),
-                findViewById<View>(R.id.vistaFondo1),
-                R.drawable.fondo_seleccionado_rojo to R.drawable.circulo_rojo
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat2),
-                findViewById<View>(R.id.vistaFondo2),
-                R.drawable.fondo_seleccionado_verdeagua to R.drawable.circulo_verdeagua
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat3),
-                findViewById<View>(R.id.vistaFondo3),
-                R.drawable.fondo_seleccionado_naranja to R.drawable.circulo_naranja
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat4),
-                findViewById<View>(R.id.vistaFondo4),
-                R.drawable.fondo_seleccionado_morado to R.drawable.circulo_morado
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat5),
-                findViewById<View>(R.id.vistaFondo5),
-                R.drawable.fondo_seleccionado_celeste to R.drawable.circulo_celeste
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat6),
-                findViewById<View>(R.id.vistaFondo6),
-                R.drawable.fondo_seleccionado_rosado to R.drawable.circulo_rosado
-            ),
-            Triple(
-                findViewById<LinearLayout>(R.id.contenedorCat7),
-                findViewById<View>(R.id.vistaFondo7),
-                R.drawable.fondo_seleccionado_verde to R.drawable.circulo_verde
-            )
-        )
-
-        val botones = listOf(
-            findViewById<Button>(R.id.btncat1),
-            findViewById<Button>(R.id.btncat2),
-            findViewById<Button>(R.id.btncat3),
-            findViewById<Button>(R.id.btncat4),
-            findViewById<Button>(R.id.btncat5),
-            findViewById<Button>(R.id.btncat6),
-            findViewById<Button>(R.id.btncat7)
-        )
-
-        var categoriaSeleccionada = -1
-
-        botones.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                if (categoriaSeleccionada != index) {
-                    // Limpiar todas las categorías
-                    categorias.forEachIndexed { i, triple ->
-                        triple.first.setBackgroundColor(Color.TRANSPARENT)
-                        triple.second.setBackgroundResource(triple.third.second)
+                withContext(Dispatchers.Main) {
+                    // Manejar respuesta de cuentas
+                    if (cuentasResponse.isSuccessful) {
+                        listaCuentas = cuentasResponse.body()?.listaCuentas ?: emptyList()
+                        val nombresCuentas = listaCuentas.map { it.nombreCuenta }
+                        val spinnerAdapter = ArrayAdapter(this@AgregarTransaccionActividad, android.R.layout.simple_spinner_dropdown_item, nombresCuentas)
+                        cuentasSpinner.adapter = spinnerAdapter
+                    } else {
+                        Toast.makeText(this@AgregarTransaccionActividad, "Error al cargar cuentas", Toast.LENGTH_SHORT).show()
                     }
 
-                    // Seleccionar la actual
-                    val (contenedor, vista, recursos) = categorias[index]
-                    contenedor.setBackgroundResource(recursos.first)
-                    vista.setBackgroundColor(Color.TRANSPARENT)
-
-                    categoriaSeleccionada = index
-                } else {
-                    // Deseleccionar si se vuelve a tocar
-                    categorias[index].first.setBackgroundColor(Color.TRANSPARENT)
-                    categorias[index].second.setBackgroundResource(categorias[index].third.second)
-                    categoriaSeleccionada = -1
+                    // Manejar respuesta de categorías
+                    if (categoriasResponse.isSuccessful) {
+                        val categorias = categoriasResponse.body()?.listaCategorias ?: emptyList()
+                        categoriaAdapter.actualizarDatos(categorias)
+                    } else {
+                        Toast.makeText(this@AgregarTransaccionActividad, "Error al cargar categorías", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AgregarTransaccionActividad, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    private fun pasarVistaAñadir(){
-        val btnMas = findViewById<Button>(R.id.btnMas)
+    private fun cargarCategorias() {
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.webService.obtenerCategorias(idUsuario, tipoSeleccionado)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val categorias = response.body()?.listaCategorias ?: emptyList()
+                        categoriaAdapter.actualizarDatos(categorias)
+                        categoriaSeleccionada = null // Resetear selección al cambiar de tipo
+                    }
+                }
+            } catch (e: Exception) { /* ... */ }
+        }
+    }
 
-        btnMas.setOnClickListener {
-            val tipoSeleccionado = if (findViewById<View>(R.id.underlineGasto).visibility == View.VISIBLE) {
-                "gasto"
-            } else {
-                "ingreso"
+    private fun guardarTransaccion() {
+        // Validación de datos
+        val monto = montoEditText.text.toString().toDoubleOrNull()
+        if (monto == null || monto <= 0) {
+            Toast.makeText(this, "Ingrese un monto válido", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val cuentaSeleccionada = listaCuentas.getOrNull(cuentasSpinner.selectedItemPosition)
+        if (cuentaSeleccionada == null) {
+            Toast.makeText(this, "Seleccione una cuenta", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (categoriaSeleccionada == null) {
+            Toast.makeText(this, "Seleccione una categoría", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (fechaSeleccionada.isEmpty()) {
+            Toast.makeText(this, "Seleccione una fecha", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Creamos el objeto para enviar a la API
+        val transaccionParaCrear = TransaccionParaCrear(
+            idCuenta = cuentaSeleccionada.idCuenta,
+            idCategoria = categoriaSeleccionada!!.idCategoria,
+            montoTransaccion = monto,
+            descripcion = null, // Puedes añadir un campo para esto
+            fechaTransaccion = fechaSeleccionada
+        )
+
+        // Llamada a la API
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.webService.agregarTransaccion(transaccionParaCrear)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@AgregarTransaccionActividad, "Transacción guardada", Toast.LENGTH_SHORT).show()
+                        finish() // Volver a la pantalla anterior (InicioActivity)
+                    } else {
+                        Toast.makeText(this@AgregarTransaccionActividad, "Error al guardar", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@AgregarTransaccionActividad, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
-
-            val intent = Intent(this, AnadirCategoriaActividad::class.java)
-            intent.putExtra("tipoCategoria", tipoSeleccionado) // Enviar el tipo seleccionado
-            startActivity(intent)
         }
     }
 }

@@ -1,7 +1,11 @@
 package com.asipion.pfmoviles.model
+import com.google.gson.annotations.SerializedName
 
 data class Usuario(
-    var id_usuario: Int? = null,
-    var correo_usuario: String,
-    var contra_usuario: String,
+    @SerializedName("id_usuario")
+    val idUsuario: Int,
+    @SerializedName("correo_usuario")
+    val correoUsuario: String,
+    // Solo para enviar, nunca para recibir
+    var password: String? = null
 )

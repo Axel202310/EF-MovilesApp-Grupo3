@@ -1,0 +1,97 @@
+<!-- Archivo: res/layout/activity_detalle_transaccion.xml (NUEVO) -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    tools:context=".DetalleTransaccionActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#303030"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Detalle de Transacción"
+            app:titleTextColor="#FFFFFF"
+            app:navigationIcon="@drawable/atras1"
+            app:navigationIconTint="#FFFFFF"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/text_detalle_monto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
+        tools:text="- S/ 50.00" />
+
+    <TextView
+        android:id="@+id/label_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoría"
+        android:textColor="#AAAAAA"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@id/text_detalle_monto"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_detalle_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/label_categoria"
+        app:layout_constraintStart_toStartOf="@id/label_categoria"
+        tools:text="Alimentos" />
+
+    <TextView
+        android:id="@+id/label_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:textColor="#AAAAAA"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/text_detalle_categoria"
+        app:layout_constraintStart_toStartOf="@id/label_categoria" />
+
+    <TextView
+        android:id="@+id/text_detalle_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/label_fecha"
+        app:layout_constraintStart_toStartOf="@id/label_categoria"
+        tools:text="13 de Junio de 2025" />
+
+    <Button
+        android:id="@+id/btn_eliminar_transaccion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="#D32F2F"
+        android:text="Eliminar Transacción"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

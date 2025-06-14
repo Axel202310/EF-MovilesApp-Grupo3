@@ -1,0 +1,20 @@
+<!-- Archivo: res/layout/item_usuario.xml (NUEVO) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_usuario_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: 1"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_usuario_correo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="usuario@ejemplo.com"/>
+</LinearLayout>

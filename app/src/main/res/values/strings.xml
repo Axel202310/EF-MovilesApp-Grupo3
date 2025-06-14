@@ -139,4 +139,18 @@
     <string name="open_drawer">Abrir menú</string>
     <string name="close_drawer">Cerrar menú</string>
 
+
+    <!-- ... otros strings ... -->
+    <string name="anadir_transaccion_titulo">Añadir Transacción</string>
+    <string name="gastos_tab">GASTOS</string>
+    <string name="ingresos_tab">INGRESOS</string>
+    <string name="monto_hint">0</string>
+    <string name="cuenta_label">Cuenta</string>
+    <string name="categorias_label">Categorías</string>
+    <string name="fecha_hint">Selecciona el día</string>
+    <string name="anadir_btn">Añadir</string>
+    <string name="atras_content_desc">Botón para volver atrás</string>
+    <string name="icono_categoria_content_desc">Icono de la categoría</string>
+
+
 </resources>

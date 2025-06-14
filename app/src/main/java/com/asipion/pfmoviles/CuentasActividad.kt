@@ -84,7 +84,7 @@ class CuentasActividad : AppCompatActivity() {
                 }
                 R.id.item_cerrar_sesion -> {
                     Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, BienvenidaActividad::class.java))
+                    startActivity(Intent(this, BienvenidaActivity::class.java))
                     finish()
                 }
             }

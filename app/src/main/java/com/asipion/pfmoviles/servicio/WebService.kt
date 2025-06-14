@@ -1,52 +1,69 @@
 package com.asipion.pfmoviles.servicio
 
-import com.asipion.pfmoviles.model.Transaccion
-import com.asipion.pfmoviles.model.Usuario
-
+import com.asipion.pfmoviles.model.*
 import com.google.gson.GsonBuilder
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 object AppConstantes {
-    const val BASE_URL= "http://192.168.1.126:3000"
+    const val BASE_URL = "http://192.168.18.158:3000"
 }
 
 interface WebService {
-    @GET("/usuarios")
-    suspend fun cargarUsuarios(): Response<UsuarioResponse>
 
-    @POST("/usuario/agregar")
-    suspend fun agregarUsuario(@Body usuario: Usuario): Response<MensajeResponse>
+    // --- AUTENTICACIÓN ---
+    @POST("usuario/registrar")
+    suspend fun registrarUsuario(@Body usuario: Usuario): Response<MensajeResponse>
 
-    @POST("/usuario/login")
+    @POST("usuario/login")
     suspend fun iniciarSesion(@Body usuario: Usuario): Response<MensajeResponse>
 
-    @GET("/transacciones")
-    suspend fun cargarTransacciones(): Response<TransaccionResponse>
+    // --- CUENTAS ---
+    @POST("cuenta/crear")
+    suspend fun crearCuenta(@Body cuenta: CuentaParaCrear): Response<MensajeResponse>
 
-    @POST("/transaccion/agregar")
-    suspend fun agregarTransaccion(@Body transaccion: Transaccion): Response<MensajeResponse>
+    @GET("cuentas/{idUsuario}")
+    suspend fun obtenerCuentas(@Path("idUsuario") idUsuario: Int): Response<CuentaResponse>
 
-    @GET("transacciones/{id_usuario}")
-    suspend fun obtenerTransacciones(@Path("id_usuario") idUsuario: Int): Response<TransaccionResponse>
+    // --- CATEGORÍAS ---
+    @POST("categoria/agregar")
+    suspend fun crearCategoria(@Body categoria: Categoria): Response<MensajeResponse>
 
-    @DELETE("/usuario/eliminar/{id}")
-    suspend fun eliminarUsuario(@Path("id") idUsuario: Int): Response<Void>
+    @GET("categorias/{idUsuario}")
+    suspend fun obtenerCategorias(
+        @Path("idUsuario") idUsuario: Int,
+        @Query("tipo") tipo: String // "ingreso" o "gasto"
+    ): Response<CategoriaResponse>
 
-    @PUT("/usuario/modificar")
-    suspend fun modificarUsuario(@Body usuario: Usuario): Response<MensajeResponse>
+    // --- TRANSACCIONES ---
+    @POST("transaccion/agregar")
+    suspend fun agregarTransaccion(@Body transaccion: TransaccionParaCrear): Response<MensajeResponse>
 
-    @GET("/usuario/configuracion/{id_usuario}")
-    fun obtenerConfiguracionInicial(@Path("id_usuario") idUsuario: Int): Call<ConfiguracionResponse>
+    @GET("transacciones/{idCuenta}")
+    suspend fun obtenerTransaccionesDeCuenta(@Path("idCuenta") idCuenta: Int): Response<TransaccionResponse>
+
+    // OBTENER EL DETALLE DE UNA TRANSACCIÓN
+    @GET("transaccion/{id}")
+    suspend fun obtenerDetalleTransaccion(@Path("id") idTransaccion: Int): Response<Transaccion>
+
+    // ELIMINAR UNA TRANSACCIÓN
+    @DELETE("transaccion/eliminar/{id}")
+    suspend fun eliminarTransaccion(@Path("id") idTransaccion: Int): Response<MensajeResponse>
+
+    // --- GESTIÓN DE PERFIL (NUEVO) ---
+    @POST("usuario/modificar_contrasena")
+    suspend fun modificarContrasena(
+        @Body datos: UsuarioActualizarPassword
+    ): Response<MensajeResponse>
+
+    @DELETE("usuario/eliminar/{id}")
+    suspend fun eliminarUsuario(
+        @Path("id") idUsuario: Int
+    ): Response<MensajeResponse>
 }
+
 object RetrofitClient {
     val webService: WebService by lazy {
         Retrofit.Builder()
@@ -54,6 +71,5 @@ object RetrofitClient {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()
             .create(WebService::class.java)
-
     }
 }

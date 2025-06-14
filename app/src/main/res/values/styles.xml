@@ -7,4 +7,10 @@
     <item name="android:textColor">#BDBDBD</item>
     <item name="android:textSize">12sp</item>
 </style>
+
+    <!-- NUEVO ESTILO PARA EL SPINNER -->
+    <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:backgroundTint">#AAAAAA</item>
+    </style>
 </resources>

@@ -1,8 +1,9 @@
 package com.asipion.pfmoviles.servicio
-
-import com.asipion.pfmoviles.model.*
+import com.asipion.pfmoviles.model.Transaccion
 import com.google.gson.annotations.SerializedName
 
 data class TransaccionResponse(
-    @SerializedName("listatransacciones") var listaTransacciones: List<Transaccion>
+    // La clave debe coincidir con la del index.js
+    @SerializedName("listaTransacciones")
+    val listaTransacciones: List<Transaccion>
 )

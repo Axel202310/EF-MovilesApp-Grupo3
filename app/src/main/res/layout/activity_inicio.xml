@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,9 +11,10 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#303030">
+        android:background="#1E1E1E">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#303030"
@@ -30,185 +30,215 @@
                 app:navigationIconTint="#FFFFFF"/>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
-            android:background="#1E1E1E"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- Título -->
-            <TextView
-                android:id="@+id/textViewTotalLabel"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total"
-                android:textColor="#AAAAAA"
-                android:textSize="16sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                android:padding="16dp">
 
-            <!-- Ícono desplegable -->
-            <ImageView
-                android:id="@+id/imageViewDropDown"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="4dp"
-                android:src="@drawable/ic_arrow_drop_down_24"
-                android:contentDescription="Seleccionar cuenta"
-                app:tint="#AAAAAA"
-                app:layout_constraintTop_toTopOf="@id/textViewTotalLabel"
-                app:layout_constraintBottom_toBottomOf="@id/textViewTotalLabel"
-                app:layout_constraintStart_toEndOf="@id/textViewTotalLabel"/>
-
-            <!-- Saldo actual -->
-            <TextView
-                android:id="@+id/txtMonto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="0.00"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewTotalLabel" />
-
-            <!-- Tabs GASTOS / INGRESOS -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayoutType"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="#1E1E1E"
-                app:tabTextColor="#AAAAAA"
-                app:tabSelectedTextColor="#FF7043"
-                app:tabIndicatorColor="#FF7043"
-                app:tabIndicatorHeight="3dp"
-                app:layout_constraintTop_toBottomOf="@id/txtMonto"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.google.android.material.tabs.TabItem android:text="GASTOS"/>
-                <com.google.android.material.tabs.TabItem android:text="INGRESOS"/>
-            </com.google.android.material.tabs.TabLayout>
-
-            <!-- Tabs de periodo -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayoutPeriod"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#1E1E1E"
-                app:tabTextColor="#AAAAAA"
-                app:tabSelectedTextColor="#FF7043"
-                app:tabIndicatorColor="#FF7043"
-                app:tabIndicatorHeight="2dp"
-                app:tabMode="scrollable"
-                app:layout_constraintTop_toBottomOf="@id/tabLayoutType"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.google.android.material.tabs.TabItem android:text="Día"/>
-                <com.google.android.material.tabs.TabItem android:text="Semana"/>
-                <com.google.android.material.tabs.TabItem android:text="Mes"/>
-                <com.google.android.material.tabs.TabItem android:text="Año"/>
-            </com.google.android.material.tabs.TabLayout>
-
-            <!-- Fecha -->
-            <ImageButton
-                android:id="@+id/buttonPreviousDate"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_chevron_left_24"
-                android:contentDescription="Fecha anterior"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="#AAAAAA"
-                app:layout_constraintTop_toBottomOf="@id/tabLayoutPeriod"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textViewCurrentDate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Hoy, 21 de Abril"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="@id/buttonPreviousDate"
-                app:layout_constraintBottom_toBottomOf="@id/buttonPreviousDate"
-                app:layout_constraintStart_toEndOf="@id/buttonPreviousDate"
-                app:layout_constraintEnd_toStartOf="@id/buttonNextDate" />
-
-            <ImageButton
-                android:id="@+id/buttonNextDate"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:rotation="180"
-                android:src="@drawable/ic_chevron_left_24"
-                android:contentDescription="Fecha siguiente"
-                android:layout_marginTop="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:tint="#AAAAAA"
-                app:layout_constraintTop_toTopOf="@id/buttonPreviousDate"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Círculo (Dona) -->
-            <FrameLayout
-                android:id="@+id/donutContainer"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/textViewCurrentDate"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <View
-                    android:id="@+id/donutRing"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shape_donut_ring" />
-
-                <View
-                    android:id="@+id/donutCenterBackground"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/shape_circle_progress_background" />
-
+                <!-- Saldo y Moneda -->
                 <TextView
-                    android:id="@+id/textViewDonutCenterText"
+                    android:id="@+id/txtMonto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No hubo\ngastos hoy"
-                    android:textColor="#AAAAAA"
-                    android:textSize="16sp"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"/>
-            </FrameLayout>
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="950.00" />
+                <TextView
+                    android:id="@+id/txtMoneda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/txtMonto"
+                    app:layout_constraintStart_toEndOf="@id/txtMonto"
+                    tools:text="PEN" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
 
-            <TextView
-                android:id="@+id/txtMoneda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:text="PEN"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tabLayoutType"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/txtMonto"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.583" />
+                <!-- Tabs GASTOS / INGRESOS -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayoutType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="#1E1E1E"
+                    app:tabIndicatorColor="#FF7043"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabSelectedTextColor="#FF7043"
+                    app:tabTextColor="#AAAAAA"
+                    app:layout_constraintTop_toBottomOf="@id/txtMonto"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GASTOS"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INGRESOS"/>
+                </com.google.android.material.tabs.TabLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Tabs de periodo -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayoutPeriod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#1E1E1E"
+                    app:tabIndicatorColor="#FF7043"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="#FF7043"
+                    app:tabTextColor="#AAAAAA"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayoutType"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Día"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Semana"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mes"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Año"/>
+                </com.google.android.material.tabs.TabLayout>
 
-        <!-- Botón flotante -->
+                <!-- Controles de Fecha -->
+                <ImageButton
+                    android:id="@+id/buttonPreviousDate"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_chevron_left_24"
+                    android:contentDescription="Fecha anterior"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="#AAAAAA"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayoutPeriod"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewCurrentDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Hoy, 13 de Junio"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="@id/buttonPreviousDate"
+                    app:layout_constraintBottom_toBottomOf="@id/buttonPreviousDate"
+                    app:layout_constraintStart_toEndOf="@id/buttonPreviousDate"
+                    app:layout_constraintEnd_toStartOf="@id/buttonNextDate" />
+
+                <ImageButton
+                    android:id="@+id/buttonNextDate"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_chevron_left_24"
+                    android:rotation="180"
+                    android:contentDescription="Fecha siguiente"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="#AAAAAA"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tabLayoutPeriod"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <!-- Gráfico de Dona (CORREGIDO) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/donutContainer"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/textViewCurrentDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <!-- Anillo gris de fondo -->
+                    <View
+                        android:id="@+id/donutRing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_donut_ring" />
+
+                    <!-- Nuestro View personalizado que dibujará los segmentos de colores -->
+                    <com.asipion.pfmoviles.DonutChartView
+                        android:id="@+id/donutChartView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <!-- Texto en el centro -->
+                    <TextView
+                        android:id="@+id/textViewDonutCenterText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No hubo\ngastos hoy"
+                        android:textColor="#AAAAAA"
+                        android:textAlignment="center"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Lista de Transacciones -->
+                <TextView
+                    android:id="@+id/label_transacciones_recientes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transacciones Recientes"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toBottomOf="@id/donutContainer"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_transacciones"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/label_transacciones_recientes"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:listitem="@layout/item_transaccion" />
+                <TextView
+                    android:id="@+id/text_view_empty_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No hay transacciones para mostrar."
+                    android:visibility="gone"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@id/label_transacciones_recientes"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAdd"
             android:layout_width="wrap_content"
@@ -216,12 +246,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="24dp"
             android:contentDescription="Agregar transacción"
-            app:srcCompat="@drawable/ic_add_24"
-            app:backgroundTint="#FF7043"
-            app:tint="#FFFFFF"/>
+            app:srcCompat="@drawable/ic_add_24"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <!-- MENÚ LATERAL -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navegacion_lateral"
         android:layout_width="wrap_content"
@@ -230,5 +257,4 @@
         android:background="#212121"
         app:headerLayout="@layout/header_menu_lateral"
         app:menu="@menu/menu_lateral" />
-
 </androidx.drawerlayout.widget.DrawerLayout>
