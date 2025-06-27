@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.asipion.pfmoviles">
 
-    <!-- Permisos esenciales. INTERNET es clave para la API. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,11 +15,7 @@
         android:theme="@style/Theme.PFMoviles"
         tools:targetApi="31">
 
-        <!-- ============================================================== -->
-        <!-- FLUJO DE ENTRADA Y AUTENTICACIÓN (CORREGIDO Y CONSOLIDADO) -->
-        <!-- ============================================================== -->
 
-        <!-- CORREGIDO: Actividad de bienvenida, es el punto de entrada a la app. -->
         <activity android:name=".BienvenidaActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <!-- NUEVO: Actividad que muestra los botones "Registrarse" o "Iniciar Sesión". -->
+        <!-- Actividad que muestra los botones "Registrarse" o "Iniciar Sesión". -->
         <activity android:name=".AuthLandingActivity" />
 
         <!-- CONSOLIDADO: Pantalla única para el registro. -->
@@ -59,27 +54,42 @@
         <!-- Pantalla para ver y gestionar las cuentas. -->
         <activity android:name=".CuentasActividad" />
 
+        <activity android:name=".AgregarCuentaActividad" />
+
+        <activity android:name=".TransferenciaActividad" />
+
         <!-- Pantalla para añadir nuevas transacciones. -->
         <activity android:name=".AgregarTransaccionActividad" />
+
+        <activity android:name=".DetalleTransaccionActivity" />
+
+        <activity android:name=".FormularioCuentaActivity" />
+
+        <activity android:name=".HistorialTransferenciasActivity" />
+
+        <activity android:name=".DetalleTransferenciaHistorialActivity" />
 
         <!-- Pantalla para gestionar las categorías. -->
         <activity android:name=".MenuCategoriasActividad" />
 
-        <activity android:name=".DetalleTransaccionActivity" />
-
+        <!-- Pantalla de formulario para CREAR y EDITAR categorías -->
+        <activity android:name=".FormularioCategoriaActivity" />
 
         <!-- ============================================================== -->
-        <!-- OTRAS ACTIVIDADES (MANTENIDAS POR AHORA) -->
+        <!-- OTRAS ACTIVIDADES (MANTENIDAS) -->
         <!-- ============================================================== -->
-        <!-- Estas actividades se mantienen por ahora. Podéis decidir si se consolidan o eliminan más adelante. -->
         <activity android:name=".GraficosActivity" />
+
         <activity android:name=".PagosHabitualesActividad" />
-        <activity android:name=".RecordatoriosActividad" />
-        <activity android:name=".AjustesActividad" />
+        <activity android:name=".FormularioPagoHabitualActivity" />
+
+        <activity android:name=".AjustesActivity" />
+        <activity android:name=".PersonalizacionActivity" />
+
         <activity android:name=".DetalleTransaccionActividad" />
 
         <!-- ============================================================== -->
-        <!-- ACTIVIDADES ELIMINADAS (YA NO SON NECESARIAS) -->
+        <!-- ACTIVIDADES NO UTILIZADAS (YA NO SON NECESARIAS) -->
         <!-- ============================================================== -->
         <!--
         <activity android:name=".RegistroCorreoActividad" />

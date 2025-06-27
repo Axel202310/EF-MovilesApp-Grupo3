@@ -6,14 +6,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.asipion.pfmoviles.databinding.ActividadCuentasBinding
+import com.asipion.pfmoviles.model.Cuenta
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.*
+import java.util.Locale
 
 class CuentasActividad : AppCompatActivity() {
 
     private lateinit var binding: ActividadCuentasBinding
+    private lateinit var adaptadorCuenta: AdaptadorCuenta
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,122 +31,133 @@ class CuentasActividad : AppCompatActivity() {
         setContentView(binding.root)
 
         configurarToolbarYMenu()
-        actualizarHeaderMenuLateral()
-        mostrarBalanceTotal()
-        mostrarSaldoCuentaPrincipal()
+        configurarRecyclerView()
+        configurarListeners()
+    }
 
-        binding.layoutNuevaTransferencia.setOnClickListener {
-            startActivity(Intent(this, TransferenciaActividad::class.java))
+    override fun onResume() {
+        super.onResume()
+        cargarCuentasDesdeApi()
+    }
+
+    private fun configurarRecyclerView() {
+        adaptadorCuenta = AdaptadorCuenta(emptyList())
+        binding.recyclerViewCuentas.apply {
+            adapter = adaptadorCuenta
+            layoutManager = LinearLayoutManager(this@CuentasActividad)
         }
+    }
 
+    private fun configurarListeners() {
         binding.fabAddCuenta.setOnClickListener {
+            // Esto ya lanza el formulario para añadir una cuenta nueva. ¡Correcto!
             startActivity(Intent(this, AgregarCuentaActividad::class.java))
         }
+        binding.layoutNuevaTransferencia.setOnClickListener {
+            // Esto lanzará la pantalla de transferencia que ya hemos preparado.
+            startActivity(Intent(this, TransferenciaActividad::class.java))
+        }
+        binding.layoutHistorial.setOnClickListener {
+            startActivity(Intent(this, HistorialTransferenciasActivity::class.java))
+        }
+    }
 
+    private fun cargarCuentasDesdeApi() {
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        if (idUsuario == -1) {
+            cerrarSesion()
+            return
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.webService.obtenerCuentas(idUsuario)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val cuentas = response.body()?.listaCuentas ?: emptyList()
+                        adaptadorCuenta.actualizarDatos(cuentas)
+                        actualizarBalanceTotal(cuentas)
+                        actualizarHeaderMenuLateral(cuentas)
+                    } else {
+                        Toast.makeText(this@CuentasActividad, "Error al cargar las cuentas", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@CuentasActividad, "Error de conexión: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun actualizarBalanceTotal(cuentas: List<Cuenta>) {
+        val balanceTotal = cuentas.sumOf { it.saldoActual }
+        val monedaPrincipal = cuentas.firstOrNull()?.moneda ?: "PEN"
+
+        val formato = DecimalFormat("#,##0.00")
+        binding.tvTotalValue.text = "${formato.format(balanceTotal)} $monedaPrincipal"
     }
 
     private fun configurarToolbarYMenu() {
         setSupportActionBar(binding.topAppBar)
-
+        val drawerLayout: DrawerLayout = binding.drawerLayout
         drawerToggle = ActionBarDrawerToggle(
             this,
-            binding.drawerLayout,
+            drawerLayout,
             binding.topAppBar,
             R.string.open_drawer,
             R.string.close_drawer
         )
-        binding.drawerLayout.addDrawerListener(drawerToggle)
+        drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
         binding.topAppBar.setNavigationOnClickListener {
-            binding.drawerLayout.open()
+            drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        // NUEVO: Manejo del menú lateral
         binding.navegacionLateral.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_inicio -> {
-                    Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
-                }
-                R.id.item_cuentas -> {
-                    Toast.makeText(this, "Ya estás en Cuentas", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, CuentasActividad::class.java))
-                }
-                R.id.item_graficos -> {
-                    Toast.makeText(this, "Ya estás en Graficos", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, GraficosActivity::class.java))
-                }
-                R.id.item_categorias -> {
-                    Toast.makeText(this, "Ya estás en Categorias", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MenuCategoriasActividad::class.java))
-                }
-                R.id.item_pagos_habituales -> {
-                    Toast.makeText(this, "Ya estás en Pagos Habituales", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, PagosHabitualesActividad::class.java))
-                }
-                R.id.item_recordatorios -> {
-                    startActivity(Intent(this, RecordatoriosActividad::class.java))
-                }
-                R.id.item_ajustes -> {
-                    Toast.makeText(this, "Ya estás en Ajustes", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, AjustesActividad::class.java))
-                }
-                R.id.item_cerrar_sesion -> {
-                    Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, BienvenidaActivity::class.java))
+                    startActivity(Intent(this, InicioActivity::class.java))
                     finish()
                 }
+                R.id.item_cuentas -> Toast.makeText(this, "Ya estás en Cuentas", Toast.LENGTH_SHORT).show()
+                R.id.item_graficos -> startActivity(Intent(this, GraficosActivity::class.java))
+                R.id.item_categorias -> startActivity(Intent(this, MenuCategoriasActividad::class.java))
+                R.id.item_pagos_habituales -> startActivity(Intent(this, PagosHabitualesActividad::class.java))
+                R.id.item_ajustes -> startActivity(Intent(this, AjustesActivity::class.java))
+                R.id.item_cerrar_sesion -> cerrarSesion()
             }
-            binding.drawerLayout.closeDrawers()
+            drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
     }
 
-    private fun actualizarHeaderMenuLateral() {
+    private fun actualizarHeaderMenuLateral(cuentas: List<Cuenta>) {
         val headerView = binding.navegacionLateral.getHeaderView(0)
         val textCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
         val textSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
 
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
-        val idUsuario = prefs.getInt("id_usuario", -1)
-        val correoUsuario = prefs.getString("correo_usuario", "usuario@example.com") ?: "usuario@example.com"
-        val moneda = prefs.getString("moneda_$idUsuario", "PEN") ?: "PEN"
-        val monto = prefs.getFloat("monto_$idUsuario", 0.0f)
+        val correoUsuario = prefs.getString("correo_usuario", "N/A")
+
+        val balanceTotal = cuentas.sumOf { it.saldoActual }
+        val monedaPrincipal = cuentas.firstOrNull()?.moneda ?: "PEN"
 
         textCorreo.text = correoUsuario
-        textSaldo.text = "Balance: %.2f %s".format(monto, moneda)
+        textSaldo.text = "Balance: ${String.format(Locale.US, "%.2f", balanceTotal)} $monedaPrincipal"
+
+        headerView.setOnClickListener {
+            startActivity(Intent(this, PerfilActivity::class.java))
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
     }
 
-    private fun mostrarBalanceTotal() {
-        val monto = obtenerMonto()
-        val moneda = obtenerMoneda()
-        val formato = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("es", "ES")))
-        binding.tvTotalValue.text = "${formato.format(monto)} $moneda"
+    private fun cerrarSesion() {
+        getSharedPreferences("mis_prefs", MODE_PRIVATE).edit().clear().apply()
+        val intent = Intent(this, BienvenidaActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
-
-    private fun mostrarSaldoCuentaPrincipal() {
-        val monto = obtenerMonto()
-        val moneda = obtenerMoneda()
-        val formato = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale("es", "ES")))
-        binding.tvCuentaSaldo.text = "${formato.format(monto)} $moneda"
-    }
-
-    private fun obtenerIdUsuario(): Int {
-        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
-        return prefs.getInt("id_usuario", -1)
-    }
-
-    private fun obtenerMoneda(): String {
-        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
-        val idUsuario = obtenerIdUsuario()
-        return prefs.getString("moneda_$idUsuario", "PEN") ?: "PEN"
-    }
-
-    private fun obtenerMonto(): Float {
-        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
-        val idUsuario = obtenerIdUsuario()
-        return prefs.getFloat("monto_$idUsuario", 0.0f)
-    }
-
-
 }

@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   >
+    android:padding="24dp"
+    android:background="#2C2C2C"
+    android:layout_margin="16dp">
 
+    <!-- Icono de Alerta -->
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:src="@android:drawable/ic_delete"
-        android:contentDescription="Eliminar perfil"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_delete"
+        app:tint="#D32F2F"
+        android:contentDescription="Icono de eliminar perfil" />
 
+    <!-- Título -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Borrar perfil"
+        android:text="Borrar Perfil"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp" />
 
+    <!-- Mensaje de Advertencia -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tu perfil y todos los datos se eliminarán del servidor. Después de la eliminación, no podrás recuperar tus datos."
-        android:textColor="@android:color/white"
+        android:text="Tu perfil y todos los datos asociados se eliminarán permanentemente. Esta acción no se puede deshacer."
+        android:textColor="#BDBDBD"
         android:textSize="14sp"
-        android:layout_marginBottom="16dp" />
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
 
+    <!-- Botones de Acción -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CANCELAR"
-            android:textColor="@color/accent_green"
-            android:background="@android:color/transparent" />
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="@color/text_secondary" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_confirmar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CONTINUAR"
-            android:textColor="@color/accent_orange"
-            android:background="@android:color/transparent" />
+            android:text="ELIMINAR"
+            android:textColor="#D32F2F"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_marginStart="8dp"/>
     </LinearLayout>
 
 </LinearLayout>

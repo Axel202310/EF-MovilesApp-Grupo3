@@ -11,5 +11,7 @@ data class Cuenta(
     @SerializedName("saldo_actual")
     val saldoActual: Double,
     @SerializedName("moneda")
-    val moneda: String
+    val moneda: String,
+    @SerializedName("img_cuenta")
+    val imgCuenta: String?
 )

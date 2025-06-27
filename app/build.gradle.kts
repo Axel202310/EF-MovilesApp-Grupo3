@@ -40,7 +40,6 @@ android {
 
 dependencies {
 
-    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,6 +48,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.mpandroidchart)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

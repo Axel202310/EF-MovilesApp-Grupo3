@@ -151,6 +151,7 @@
     <string name="anadir_btn">Añadir</string>
     <string name="atras_content_desc">Botón para volver atrás</string>
     <string name="icono_categoria_content_desc">Icono de la categoría</string>
+    <string name="balance_total">Balance Total</string>
 
 
 </resources>

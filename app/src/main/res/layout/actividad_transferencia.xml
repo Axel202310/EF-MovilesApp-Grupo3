@@ -5,267 +5,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background_dark"
+    android:background="#1E1E1E"
     tools:context=".TransferenciaActividad">
 
-    <!-- 1. Header (Simplificado y corregido) -->
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/desc_volver_atras"
-        android:padding="8dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_transferencia"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Crear Transferencia"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/atras1"
+        app:navigationIconTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_titulo_transferencia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/titulo_crear_transferencia"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/iv_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_back" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_transferencia"
+        app:layout_constraintBottom_toTopOf="@id/btn_anadir">
 
-    <!-- Guías para alinear el contenido principal -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="32dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="32dp" />
-
-
-    <!-- 2. Bloque: Transferir DESDE una cuenta -->
-    <LinearLayout
-        android:id="@+id/layout_from_account"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:orientation="vertical"
-        android:paddingVertical="8dp"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/iv_back">
-
-        <TextView
-            android:id="@+id/tv_from_account_label"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_transferir_de"
-            android:textColor="@color/text_secondary_dark"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <TextView
-            android:id="@+id/tv_from_account_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/estado_no_seleccionado"
-            android:textColor="#E53935"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <!-- Bloque Desde -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transferir de una cuenta"
+                android:textColor="#AAAAAA"/>
+            <TextView
+                android:id="@+id/tv_from_account_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar cuenta"
+                android:textColor="#E53935"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingVertical="12dp"
+                android:background="?attr/selectableItemBackground"/>
 
-    <!-- 3. Bloque: Transferir A una cuenta -->
-    <LinearLayout
-        android:id="@+id/layout_to_account"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        android:paddingVertical="8dp"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/layout_from_account">
+            <!-- Bloque Hacia -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Transferir a una cuenta"
+                android:textColor="#AAAAAA"/>
+            <TextView
+                android:id="@+id/tv_to_account_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar cuenta"
+                android:textColor="#E53935"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingVertical="12dp"
+                android:background="?attr/selectableItemBackground"/>
 
-        <TextView
-            android:id="@+id/tv_to_account_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_transferir_a"
-            android:textColor="@color/text_secondary_dark"
-            android:textSize="16sp" />
+            <!-- Bloque Cantidad -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Cantidad"
+                android:textColor="#AAAAAA"/>
+            <EditText
+                android:id="@+id/et_monto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:minHeight="48dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:textColorHint="#808080"
+                android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/tv_to_account_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/estado_no_seleccionado"
-            android:textColor="#E53935"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <!-- Bloque Día -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Día de la Transferencia"
+                android:textColor="#AAAAAA"/>
+            <TextView
+                android:id="@+id/tv_date_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground"
+                android:hint="Seleccionar fecha"
+                android:textColorHint="#AAAAAA"
+                android:textColor="#FF9F0A"
+                android:textSize="18sp"/>
 
-    <!-- 4. Bloque: Cantidad -->
-    <TextView
-        android:id="@+id/tv_amount_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/label_transferir_cantidad"
-        android:textColor="@color/text_secondary_dark"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/layout_to_account" />
+            <!-- Bloque Comentario -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Comentario (Opcional)"
+                android:textColor="#AAAAAA"/>
+            <EditText
+                android:id="@+id/et_comentario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ej: Pago de servicios"
+                android:inputType="textCapSentences"
+                android:minHeight="48dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:textColorHint="#808080"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </ScrollView>
 
-    <EditText
-        android:id="@+id/et_monto"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@null"
-        android:hint="0"
-        android:inputType="numberDecimal"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/text_secondary_dark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_moneda"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_amount_label" />
-
-    <TextView
-        android:id="@+id/tv_moneda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/moneda_pen"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/et_monto"
-        app:layout_constraintEnd_toStartOf="@id/iv_calculator"
-        app:layout_constraintStart_toEndOf="@id/et_monto" />
-
-    <ImageView
-        android:id="@+id/iv_calculator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:src="@drawable/ic_calendar"
-        app:layout_constraintBottom_toBottomOf="@id/tv_moneda"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toEndOf="@id/tv_moneda"
-        app:layout_constraintTop_toTopOf="@id/tv_moneda"
-        app:tint="@color/text_secondary_dark"
-        android:contentDescription="@string/desc_calculadora" />
-
-    <View
-        android:id="@+id/underline_amount"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#5A5A5A"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/et_monto" />
-
-    <!-- 5. Bloque: Día -->
-    <TextView
-        android:id="@+id/tv_date_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/label_dia"
-        android:textColor="@color/text_secondary_dark"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/underline_amount" />
-
-    <TextView
-        android:id="@+id/tv_date_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:minHeight="48dp"
-        android:gravity="center_vertical"
-        android:background="?attr/selectableItemBackground"
-        android:text="Hoy, 21 de abril de 2025"
-        android:textColor="#FF9F0A"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_date_label" />
-
-    <!-- 6. Bloque: Comentario -->
-    <TextView
-        android:id="@+id/tv_comment_label"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/label_comentario"
-        android:textColor="@color/text_secondary_dark"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_date_value" />
-
-    <EditText
-        android:id="@+id/et_comentario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@null"
-        android:hint="@string/hint_comentario"
-        android:inputType="textCapSentences|textMultiLine"
-        android:minHeight="48dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/text_secondary_dark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/tv_comment_label" />
-
-    <View
-        android:id="@+id/underline_comment"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="#5A5A5A"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/et_comentario" />
-
-    <TextView
-        android:id="@+id/tv_comment_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="0/4096"
-        android:textColor="@color/text_secondary_dark"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_end"
-        app:layout_constraintTop_toBottomOf="@id/underline_comment" />
-
-    <!-- 7. Botón Añadir -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_anadir"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_margin="16dp"
         android:backgroundTint="#C46F54"
-        android:text="@string/boton_anadir"
+        android:text="Realizar Transferencia"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"

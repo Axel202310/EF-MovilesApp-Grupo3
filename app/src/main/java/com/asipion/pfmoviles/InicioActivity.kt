@@ -1,5 +1,6 @@
 package com.asipion.pfmoviles
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -19,6 +21,7 @@ import com.asipion.pfmoviles.servicio.RetrofitClient
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DecimalFormat
@@ -31,8 +34,11 @@ class InicioActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInicioBinding
     private lateinit var transaccionAdapter: AdaptadorTransaccion
-    private var cuentaActual: Cuenta? = null
+
+    // Variables de estado que controlan lo que se muestra en pantalla
+    private var todasLasCuentas: List<Cuenta> = emptyList()
     private var todasLasTransacciones: List<Transaccion> = emptyList()
+    private var cuentaSeleccionada: Cuenta? = null // null representa la vista "Balance Total"
     private val calendarioActual = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +54,7 @@ class InicioActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        cargarDatosDeCuentas()
+        cargarDatosDelServidor()
     }
 
     private fun configurarRecyclerView() {
@@ -64,38 +70,55 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
-    // MODIFICADO: Se han añadido los listeners para los botones de fecha.
     private fun configurarListeners() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, AgregarTransaccionActividad::class.java)
-            cuentaActual?.let { intent.putExtra("ID_CUENTA", it.idCuenta) }
+            // Si hay una cuenta específica seleccionada, la pasamos. Si no, pasamos la primera de la lista.
+            val idCuentaAUsar = cuentaSeleccionada?.idCuenta ?: todasLasCuentas.firstOrNull()?.idCuenta
+            idCuentaAUsar?.let { intent.putExtra("ID_CUENTA", it) }
             startActivity(intent)
         }
         binding.buttonPreviousDate.setOnClickListener { cambiarFecha(-1) }
         binding.buttonNextDate.setOnClickListener { cambiarFecha(1) }
+
+        // Listener para abrir el diálogo de selección de cuenta
+        binding.layoutBalance.setOnClickListener {
+            mostrarDialogoSeleccionDeCuenta()
+        }
     }
 
     private fun configurarTabs() {
-        // --- CORRECCIÓN CLAVE ---
-        // Añadimos un listener para ambos TabLayouts que llama a la misma función.
-        // Esto simplifica la lógica y asegura que la vista se actualice siempre.
         val tabSelectedListener = object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                // Al cambiar CUALQUIER pestaña, reseteamos la fecha si es una de período, y filtramos.
                 if (tab?.parent == binding.tabLayoutPeriod) {
                     calendarioActual.time = Date()
                 }
-                filtrarYActualizarVistaCompleta()
+                actualizarVistaCompleta()
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         }
-
         binding.tabLayoutType.addOnTabSelectedListener(tabSelectedListener)
         binding.tabLayoutPeriod.addOnTabSelectedListener(tabSelectedListener)
     }
 
-    private fun cargarDatosDeCuentas() {
+    private fun mostrarDialogoSeleccionDeCuenta() {
+        if (todasLasCuentas.isEmpty()) return
+
+        val nombresCuentas = mutableListOf(getString(R.string.balance_total))
+        nombresCuentas.addAll(todasLasCuentas.map { it.nombreCuenta })
+
+        AlertDialog.Builder(this)
+            .setTitle("Seleccionar Vista")
+            .setItems(nombresCuentas.toTypedArray()) { _, which ->
+                cuentaSeleccionada = if (which == 0) null else todasLasCuentas[which - 1]
+                actualizarVistaCompleta()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun cargarDatosDelServidor() {
         val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
         if (idUsuario == -1) {
             cerrarSesion()
@@ -104,20 +127,23 @@ class InicioActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val responseCuentas = RetrofitClient.webService.obtenerCuentas(idUsuario)
+                val cuentasDeferred = async { RetrofitClient.webService.obtenerCuentas(idUsuario) }
+                val transaccionesDeferred = async { RetrofitClient.webService.obtenerTransaccionesDeUsuario(idUsuario) }
+
+                val cuentasResponse = cuentasDeferred.await()
+                val transaccionesResponse = transaccionesDeferred.await()
+
                 withContext(Dispatchers.Main) {
-                    if (responseCuentas.isSuccessful) {
-                        val cuentas = responseCuentas.body()?.listaCuentas
-                        if (!cuentas.isNullOrEmpty()) {
-                            cuentaActual = cuentas[0]
-                            actualizarUIConDatosDeCuenta()
-                            cuentaActual?.let { cargarTransacciones(it.idCuenta) }
-                        } else {
-                            startActivity(Intent(this@InicioActivity, SeleccionarDivisaActivity::class.java))
-                            finish()
-                        }
+                    if (cuentasResponse.isSuccessful && transaccionesResponse.isSuccessful) {
+                        todasLasCuentas = cuentasResponse.body()?.listaCuentas ?: emptyList()
+                        todasLasTransacciones = transaccionesResponse.body()?.listaTransacciones ?: emptyList()
+
+                        // --- CAMBIO CLAVE ---
+                        // Después de cargar todos los datos, aplicamos las preferencias guardadas.
+                        aplicarPreferenciasGuardadas()
+
                     } else {
-                        Toast.makeText(this@InicioActivity, "Error al cargar datos de cuenta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@InicioActivity, "Error al cargar datos", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
@@ -128,56 +154,53 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarTransacciones(idCuenta: Int) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = RetrofitClient.webService.obtenerTransaccionesDeCuenta(idCuenta)
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        todasLasTransacciones = response.body()?.listaTransacciones ?: emptyList()
-                        // --- CORRECCIÓN CLAVE ---
-                        // Después de cargar los datos, siempre filtramos. No asumimos nada.
-                        filtrarYActualizarVistaCompleta()
-                    } else {
-                        Toast.makeText(this@InicioActivity, "Error al cargar transacciones", Toast.LENGTH_SHORT).show()
-                        mostrarEstadoVacio(true)
-                    }
-                }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@InicioActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
-                    mostrarEstadoVacio(true)
-                }
-            }
+    private fun aplicarPreferenciasGuardadas() {
+        val prefs = getSharedPreferences(PersonalizacionActivity.PREFS_NAME, Context.MODE_PRIVATE)
+
+        // 1. Aplicar la preferencia de VISTA por defecto (Total o una cuenta)
+        val vistaGuardada = prefs.getString(PersonalizacionActivity.KEY_VISTA_DEFECTO, "Balance Total")
+        if (vistaGuardada == "Balance Total") {
+            cuentaSeleccionada = null
+        } else {
+            // Buscamos la cuenta guardada por su nombre en nuestra lista de cuentas.
+            cuentaSeleccionada = todasLasCuentas.find { it.nombreCuenta == vistaGuardada }
         }
+
+        // 2. Aplicar la preferencia de PERÍODO por defecto
+        val periodoIndexGuardado = prefs.getInt(PersonalizacionActivity.KEY_PERIODO_DEFECTO_INDEX, 2) // 2 es "Mes"
+
+        // Seleccionamos la pestaña correspondiente.
+        // Es importante hacerlo con un post para asegurar que el layout esté listo.
+        binding.tabLayoutPeriod.post {
+            binding.tabLayoutPeriod.getTabAt(periodoIndexGuardado)?.select()
+        }
+
+        // Forzamos una actualización inicial de la vista con las nuevas preferencias.
+        actualizarVistaCompleta()
     }
 
-    // --- CAMBIO CLAVE ---
-    private fun filtrarYActualizarVistaCompleta() {
+    private fun actualizarVistaCompleta() {
         actualizarTextoFecha()
+        actualizarUIBalance()
+        actualizarHeaderMenuLateral()
 
         val tipoSeleccionado = if (binding.tabLayoutType.selectedTabPosition == 0) "gasto" else "ingreso"
         val periodoSeleccionado = binding.tabLayoutPeriod.selectedTabPosition
 
-        val transaccionesFiltradas = todasLasTransacciones
+        val transaccionesPorCuenta = if (cuentaSeleccionada == null) {
+            todasLasTransacciones
+        } else {
+            todasLasTransacciones.filter { it.idCuenta == cuentaSeleccionada!!.idCuenta }
+        }
+
+        val transaccionesFiltradas = transaccionesPorCuenta
             .filter { it.tipoTransaccion == tipoSeleccionado }
             .filter { transaccion ->
                 try {
-                    // --- CORRECCIÓN CLAVE ---
-                    // El formato que viene de la API es ISO 8601 (con T y Z).
-                    // El que nosotros enviamos es "yyyy-MM-dd HH:mm:ss".
-                    // Necesitamos poder parsear ambos. Un try-catch es perfecto para esto.
                     val formatoApi1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
                     val formatoApi2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-
-                    val fechaTransaccion = try {
-                        formatoApi1.parse(transaccion.fechaTransaccion)
-                    } catch (e: Exception) {
-                        formatoApi2.parse(transaccion.fechaTransaccion)
-                    } ?: return@filter false
-
+                    val fechaTransaccion = try { formatoApi1.parse(transaccion.fechaTransaccion) } catch (e: Exception) { formatoApi2.parse(transaccion.fechaTransaccion) } ?: return@filter false
                     val calTransaccion = Calendar.getInstance().apply { time = fechaTransaccion }
-
                     when (periodoSeleccionado) {
                         0 -> esMismoDia(calTransaccion, calendarioActual)
                         1 -> esMismaSemana(calTransaccion, calendarioActual)
@@ -186,7 +209,7 @@ class InicioActivity : AppCompatActivity() {
                         else -> true
                     }
                 } catch (e: Exception) {
-                    Log.e("FiltradoFecha", "No se pudo parsear la fecha: ${transaccion.fechaTransaccion}", e)
+                    Log.e("FiltradoFecha", "Error al parsear fecha: ${transaccion.fechaTransaccion}", e)
                     false
                 }
             }
@@ -196,37 +219,44 @@ class InicioActivity : AppCompatActivity() {
         actualizarGrafico(transaccionesFiltradas, tipoSeleccionado)
     }
 
-    // --- CAMBIO CLAVE ---
+    private fun actualizarUIBalance() {
+        val formato = DecimalFormat("#,##0.00")
+        if (cuentaSeleccionada == null) {
+            val balanceTotal = todasLasCuentas.sumOf { it.saldoActual }
+            val monedaPrincipal = todasLasCuentas.firstOrNull()?.moneda ?: "PEN"
+            binding.txtMonto.text = formato.format(balanceTotal)
+            binding.txtMoneda.text = monedaPrincipal
+            binding.textViewTotalLabel.text = getString(R.string.balance_total)
+        } else {
+            cuentaSeleccionada?.let { cuenta ->
+                binding.txtMonto.text = formato.format(cuenta.saldoActual)
+                binding.txtMoneda.text = cuenta.moneda
+                binding.textViewTotalLabel.text = cuenta.nombreCuenta
+            }
+        }
+    }
+
     private fun actualizarGrafico(transacciones: List<Transaccion>, tipo: String) {
         if (transacciones.isEmpty()) {
             binding.donutChartView.setData(emptyList())
             binding.textViewDonutCenterText.text = "No hubo ${tipo}s\n${obtenerTextoPeriodo()}"
             return
         }
-
         val transaccionesPorCategoria = transacciones
             .groupBy { it.nombreCategoria ?: "Sin Categoría" }
             .mapValues { entry -> entry.value.sumOf { it.montoTransaccion } }
-
         val total = transaccionesPorCategoria.values.sum()
         val formatoDecimal = DecimalFormat("#,##0.00")
         binding.textViewDonutCenterText.text = "Total:\nS/ ${formatoDecimal.format(total)}"
-
-        val colores = listOf(
-            R.color.grafico_color_1, R.color.grafico_color_2, R.color.grafico_color_3,
-            R.color.grafico_color_4, R.color.grafico_color_5
-        )
-
+        val colores = listOf(R.color.grafico_color_1, R.color.grafico_color_2, R.color.grafico_color_3, R.color.grafico_color_4, R.color.grafico_color_5)
         val datosGrafico = transaccionesPorCategoria.entries.mapIndexed { index, entry ->
             val porcentaje = (entry.value / total * 100).toFloat()
             val color = ContextCompat.getColor(this, colores[index % colores.size])
             Pair(porcentaje, color)
         }
-
         binding.donutChartView.setData(datosGrafico)
     }
 
-    // --- NUEVAS FUNCIONES AUXILIARES ---
     private fun cambiarFecha(cantidad: Int) {
         when (binding.tabLayoutPeriod.selectedTabPosition) {
             0 -> calendarioActual.add(Calendar.DAY_OF_YEAR, cantidad)
@@ -234,7 +264,7 @@ class InicioActivity : AppCompatActivity() {
             2 -> calendarioActual.add(Calendar.MONTH, cantidad)
             3 -> calendarioActual.add(Calendar.YEAR, cantidad)
         }
-        filtrarYActualizarVistaCompleta()
+        actualizarVistaCompleta()
     }
 
     private fun actualizarTextoFecha() {
@@ -248,22 +278,10 @@ class InicioActivity : AppCompatActivity() {
         binding.textViewCurrentDate.text = SimpleDateFormat(formato, Locale("es", "ES")).format(calendarioActual.time).replaceFirstChar { it.uppercase() }
     }
 
-    // --- FUNCIONES DE COMPARACIÓN DE FECHA CORREGIDAS Y ROBUSTAS ---
-    private fun esMismoDia(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
-    }
-    private fun esMismaSemana(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR)
-    }
-    private fun esMismoMes(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
-    }
-    private fun esMismoAnio(cal1: Calendar, cal2: Calendar): Boolean {
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
-    }
+    private fun esMismoDia(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
+    private fun esMismaSemana(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR)
+    private fun esMismoMes(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
+    private fun esMismoAnio(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
 
     private fun obtenerTextoPeriodo(): String {
         return when (binding.tabLayoutPeriod.selectedTabPosition) {
@@ -278,15 +296,6 @@ class InicioActivity : AppCompatActivity() {
     private fun mostrarEstadoVacio(estaVacio: Boolean) {
         binding.recyclerViewTransacciones.visibility = if (estaVacio) View.GONE else View.VISIBLE
         binding.textViewEmptyState.visibility = if (estaVacio) View.VISIBLE else View.GONE
-    }
-
-    private fun actualizarUIConDatosDeCuenta() {
-        cuentaActual?.let { cuenta ->
-            val formato = DecimalFormat("#,##0.00")
-            binding.txtMonto.text = formato.format(cuenta.saldoActual)
-            binding.txtMoneda.text = cuenta.moneda
-            actualizarHeaderMenuLateral(cuenta)
-        }
     }
 
     private fun configurarToolbarYMenu() {
@@ -307,11 +316,10 @@ class InicioActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.item_inicio -> Toast.makeText(this, "Ya estás en Inicio", Toast.LENGTH_SHORT).show()
                 R.id.item_cuentas -> startActivity(Intent(this, CuentasActividad::class.java))
-                R.id.item_graficos -> Toast.makeText(this, "Gráficos (próximamente)", Toast.LENGTH_SHORT).show()
+                R.id.item_graficos -> startActivity(Intent(this, GraficosActivity::class.java))
                 R.id.item_categorias -> startActivity(Intent(this, MenuCategoriasActividad::class.java))
-                R.id.item_pagos_habituales -> Toast.makeText(this, "Pagos Habituales (próximamente)", Toast.LENGTH_SHORT).show()
-                R.id.item_recordatorios -> Toast.makeText(this, "Recordatorios (próximamente)", Toast.LENGTH_SHORT).show()
-                R.id.item_ajustes -> Toast.makeText(this, "Ajustes (próximamente)", Toast.LENGTH_SHORT).show()
+                R.id.item_pagos_habituales -> startActivity(Intent(this, PagosHabitualesActividad::class.java))
+                R.id.item_ajustes -> startActivity(Intent(this, AjustesActivity::class.java))
                 R.id.item_cerrar_sesion -> cerrarSesion()
             }
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -319,14 +327,16 @@ class InicioActivity : AppCompatActivity() {
         }
     }
 
-    private fun actualizarHeaderMenuLateral(cuenta: Cuenta) {
+    private fun actualizarHeaderMenuLateral() {
         val headerView = binding.navegacionLateral.getHeaderView(0)
         val textCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
         val textSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
         val correoUsuario = prefs.getString("correo_usuario", "N/A")
+        val balanceTotal = todasLasCuentas.sumOf { it.saldoActual }
+        val monedaPrincipal = todasLasCuentas.firstOrNull()?.moneda ?: "PEN"
         textCorreo.text = correoUsuario
-        textSaldo.text = "Balance: ${String.format(Locale.US, "%.2f", cuenta.saldoActual)} ${cuenta.moneda}"
+        textSaldo.text = "Balance: ${String.format(Locale.US, "%.2f", balanceTotal)} $monedaPrincipal"
         headerView.setOnClickListener {
             startActivity(Intent(this, PerfilActivity::class.java))
             binding.drawerLayout.closeDrawer(GravityCompat.START)

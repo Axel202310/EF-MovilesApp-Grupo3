@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    tools:context=".HistorialTransferenciasActivity">
+
+    <!-- 1. Barra superior de la aplicación -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#303030"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_historial"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Historial de Transferencias"
+            app:titleTextColor="#FFFFFF"
+            app:navigationIcon="@drawable/atras1"
+            app:navigationIconTint="#FFFFFF"/>
+
+        <!-- Tabs para filtrar por período -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_periodo_historial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            app:tabIndicatorColor="#FF7043"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="#FF7043"
+            app:tabTextColor="#AAAAAA">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Día"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semana"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mes"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Año"/>
+        </com.google.android.material.tabs.TabLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 2. Contenido principal (la lista y el estado vacío) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_historial"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_historial_transferencia" />
+
+        <TextView
+            android:id="@+id/text_view_empty_historial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No hay transferencias en este período."
+            android:textColor="#AAAAAA"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 3. Botón flotante para añadir una nueva transferencia -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_transferencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:contentDescription="Realizar nueva transferencia"
+        android:backgroundTint="#FF7043"
+        app:tint="@android:color/white"
+        app:srcCompat="@drawable/ic_add_24"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

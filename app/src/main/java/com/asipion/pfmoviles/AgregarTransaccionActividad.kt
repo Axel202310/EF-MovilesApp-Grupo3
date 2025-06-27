@@ -1,9 +1,15 @@
 package com.asipion.pfmoviles
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.asipion.pfmoviles.model.Categoria
@@ -16,7 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
 
 class AgregarTransaccionActividad : AppCompatActivity() {
 
@@ -45,8 +52,6 @@ class AgregarTransaccionActividad : AppCompatActivity() {
 
         inicializarVistas()
         configurarListeners()
-
-        // Inicialmente cargamos los datos para "gasto"
         cargarDatosIniciales()
     }
 
@@ -59,15 +64,15 @@ class AgregarTransaccionActividad : AppCompatActivity() {
         btnAnadir = findViewById(R.id.btnAnadir)
         btnAtras = findViewById(R.id.btnAtras)
 
-        // Configurar el RecyclerView
         categoriaAdapter = CategoriaAdapter(emptyList()) { categoria ->
             categoriaSeleccionada = categoria
         }
         categoriasRecyclerView.adapter = categoriaAdapter
+        // El GridLayoutManager se define en el XML, así que no es necesario aquí.
     }
 
     private fun configurarListeners() {
-        btnAtras.setOnClickListener { finish() } // Manera correcta de volver atrás
+        btnAtras.setOnClickListener { finish() }
 
         tabLayoutTipo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -80,13 +85,10 @@ class AgregarTransaccionActividad : AppCompatActivity() {
 
         fechaEditText.setOnClickListener {
             val datePicker = DatePickerFragment { day, month, year ->
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, day)
-
-                val formatoApi = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val calendar = Calendar.getInstance().apply { set(year, month, day) }
+                val formatoApi = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
                 fechaSeleccionada = formatoApi.format(calendar.time)
-
-                val formatoVista = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val formatoVista = SimpleDateFormat("dd/MM/yyyy", Locale("es", "ES"))
                 fechaEditText.setText(formatoVista.format(calendar.time))
             }
             datePicker.show(supportFragmentManager, "selector_fecha")
@@ -95,8 +97,20 @@ class AgregarTransaccionActividad : AppCompatActivity() {
         btnAnadir.setOnClickListener {
             guardarTransaccion()
         }
+
+        // --- CAMBIO CLAVE: Listener para el Spinner ---
+        cuentasSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Actualizamos la variable 'cuentaSeleccionada' cada vez que el usuario elige un item.
+                cuentaSeleccionada = listaCuentas.getOrNull(position)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                cuentaSeleccionada = null
+            }
+        }
     }
 
+    // --- FUNCIÓN MODIFICADA ---
     private fun cargarDatosIniciales() {
         val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
         if (idUsuario == -1) {
@@ -107,29 +121,47 @@ class AgregarTransaccionActividad : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Cargamos cuentas y categorías en paralelo (más eficiente)
                 val cuentasResponse = RetrofitClient.webService.obtenerCuentas(idUsuario)
-                val categoriasResponse = RetrofitClient.webService.obtenerCategorias(idUsuario, tipoSeleccionado)
-
                 withContext(Dispatchers.Main) {
-                    // Manejar respuesta de cuentas
                     if (cuentasResponse.isSuccessful) {
                         listaCuentas = cuentasResponse.body()?.listaCuentas ?: emptyList()
                         val nombresCuentas = listaCuentas.map { it.nombreCuenta }
-                        val spinnerAdapter = ArrayAdapter(this@AgregarTransaccionActividad, android.R.layout.simple_spinner_dropdown_item, nombresCuentas)
+
+                        val spinnerAdapter = ArrayAdapter(
+                            this@AgregarTransaccionActividad,
+                            R.layout.spinner_item_cuenta,
+                            nombresCuentas
+                        )
+                        spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_cuenta)
                         cuentasSpinner.adapter = spinnerAdapter
+
+                        // --- INICIO DE LA NUEVA LÓGICA DE SELECCIÓN ---
+                        // Prioridad 1: Usar la cuenta que nos pasó InicioActivity
+                        val idCuentaDesdeInicio = intent.getIntExtra("ID_CUENTA", -1)
+                        var posicionASeleccionar = -1
+
+                        if (idCuentaDesdeInicio != -1) {
+                            posicionASeleccionar = listaCuentas.indexOfFirst { it.idCuenta == idCuentaDesdeInicio }
+                        } else {
+                            // Prioridad 2: Si no hay, usar la guardada en preferencias
+                            val prefsAjustes = getSharedPreferences(PersonalizacionActivity.PREFS_NAME,
+                                Context.MODE_PRIVATE)
+                            val idCuentaDefecto = prefsAjustes.getInt(PersonalizacionActivity.KEY_CUENTA_DEFECTO_ID, -1)
+                            if (idCuentaDefecto != -1) {
+                                posicionASeleccionar = listaCuentas.indexOfFirst { it.idCuenta == idCuentaDefecto }
+                            }
+                        }
+
+                        if (posicionASeleccionar != -1) {
+                            cuentasSpinner.setSelection(posicionASeleccionar)
+                        }
+                        // --- FIN DE LA NUEVA LÓGICA DE SELECCIÓN ---
+
                     } else {
                         Toast.makeText(this@AgregarTransaccionActividad, "Error al cargar cuentas", Toast.LENGTH_SHORT).show()
                     }
-
-                    // Manejar respuesta de categorías
-                    if (categoriasResponse.isSuccessful) {
-                        val categorias = categoriasResponse.body()?.listaCategorias ?: emptyList()
-                        categoriaAdapter.actualizarDatos(categorias)
-                    } else {
-                        Toast.makeText(this@AgregarTransaccionActividad, "Error al cargar categorías", Toast.LENGTH_SHORT).show()
-                    }
                 }
+                cargarCategorias()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@AgregarTransaccionActividad, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -147,7 +179,7 @@ class AgregarTransaccionActividad : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val categorias = response.body()?.listaCategorias ?: emptyList()
                         categoriaAdapter.actualizarDatos(categorias)
-                        categoriaSeleccionada = null // Resetear selección al cambiar de tipo
+                        categoriaSeleccionada = null
                     }
                 }
             } catch (e: Exception) { /* ... */ }
@@ -155,14 +187,13 @@ class AgregarTransaccionActividad : AppCompatActivity() {
     }
 
     private fun guardarTransaccion() {
-        // Validación de datos
         val monto = montoEditText.text.toString().toDoubleOrNull()
         if (monto == null || monto <= 0) {
             Toast.makeText(this, "Ingrese un monto válido", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val cuentaSeleccionada = listaCuentas.getOrNull(cuentasSpinner.selectedItemPosition)
+        // Ahora usamos la variable de la clase que se actualiza con el listener.
         if (cuentaSeleccionada == null) {
             Toast.makeText(this, "Seleccione una cuenta", Toast.LENGTH_SHORT).show()
             return
@@ -178,23 +209,21 @@ class AgregarTransaccionActividad : AppCompatActivity() {
             return
         }
 
-        // Creamos el objeto para enviar a la API
         val transaccionParaCrear = TransaccionParaCrear(
-            idCuenta = cuentaSeleccionada.idCuenta,
+            idCuenta = cuentaSeleccionada!!.idCuenta,
             idCategoria = categoriaSeleccionada!!.idCategoria,
             montoTransaccion = monto,
-            descripcion = null, // Puedes añadir un campo para esto
+            descripcion = null,
             fechaTransaccion = fechaSeleccionada
         )
 
-        // Llamada a la API
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitClient.webService.agregarTransaccion(transaccionParaCrear)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         Toast.makeText(this@AgregarTransaccionActividad, "Transacción guardada", Toast.LENGTH_SHORT).show()
-                        finish() // Volver a la pantalla anterior (InicioActivity)
+                        finish()
                     } else {
                         Toast.makeText(this@AgregarTransaccionActividad, "Error al guardar", Toast.LENGTH_SHORT).show()
                     }

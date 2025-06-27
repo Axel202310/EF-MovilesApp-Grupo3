@@ -1,4 +1,3 @@
-// --- Archivo: IngresarSaldoActivity.kt (VERSIÓN FINAL Y COMPLETA) ---
 package com.asipion.pfmoviles
 
 import android.content.Intent
@@ -53,7 +52,8 @@ class IngresarSaldoActivity : AppCompatActivity() {
                 idUsuario = idUsuario,
                 nombreCuenta = "Principal",
                 saldoActual = saldoInicial,
-                moneda = divisaSeleccionada
+                moneda = divisaSeleccionada,
+                imgCuenta = null // Pasamos null porque esta cuenta no tiene un ícono específico.
             )
             crearPrimeraCuenta(cuentaParaCrear)
         }
@@ -63,27 +63,12 @@ class IngresarSaldoActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = RetrofitClient.webService.crearCuenta(cuenta)
-                // Es crucial cambiar al hilo principal para actualizar la UI
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        // --- INICIO DE LA LÓGICA DE NAVEGACIÓN ---
-                        // Si la respuesta es exitosa, ejecutamos estas acciones.
-
                         Toast.makeText(this@IngresarSaldoActivity, "¡Tu cuenta está lista!", Toast.LENGTH_LONG).show()
-
-                        // 1. Creamos el Intent para ir al Dashboard (InicioActivity).
                         val intent = Intent(this@IngresarSaldoActivity, InicioActivity::class.java)
-
-                        // 2. Añadimos estas flags. Son MUY importantes.
-                        //    Limpian la pila de actividades anteriores (bienvenida, registro, etc.).
-                        //    Así, el usuario no puede volver a ellas con el botón "atrás".
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                        // 3. ¡Navegamos!
                         startActivity(intent)
-
-                        // --- FIN DE LA LÓGICA DE NAVEGACIÓN ---
-
                     } else {
                         val errorCode = response.code()
                         val errorBody = response.errorBody()?.string()

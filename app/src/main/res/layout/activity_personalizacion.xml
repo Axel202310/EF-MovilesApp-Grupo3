@@ -1,44 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_background_dark"
-    tools:context=".PersonalizacionActividad">
+    android:background="#1E1E1E"
+    tools:context=".PersonalizacionActivity">
 
-    <!-- Encabezado -->
-    <LinearLayout
-        android:id="@+id/layout_encabezado"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@color/encabezado_dark"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <!-- 1. Barra de Título Estándar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_personalizacion"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Personalización"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/atras1"
+        app:navigationIconTint="@color/white"
+        android:background="#303030"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_back"
-            app:tint="@color/white"
-            android:contentDescription="@string/desc_atras" />
-
-        <TextView
-            android:id="@+id/tv_titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/titulo_personalizacion"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <!-- Contenido -->
+    <!-- 2. Contenedor de Opciones -->
     <LinearLayout
         android:id="@+id/layout_contenido"
         android:layout_width="0dp"
@@ -46,7 +28,7 @@
         android:orientation="vertical"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@id/layout_encabezado"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_personalizacion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -54,24 +36,30 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/seccion_pantalla_inicio"
+            android:text="Pantalla de Inicio"
             android:textColor="#A0A0A0"
             android:textSize="14sp"
             android:layout_marginBottom="8dp" />
 
-        <!-- Mostrar por defecto -->
+        <!-- Opción: Mostrar por defecto -->
         <LinearLayout
+            android:id="@+id/layout_mostrar_por_defecto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_ojo"
                 app:tint="@color/white"
-                android:contentDescription="@string/desc_mostrar_por_defecto" />
+                android:contentDescription="Opción para mostrar por defecto" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -83,7 +71,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/mostrar_por_defecto"
+                    android:text="Mostrar por defecto"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="15sp" />
@@ -92,25 +80,33 @@
                     android:id="@+id/tv_mostrar_valor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/total"
                     android:textColor="@color/accent_orange"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Balance Total"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Periodo por defecto -->
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#404040" android:layout_marginHorizontal="8dp"/>
+
+        <!-- Opción: Periodo por defecto -->
         <LinearLayout
+            android:id="@+id/layout_periodo_por_defecto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_calendar"
                 app:tint="@color/white"
-                android:contentDescription="@string/desc_periodo_defecto" />
+                android:contentDescription="Opción para período por defecto" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -122,7 +118,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/periodo_por_defecto"
+                    android:text="Período por defecto"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="15sp" />
@@ -131,35 +127,43 @@
                     android:id="@+id/tv_periodo_valor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/semana"
                     android:textColor="@color/accent_orange"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="Mes"/>
             </LinearLayout>
         </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#404040" android:layout_marginHorizontal="8dp"/>
 
         <!-- Sección: Añadir transacciones -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/seccion_añadir_transacciones"
+            android:text="Añadir Transacciones"
             android:textColor="#A0A0A0"
             android:textSize="14sp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp" />
 
-        <!-- Cuenta por defecto -->
+        <!-- Opción: Cuenta por defecto -->
         <LinearLayout
+            android:id="@+id/layout_cuenta_por_defecto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="12dp">
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="8dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_usuario"
                 app:tint="@color/white"
-                android:contentDescription="@string/desc_cuenta_defecto" />
+                android:contentDescription="Opción para cuenta por defecto" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -171,18 +175,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cuenta_por_defecto"
+                    android:text="Cuenta por defecto"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_cuenta_valor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/estado_no_seleccionado"
-                    android:textColor="@color/error_red"
-                    android:textSize="14sp" />
+                    android:textColor="@color/rojo_gasto"
+                    android:textSize="14sp"
+                    tools:text="No seleccionada"/>
             </LinearLayout>
         </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#404040" android:layout_marginHorizontal="8dp"/>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

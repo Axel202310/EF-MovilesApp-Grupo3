@@ -1,87 +1,195 @@
 package com.asipion.pfmoviles
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.asipion.pfmoviles.databinding.ActividadAgregarCuentaBinding
-import com.google.android.material.button.MaterialButton
+import com.asipion.pfmoviles.model.Cuenta
+import com.asipion.pfmoviles.model.Transferencia
+import com.asipion.pfmoviles.servicio.RetrofitClient
+import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class TransferenciaActividad : AppCompatActivity() {
 
-    private lateinit var binding: ActividadAgregarCuentaBinding
-
-    private lateinit var backArrow: ImageView
-    private lateinit var fromAccountLayout: LinearLayout
-    private lateinit var toAccountLayout: LinearLayout
-    private lateinit var fromAccountValue: TextView
-    private lateinit var toAccountValue: TextView
+    // Vistas de la UI
+    private lateinit var toolbar: MaterialToolbar
+    private lateinit var tvDesdeCuenta: TextView
+    private lateinit var tvHaciaCuenta: TextView
     private lateinit var etMonto: EditText
-    private lateinit var tvMoneda: TextView
-    private lateinit var ivCalculator: ImageView
     private lateinit var tvDateValue: TextView
     private lateinit var etComentario: EditText
-    private lateinit var tvCommentCounter: TextView
-    private lateinit var btnAnadir: MaterialButton
+    private lateinit var btnAnadir: Button
+
+    // Datos y estado
+    private var listaDeCuentas: List<Cuenta> = emptyList()
+    private var cuentaOrigen: Cuenta? = null
+    private var cuentaDestino: Cuenta? = null
+    private var fechaSeleccionada: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActividadAgregarCuentaBinding.inflate(layoutInflater)
         setContentView(R.layout.actividad_transferencia)
 
-        inicializarVista()
-        configurarEventos()
+        inicializarVistas()
+        configurarListeners()
+        cargarCuentasDesdeApi()
 
-        // ← Botón de retroceso
-        binding.ivBackArrow.setOnClickListener {
-            finish()
-        }
+        // Establecer la fecha actual por defecto al iniciar
+        actualizarFecha(Calendar.getInstance())
     }
 
-    private fun inicializarVista() {
-        backArrow = findViewById(R.id.iv_back)
-        fromAccountLayout = findViewById(R.id.layout_from_account)
-        toAccountLayout = findViewById(R.id.layout_to_account)
-        fromAccountValue = findViewById(R.id.tv_from_account_value)
-        toAccountValue = findViewById(R.id.tv_to_account_value)
+    private fun inicializarVistas() {
+        toolbar = findViewById(R.id.toolbar_transferencia)
+        tvDesdeCuenta = findViewById(R.id.tv_from_account_value)
+        tvHaciaCuenta = findViewById(R.id.tv_to_account_value)
         etMonto = findViewById(R.id.et_monto)
-        tvMoneda = findViewById(R.id.tv_moneda)
-        ivCalculator = findViewById(R.id.iv_calculator)
         tvDateValue = findViewById(R.id.tv_date_value)
         etComentario = findViewById(R.id.et_comentario)
-        tvCommentCounter = findViewById(R.id.tv_comment_counter)
         btnAnadir = findViewById(R.id.btn_anadir)
     }
 
-    private fun configurarEventos() {
-        backArrow.setOnClickListener {
-            finish()
-        }
+    private fun configurarListeners() {
+        toolbar.setNavigationOnClickListener { finish() }
 
-        etComentario.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val length = s?.length ?: 0
-                tvCommentCounter.text = "$length/4096"
+        // Hacemos que los TextViews de las cuentas sean clicables para abrir el selector
+        tvDesdeCuenta.setOnClickListener { mostrarDialogoSeleccion("origen") }
+        tvHaciaCuenta.setOnClickListener { mostrarDialogoSeleccion("destino") }
+
+        btnAnadir.setOnClickListener { realizarTransferencia() }
+
+        tvDateValue.setOnClickListener {
+            val datePicker = DatePickerFragment { day, month, year ->
+                val calendar = Calendar.getInstance().apply { set(year, month, day) }
+                actualizarFecha(calendar)
             }
-            override fun afterTextChanged(s: Editable?) {}
-        })
+            datePicker.show(supportFragmentManager, "datePicker")
+        }
+    }
 
-        fromAccountLayout.setOnClickListener {
-            Toast.makeText(this, "Seleccionar cuenta origen", Toast.LENGTH_SHORT).show()
+    private fun actualizarFecha(calendar: Calendar) {
+        // Formato para enviar a la API
+        val formatoApi = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        fechaSeleccionada = formatoApi.format(calendar.time)
+
+        // Formato para mostrar al usuario
+        val formatoVista = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("es", "ES"))
+        tvDateValue.text = formatoVista.format(calendar.time)
+    }
+
+    private fun cargarCuentasDesdeApi() {
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        if (idUsuario == -1) {
+            Toast.makeText(this, "Error de sesión", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        toAccountLayout.setOnClickListener {
-            Toast.makeText(this, "Seleccionar cuenta destino", Toast.LENGTH_SHORT).show()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.webService.obtenerCuentas(idUsuario)
+                if (response.isSuccessful) {
+                    listaDeCuentas = response.body()?.listaCuentas ?: emptyList()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) { Toast.makeText(this@TransferenciaActividad, "Error de red", Toast.LENGTH_SHORT).show() }
+            }
+        }
+    }
+
+    private fun mostrarDialogoSeleccion(tipo: String) {
+        if (listaDeCuentas.size < 2) {
+            Toast.makeText(this, "Necesita al menos dos cuentas para realizar una transferencia", Toast.LENGTH_LONG).show()
+            return
         }
 
-        ivCalculator.setOnClickListener {
-            Toast.makeText(this, "Elegir fecha", Toast.LENGTH_SHORT).show()
+        val nombresCuentas = listaDeCuentas.map { "${it.nombreCuenta} (S/ ${it.saldoActual})" }.toTypedArray()
+        val titulo = if (tipo == "origen") "Transferir Desde" else "Transferir A"
+
+        AlertDialog.Builder(this)
+            .setTitle(titulo)
+            .setItems(nombresCuentas) { _, which ->
+                val cuentaSeleccionada = listaDeCuentas[which]
+                if (tipo == "origen") {
+                    if (cuentaSeleccionada.idCuenta == cuentaDestino?.idCuenta) {
+                        Toast.makeText(this, "Las cuentas no pueden ser las mismas", Toast.LENGTH_SHORT).show()
+                        return@setItems
+                    }
+                    cuentaOrigen = cuentaSeleccionada
+                    tvDesdeCuenta.text = cuentaSeleccionada.nombreCuenta
+                    tvDesdeCuenta.setTextColor(getColor(android.R.color.white))
+                } else {
+                    if (cuentaSeleccionada.idCuenta == cuentaOrigen?.idCuenta) {
+                        Toast.makeText(this, "Las cuentas no pueden ser las mismas", Toast.LENGTH_SHORT).show()
+                        return@setItems
+                    }
+                    cuentaDestino = cuentaSeleccionada
+                    tvHaciaCuenta.text = cuentaSeleccionada.nombreCuenta
+                    tvHaciaCuenta.setTextColor(getColor(android.R.color.white))
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun realizarTransferencia() {
+        val montoStr = etMonto.text.toString()
+        val monto = montoStr.toDoubleOrNull()
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        val comentario = etComentario.text.toString().trim()
+
+        // Validaciones
+        if (cuentaOrigen == null || cuentaDestino == null) {
+            Toast.makeText(this, "Debe seleccionar ambas cuentas", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (monto == null || monto <= 0) {
+            Toast.makeText(this, "Ingrese un monto válido y mayor a cero", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (monto > cuentaOrigen!!.saldoActual) {
+            Toast.makeText(this, "Saldo insuficiente en la cuenta '${cuentaOrigen!!.nombreCuenta}'", Toast.LENGTH_LONG).show()
+            return
+        }
+        if (idUsuario == -1 || fechaSeleccionada.isEmpty()) {
+            Toast.makeText(this, "Error de sesión o fecha no seleccionada", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        btnAnadir.setOnClickListener {
-            Toast.makeText(this, "Transferencia registrada (demo)", Toast.LENGTH_SHORT).show()
+        val transferencia = Transferencia(
+            idUsuario = idUsuario,
+            idCuentaOrigen = cuentaOrigen!!.idCuenta,
+            idCuentaDestino = cuentaDestino!!.idCuenta,
+            monto = monto,
+            comentario = comentario,
+            fechaTransferencia = fechaSeleccionada
+        )
+
+        // Llamada a la API
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitClient.webService.realizarTransferencia(transferencia)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@TransferenciaActividad, response.body()?.mensaje, Toast.LENGTH_LONG).show()
+                        finish()
+                    } else {
+                        Toast.makeText(this@TransferenciaActividad, "Error en la transferencia", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@TransferenciaActividad, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

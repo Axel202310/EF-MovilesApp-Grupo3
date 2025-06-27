@@ -1,0 +1,32 @@
+<!-- Archivo: res/layout/item_categoria_gestion.xml (NUEVO) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/iv_categoria_icono"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/educacion"
+        android:background="@drawable/circulo_rojo"
+        android:padding="14dp"
+        android:scaleType="centerInside"
+        android:contentDescription="Icono de categoría"/>
+
+    <TextView
+        android:id="@+id/tv_categoria_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categoría"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+</LinearLayout>

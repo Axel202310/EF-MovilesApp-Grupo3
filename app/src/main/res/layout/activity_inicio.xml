@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -40,46 +41,81 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <!-- Saldo y Moneda -->
-                <TextView
-                    android:id="@+id/txtMonto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FFFFFF"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/guideline_center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="950.00" />
-                <TextView
-                    android:id="@+id/txtMoneda"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="28sp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/txtMonto"
-                    app:layout_constraintStart_toEndOf="@id/txtMonto"
-                    tools:text="PEN" />
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline_center"
+                <!-- Contenedor Clicable para el Balance -->
+                <LinearLayout
+                    android:id="@+id/layoutBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/textViewTotalLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Balance Total"
+                            android:textColor="#AAAAAA"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/imageViewDropDown"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_arrow_drop_down_24"
+                            android:contentDescription="Seleccionar cuenta"
+                            app:tint="#AAAAAA"
+                            android:layout_marginStart="4dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+                        <TextView
+                            android:id="@+id/txtMonto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#FFFFFF"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            tools:text="1,141.00" />
+                        <TextView
+                            android:id="@+id/txtMoneda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="28sp"
+                            tools:text="PEN" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <!-- Tabs GASTOS / INGRESOS -->
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayoutType"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="16dp"
                     android:background="#1E1E1E"
                     app:tabIndicatorColor="#FF7043"
                     app:tabIndicatorHeight="3dp"
                     app:tabSelectedTextColor="#FF7043"
                     app:tabTextColor="#AAAAAA"
-                    app:layout_constraintTop_toBottomOf="@id/txtMonto"
+                    app:layout_constraintTop_toBottomOf="@id/layoutBalance"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
                     <com.google.android.material.tabs.TabItem
@@ -163,7 +199,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tabLayoutPeriod"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <!-- Gráfico de Dona (CORREGIDO) -->
+                <!-- Gráfico de Dona -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/donutContainer"
                     android:layout_width="200dp"
@@ -172,25 +208,15 @@
                     app:layout_constraintTop_toBottomOf="@id/textViewCurrentDate"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
-
-                    <!-- Anillo gris de fondo -->
                     <View
                         android:id="@+id/donutRing"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/shape_donut_ring" />
-
-                    <!-- Nuestro View personalizado que dibujará los segmentos de colores -->
                     <com.asipion.pfmoviles.DonutChartView
                         android:id="@+id/donutChartView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                    <!-- Texto en el centro -->
+                        android:layout_height="match_parent"/>
                     <TextView
                         android:id="@+id/textViewDonutCenterText"
                         android:layout_width="wrap_content"

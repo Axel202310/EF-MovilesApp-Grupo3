@@ -1,6 +1,6 @@
-// --- Archivo: PerfilActivity.kt (Corregido y Final) ---
 package com.asipion.pfmoviles
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,87 +9,150 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.asipion.pfmoviles.model.UsuarioActualizarPassword // Usamos el nuevo modelo
-import com.asipion.pfmoviles.servicio.RetrofitClient
-import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
+import com.asipion.pfmoviles.databinding.ActivityPerfilBinding
+import com.asipion.pfmoviles.model.UsuarioActualizarPassword
+import com.asipion.pfmoviles.servicio.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 class PerfilActivity : AppCompatActivity() {
 
-    private lateinit var correoTextView: TextView
-    private lateinit var idUsuarioTextView: TextView
-    private lateinit var modificarContrasenaTextView: TextView
-    private lateinit var cerrarSesionTextView: TextView
-    private lateinit var botonEliminar: ImageButton
-    // Eliminamos la referencia a iconoEditarCorreo, ya que no existe en el XML.
-
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var binding: ActivityPerfilBinding
+    private lateinit var drawerToggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_perfil)
+        binding = ActivityPerfilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        inicializarVistas()
+        configurarToolbarYMenu()
+        mostrarDatosUsuario()
+        configurarListeners()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        // Actualizamos el header por si algún dato (como el balance) cambió.
+        actualizarHeaderMenuLateral()
+    }
+
+    private fun configurarToolbarYMenu() {
+        setSupportActionBar(binding.topAppBarPerfil)
+        val drawerLayout: DrawerLayout = binding.drawerLayoutPerfil
+        drawerToggle = ActionBarDrawerToggle(
+            this, drawerLayout, binding.topAppBarPerfil,
+            R.string.open_drawer, R.string.close_drawer
+        )
+        drawerLayout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        binding.topAppBarPerfil.setNavigationOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.navegacionLateralPerfil.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.item_inicio -> startActivity(Intent(this, InicioActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_cuentas -> startActivity(Intent(this, CuentasActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_graficos -> startActivity(Intent(this, GraficosActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_categorias -> startActivity(Intent(this, MenuCategoriasActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_pagos_habituales -> startActivity(Intent(this, PagosHabitualesActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_ajustes -> startActivity(Intent(this, AjustesActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
+                R.id.item_cerrar_sesion -> cerrarSesionCompleto()
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
+
+    private fun mostrarDatosUsuario() {
         val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
         val correo = prefs.getString("correo_usuario", "N/A")
         val idUsuario = prefs.getInt("id_usuario", -1)
 
-        if (idUsuario == -1) {
-            cerrarSesionCompleto()
-            return
-        }
-
-        correoTextView.text = correo
-        idUsuarioTextView.text = "ID: $idUsuario"
-
-        configurarListeners(idUsuario)
+        binding.emailValue.text = correo
+        binding.userId.text = "ID: $idUsuario"
     }
 
-    private fun inicializarVistas() {
-        // ... (Tu código para la Toolbar y el DrawerLayout es correcto y se mantiene) ...
-        correoTextView = findViewById(R.id.email_value)
-        idUsuarioTextView = findViewById(R.id.user_id)
-        modificarContrasenaTextView = findViewById(R.id.password_modify)
-        cerrarSesionTextView = findViewById(R.id.logout_button)
-        botonEliminar = findViewById(R.id.delete_button)
-    }
+    private fun configurarListeners() {
+        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+        val idUsuario = prefs.getInt("id_usuario", -1)
 
-    private fun configurarListeners(idUsuario: Int) {
-        modificarContrasenaTextView.setOnClickListener {
-            mostrarDialogoModificarContrasena(idUsuario)
+        binding.passwordModify.setOnClickListener {
+            if (idUsuario != -1) {
+                mostrarDialogoModificarContrasena(idUsuario)
+            }
         }
 
-        cerrarSesionTextView.setOnClickListener {
+        binding.deleteButton.setOnClickListener {
+            if (idUsuario != -1) {
+                mostrarDialogoEliminarPerfil(idUsuario)
+            }
+        }
+
+        binding.logoutButton.setOnClickListener {
             cerrarSesionCompleto()
         }
+    }
 
-        botonEliminar.setOnClickListener {
-            mostrarDialogoEliminarPerfil(idUsuario)
+    private fun mostrarDialogoModificarContrasena(idUsuario: Int) {
+        val vistaDialogo = LayoutInflater.from(this).inflate(R.layout.dialog_modificar_contrasena, null)
+        val campoNuevaContrasena = vistaDialogo.findViewById<EditText>(R.id.edit_nueva_contrasena)
+
+        val dialogo = AlertDialog.Builder(this)
+            .setView(vistaDialogo)
+            .create()
+
+        vistaDialogo.findViewById<Button>(R.id.btn_cancelar).setOnClickListener {
+            dialogo.dismiss()
+        }
+
+        vistaDialogo.findViewById<Button>(R.id.btn_guardar).setOnClickListener {
+            val nuevaContrasena = campoNuevaContrasena.text.toString().trim()
+            if (nuevaContrasena.length < 6) {
+                campoNuevaContrasena.error = "La contraseña debe tener al menos 6 caracteres"
+                return@setOnClickListener
+            }
+            dialogo.dismiss()
+            actualizarContrasenaEnServidor(idUsuario, nuevaContrasena)
+        }
+        dialogo.show()
+    }
+
+    private fun actualizarContrasenaEnServidor(idUsuario: Int, nuevaContrasena: String) {
+        val datosParaActualizar = UsuarioActualizarPassword(idUsuario = idUsuario, nuevaContrasena = nuevaContrasena)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val respuesta = RetrofitClient.webService.modificarContrasena(datosParaActualizar)
+                withContext(Dispatchers.Main) {
+                    val mensaje = respuesta.body()?.mensaje ?: "Error desconocido"
+                    Toast.makeText(this@PerfilActivity, mensaje, Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PerfilActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
     private fun mostrarDialogoEliminarPerfil(idUsuario: Int) {
-        val vista = LayoutInflater.from(this).inflate(R.layout.dialog_eliminar_perfil, null)
+        val vistaDialogo = LayoutInflater.from(this).inflate(R.layout.dialog_eliminar_perfil, null)
         val dialogo = AlertDialog.Builder(this)
-            .setView(vista)
-            .setCancelable(false)
+            .setView(vistaDialogo)
             .create()
 
-        val btnCancelar = vista.findViewById<Button>(R.id.btn_cancelar)
-        val btnConfirmar = vista.findViewById<Button>(R.id.btn_confirmar)
-
-        btnCancelar.setOnClickListener { dialogo.dismiss() }
-
-        btnConfirmar.setOnClickListener {
+        vistaDialogo.findViewById<Button>(R.id.btn_cancelar).setOnClickListener { dialogo.dismiss() }
+        vistaDialogo.findViewById<Button>(R.id.btn_confirmar).setOnClickListener {
             dialogo.dismiss()
             eliminarPerfilDelServidor(idUsuario)
         }
@@ -99,14 +162,11 @@ class PerfilActivity : AppCompatActivity() {
     private fun eliminarPerfilDelServidor(idUsuario: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Llamamos al endpoint que acabamos de crear en el backend
                 val response = RetrofitClient.webService.eliminarUsuario(idUsuario)
                 withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PerfilActivity, response.body()?.mensaje, Toast.LENGTH_LONG).show()
                     if (response.isSuccessful) {
-                        Toast.makeText(this@PerfilActivity, "Perfil eliminado correctamente", Toast.LENGTH_LONG).show()
                         cerrarSesionCompleto()
-                    } else {
-                        Toast.makeText(this@PerfilActivity, "Error al eliminar perfil", Toast.LENGTH_SHORT).show()
                     }
                 }
             } catch (e: Exception) {
@@ -117,52 +177,31 @@ class PerfilActivity : AppCompatActivity() {
         }
     }
 
-    private fun mostrarDialogoModificarContrasena(idUsuario: Int) {
-        val vista = LayoutInflater.from(this).inflate(R.layout.dialogo_modificar_contrasena, null)
-        val campoNuevaContrasena = vista.findViewById<EditText>(R.id.edit_nueva_contrasena)
-        val btnCancelar = vista.findViewById<Button>(R.id.btn_cancelar)
-        val btnGuardar = vista.findViewById<Button>(R.id.btn_guardar)
-
-        val dialogo = AlertDialog.Builder(this)
-            .setView(vista)
-            .setCancelable(false)
-            .create()
-
-        btnCancelar.setOnClickListener { dialogo.dismiss() }
-
-        btnGuardar.setOnClickListener {
-            val nuevaContrasena = campoNuevaContrasena.text.toString().trim()
-            if (nuevaContrasena.length < 6) { // Es una buena práctica validar la longitud
-                campoNuevaContrasena.error = "La contraseña debe tener al menos 6 caracteres"
-                return@setOnClickListener
-            }
-
-            dialogo.dismiss()
-            actualizarContrasenaEnServidor(idUsuario, nuevaContrasena)
-        }
-        dialogo.show()
-    }
-
-    private fun actualizarContrasenaEnServidor(idUsuario: Int, nuevaContrasena: String) {
-        // Usamos nuestro nuevo modelo específico
-        val datosParaActualizar = UsuarioActualizarPassword(idUsuario = idUsuario, nuevaContrasena = nuevaContrasena)
+    private fun actualizarHeaderMenuLateral() {
+        val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
+        if (idUsuario == -1) return
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Llamamos a la nueva función del WebService
-                val respuesta = RetrofitClient.webService.modificarContrasena(datosParaActualizar)
+                val response = RetrofitClient.webService.obtenerCuentas(idUsuario)
                 withContext(Dispatchers.Main) {
-                    if (respuesta.isSuccessful) {
-                        Toast.makeText(this@PerfilActivity, "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
-                    } else {
-                        val errorMsg = respuesta.body()?.mensaje ?: "Error desconocido"
-                        Toast.makeText(this@PerfilActivity, "Error: $errorMsg", Toast.LENGTH_SHORT).show()
+                    if (response.isSuccessful) {
+                        val cuentas = response.body()?.listaCuentas ?: emptyList()
+                        val headerView = binding.navegacionLateralPerfil.getHeaderView(0)
+                        val textCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
+                        val textSaldo = headerView.findViewById<TextView>(R.id.textViewSaldoMenu)
+
+                        val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
+                        val correoUsuario = prefs.getString("correo_usuario", "N/A")
+                        val balanceTotal = cuentas.sumOf { it.saldoActual }
+                        val monedaPrincipal = cuentas.firstOrNull()?.moneda ?: "PEN"
+
+                        textCorreo.text = correoUsuario
+                        textSaldo.text = "Balance: ${String.format(Locale.US, "%.2f", balanceTotal)} $monedaPrincipal"
                     }
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@PerfilActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
+                // No mostramos Toast para no interrumpir al usuario.
             }
         }
     }

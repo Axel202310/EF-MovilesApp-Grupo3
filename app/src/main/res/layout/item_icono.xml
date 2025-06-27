@@ -1,0 +1,9 @@
+<!-- Archivo: res/layout/item_icono.xml (NUEVO) -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iv_icono_item"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:padding="8dp"
+    android:scaleType="centerInside"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:src="@drawable/educacion" />

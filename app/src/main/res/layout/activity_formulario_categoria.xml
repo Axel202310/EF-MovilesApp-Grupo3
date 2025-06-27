@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    tools:context=".FormularioCategoriaActivity">
+
+    <!-- 1. Barra superior con título y botón de retroceso -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#303030">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar_formulario_categoria"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Nueva Categoría"
+            app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/atras1"
+            app:navigationIconTint="@color/white"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenedor principal que permite el desplazamiento -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Campo para el Nombre de la Categoría -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de la Categoría"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp"/>
+
+            <EditText
+                android:id="@+id/et_nombre_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/white"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
+                android:hint="Ej: Viajes, Gimnasio, etc."
+                android:textColorHint="#808080"/>
+
+            <!-- Selector para el Tipo de Categoría -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Categoría"
+                android:layout_marginTop="24dp"
+                android:textColor="#AAAAAA"
+                android:textSize="14sp"/>
+
+            <RadioGroup
+                android:id="@+id/radio_group_tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+                <RadioButton
+                    android:id="@+id/radio_gasto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gasto"
+                    android:textColor="@color/white"
+                    android:buttonTint="#FF7043"
+                    android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/radio_ingreso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ingreso"
+                    android:textColor="@color/white"
+                    android:buttonTint="#69F0AE"
+                    android:layout_marginStart="16dp"/>
+            </RadioGroup>
+
+            <!-- Sección del Selector de Iconos -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar Icono"
+                android:layout_marginTop="24dp"
+                android:textColor="#AAAAAA"/>
+
+            <LinearLayout
+                android:id="@+id/layout_icono_seleccionado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/iv_icono_actual"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_default_category"
+                    android:background="@drawable/circulo_gris"
+                    android:padding="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar icono"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
+
+            <!-- Grilla de iconos, inicialmente oculta -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_iconos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="5"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_icono"
+                tools:visibility="visible"/>
+
+            <!-- Espaciador para empujar los botones hacia abajo -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="48dp"/>
+
+            <!-- Botón de Guardar / Añadir -->
+            <Button
+                android:id="@+id/btn_guardar_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Añadir Categoría"
+                android:backgroundTint="#FF7043"
+                android:textColor="@color/white"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Botón de Eliminar (oculto por defecto) -->
+            <Button
+                android:id="@+id/btn_eliminar_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar Categoría"
+                android:backgroundTint="#D32F2F"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

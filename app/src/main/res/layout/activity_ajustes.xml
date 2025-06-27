@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout_ajustes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".AjustesActivity">
+
+    <!-- CONTENIDO PRINCIPAL DE LA PANTALLA -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1E1E1E">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#303030"
+            app:elevation="0dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar_ajustes"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_menu_24"
+                app:title="Ajustes"
+                app:titleCentered="true"
+                app:titleTextColor="@android:color/white"
+                app:navigationIconTint="@android:color/white"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Contenedor de opciones -->
+        <LinearLayout
+            android:id="@+id/layout_opciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <!-- Se han eliminado las opciones de PIN y Apariencia -->
+
+            <!-- Opción Personalización -->
+            <LinearLayout
+                android:id="@+id/item_personalizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_customize"
+                    app:tint="@color/white"
+                    android:contentDescription="Configurar personalización" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp"
+                    android:text="Personalización"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/white"
+                    android:contentDescription="Ir a configurar personalización" />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#404040" android:layout_marginHorizontal="8dp"/>
+
+
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- MENÚ LATERAL -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navegacion_lateral_ajustes"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#212121"
+        app:headerLayout="@layout/header_menu_lateral"
+        app:menu="@menu/menu_lateral" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

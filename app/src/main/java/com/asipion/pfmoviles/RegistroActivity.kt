@@ -16,8 +16,6 @@ import kotlinx.coroutines.withContext
 class RegistroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Asegúrate de tener un layout llamado 'activity_registro.xml'
-        // que contenga los campos de correo, contraseña y confirmación.
         setContentView(R.layout.activity_registro)
 
         val campoCorreo = findViewById<EditText>(R.id.campo_correo)
@@ -61,7 +59,6 @@ class RegistroActivity : AppCompatActivity() {
 
                                 Toast.makeText(this@RegistroActivity, "Registro exitoso. Ahora configura tu cuenta.", Toast.LENGTH_LONG).show()
 
-                                // ¡AQUÍ ESTÁ EL AJUSTE!
                                 // Navegamos al flujo de configuración inicial
                                 val intent = Intent(this@RegistroActivity,
                                     SeleccionarDivisaActivity::class.java).apply {

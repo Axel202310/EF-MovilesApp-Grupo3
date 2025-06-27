@@ -1,0 +1,65 @@
+<!-- Archivo: res/layout/activity_detalle_transferencia_historial.xml (NUEVO) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1E1E1E"
+    tools:context=".DetalleTransferenciaHistorialActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_detalle_historial"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Detalle de Transferencia"
+        app:titleTextColor="#FFFFFF"
+        app:navigationIcon="@drawable/atras1"
+        app:navigationIconTint="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/tv_detalle_monto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:textColor="#FF9F0A"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        tools:text="S/ 50.00" />
+
+    <TextView
+        android:id="@+id/tv_detalle_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        tools:text="Desde 'Principal' hacia 'Yape'" />
+
+    <TextView
+        android:id="@+id/tv_detalle_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#AAAAAA"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        tools:text="21 de junio de 2025" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btn_eliminar_historial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar Transferencia"
+        android:backgroundTint="#D32F2F"
+        android:textColor="@android:color/white"
+        android:layout_margin="16dp"/>
+
+</LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:background="#2C2C2C"
+    android:layout_margin="16dp">
+
+    <!-- Icono -->
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_lock"
+        app:tint="@color/accent_orange"
+        android:contentDescription="Icono de modificar contraseña" />
+
+    <!-- Título -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modificar Contraseña"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Campo de nueva contraseña -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/accent_orange"
+        app:hintTextColor="@color/accent_orange">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_nueva_contrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nueva contraseña"
+            android:inputType="textPassword"
+            android:textColor="@android:color/white"
+            android:textColorHint="#BDBDBD"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botones de acción -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="24dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCELAR"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="@color/text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GUARDAR"
+            android:textColor="@color/accent_orange"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+</LinearLayout>

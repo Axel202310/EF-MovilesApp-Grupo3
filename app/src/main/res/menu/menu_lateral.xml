@@ -22,10 +22,6 @@
         android:title="Pagos Habituales" />
 
     <item
-        android:id="@+id/item_recordatorios"
-        android:title="Recordatorios" />
-
-    <item
         android:id="@+id/item_ajustes"
         android:title="Ajustes" />
 
