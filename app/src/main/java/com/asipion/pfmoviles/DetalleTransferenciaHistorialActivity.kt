@@ -1,4 +1,4 @@
-// --- Archivo: DetalleTransferenciaHistorialActivity.kt (NUEVO Y COMPLETO) ---
+// --- Archivo: DetalleTransferenciaHistorialActivity.kt---
 package com.asipion.pfmoviles
 
 import android.os.Bundle

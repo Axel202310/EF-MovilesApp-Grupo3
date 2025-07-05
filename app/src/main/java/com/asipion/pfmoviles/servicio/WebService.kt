@@ -107,17 +107,6 @@ interface WebService {
         @Path("idUsuario") idUsuario: Int,
         @Query("periodo") periodo: String // "dia", "semana", "mes", "año"
     ): Response<ResumenResponse>
-
-    // --- Pagos Habituales ---
-
-    @GET("pagos_habituales/{idUsuario}")
-    suspend fun obtenerPagosHabituales(@Path("idUsuario") idUsuario: Int): Response<PagoHabitualResponse>
-
-    @POST("pagos_habituales/agregar")
-    suspend fun agregarPagoHabitual(@Body pagoHabitual: PagoHabitual): Response<MensajeResponse>
-
-    @DELETE("pagos_habituales/eliminar/{id}")
-    suspend fun eliminarPagoHabitual(@Path("id") idPago: Int): Response<MensajeResponse>
 }
 
 object RetrofitClient {

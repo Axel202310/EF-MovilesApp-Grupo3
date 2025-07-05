@@ -174,10 +174,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
                 R.id.item_categorias -> {
                     Toast.makeText(this, "Ya estás en Categorías", Toast.LENGTH_SHORT).show()
                 }
-                R.id.item_pagos_habituales -> {
-                    startActivity(Intent(this, PagosHabitualesActividad::class.java))
-                    finish()
-                }
                 R.id.item_ajustes -> {
                     startActivity(Intent(this, AjustesActivity::class.java))
                     finish()

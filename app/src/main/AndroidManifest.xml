@@ -75,34 +75,10 @@
         <!-- Pantalla de formulario para CREAR y EDITAR categorías -->
         <activity android:name=".FormularioCategoriaActivity" />
 
-        <!-- ============================================================== -->
-        <!-- OTRAS ACTIVIDADES (MANTENIDAS) -->
-        <!-- ============================================================== -->
         <activity android:name=".GraficosActivity" />
-
-        <activity android:name=".PagosHabitualesActividad" />
-        <activity android:name=".FormularioPagoHabitualActivity" />
 
         <activity android:name=".AjustesActivity" />
         <activity android:name=".PersonalizacionActivity" />
-
-        <activity android:name=".DetalleTransaccionActividad" />
-
-        <!-- ============================================================== -->
-        <!-- ACTIVIDADES NO UTILIZADAS (YA NO SON NECESARIAS) -->
-        <!-- ============================================================== -->
-        <!--
-        <activity android:name=".RegistroCorreoActividad" />
-        <activity android:name=".RegistroContrasenaActividad" />
-        <activity android:name=".IniciarSesionCorreoActividad" />
-        <activity android:name=".IniciarSesionContrasenaActividad" />
-        <activity android:name=".PerfilFinancieroActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".TransferenciaActividad" />
-        <activity android:name=".AnadirCategoriaActividad" />
-        <activity android:name=".ModificarCategoriaActividad" />
-        <activity android:name=".CrearCategoriaActividad" />
-        -->
 
     </application>
 

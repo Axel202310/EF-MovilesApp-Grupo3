@@ -60,7 +60,6 @@ class AjustesActivity : AppCompatActivity() {
                 R.id.item_cuentas -> startActivity(Intent(this, CuentasActividad::class.java))
                 R.id.item_graficos -> startActivity(Intent(this, GraficosActivity::class.java))
                 R.id.item_categorias -> startActivity(Intent(this, MenuCategoriasActividad::class.java))
-                R.id.item_pagos_habituales -> startActivity(Intent(this, PagosHabitualesActividad::class.java))
                 R.id.item_ajustes -> Toast.makeText(this, "Ya estás en Ajustes", Toast.LENGTH_SHORT).show()
                 R.id.item_cerrar_sesion -> cerrarSesion()
             }

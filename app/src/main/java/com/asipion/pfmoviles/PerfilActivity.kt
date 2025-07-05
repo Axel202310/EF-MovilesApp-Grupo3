@@ -64,7 +64,6 @@ class PerfilActivity : AppCompatActivity() {
                 R.id.item_cuentas -> startActivity(Intent(this, CuentasActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
                 R.id.item_graficos -> startActivity(Intent(this, GraficosActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
                 R.id.item_categorias -> startActivity(Intent(this, MenuCategoriasActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
-                R.id.item_pagos_habituales -> startActivity(Intent(this, PagosHabitualesActividad::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
                 R.id.item_ajustes -> startActivity(Intent(this, AjustesActivity::class.java).apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP })
                 R.id.item_cerrar_sesion -> cerrarSesionCompleto()
             }

@@ -90,10 +90,6 @@ class GraficosActivity : AppCompatActivity() {
                     startActivity(Intent(this, MenuCategoriasActividad::class.java))
                     finish()
                 }
-                R.id.item_pagos_habituales -> {
-                    startActivity(Intent(this, PagosHabitualesActividad::class.java))
-                    finish()
-                }
                 R.id.item_ajustes -> {
                     startActivity(Intent(this, AjustesActivity::class.java))
                     finish()
