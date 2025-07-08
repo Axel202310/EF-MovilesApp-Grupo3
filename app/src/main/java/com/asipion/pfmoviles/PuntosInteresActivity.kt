@@ -4,66 +4,60 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.asipion.pfmoviles.databinding.ActivityPuntosInteresBinding
+import java.io.Serializable
+
+data class PuntoInteres(
+    val latitud: Double,
+    val longitud: Double,
+    val titulo: String
+) : Serializable
 
 class PuntosInteresActivity : AppCompatActivity() {
 
-    // Se declara la variable para el View Binding, que nos da acceso seguro a los botones del layout.
     private lateinit var binding: ActivityPuntosInteresBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Se infla (crea) la vista a partir del layout XML y se establece como el contenido de la pantalla.
         binding = ActivityPuntosInteresBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Llamamos a la función que configura los listeners para mantener el código organizado.
         configurarListenersDeBotones()
     }
 
     private fun configurarListenersDeBotones() {
-        // Listener para el botón de "Cajeros BCP"
         binding.btnVerAtmsBcp.setOnClickListener {
-            abrirMapa(
-                latitud = -12.071093000039065,
-                longitud = -77.06044971943385,
-                titulo = "BCP Bolivar",
-                idIcono = R.drawable.logo_bcp // Se pasa el ID del logo del BCP
+            val puntosBcp = arrayListOf(
+                PuntoInteres(-12.070993985364549, -77.06063210964244, "BCP Bolivar"),
+                PuntoInteres(-12.058811634172764, -77.0588672161197, "BCP Av. Tingo María 1194"),
+                PuntoInteres(-12.056821382165793, -77.04701175014709, "BCP Jr. Jorge Chávez 847")
             )
+            abrirMapa(puntosBcp, "Cajeros BCP", R.drawable.logo_bcp)
         }
 
-        // Listener para el botón de "Sucursales Interbank"
         binding.btnVerSucursalesInterbank.setOnClickListener {
-            abrirMapa(
-                latitud = -12.066038756336305,
-                longitud = -77.04820378774586,
-                titulo = "ATM Interbank - Breña",
-                idIcono = R.drawable.logo_interbank // Se pasa el ID del logo de Interbank
+            val puntosInterbank = arrayListOf(
+                PuntoInteres(-12.066038, -77.048203, "ATM Interbank - Breña"),
+                PuntoInteres(-12.055814, -77.050111, "Interbank - La Rambla Brasil"),
+                PuntoInteres(-12.059430, -77.034540, "Interbank - Centro Cívico")
             )
+            abrirMapa(puntosInterbank, "Cajeros Interbank", R.drawable.logo_interbank)
         }
 
-        // Listener para el botón de "Agentes Yape"
-        binding.btnVerAgentesYape.setOnClickListener {
-            abrirMapa(
-                latitud = -12.061998587582847,
-                longitud = -77.06546813250539,
-                titulo = "Agente Yape - Breña",
-                idIcono = R.drawable.ic_yape // Se pasa el ID del logo de Yape
+        binding.btnVerAgentesBBVA.setOnClickListener {
+            val puntosBBVA = arrayListOf(
+                PuntoInteres(-12.058554577879416, -77.06362411379443, "Agente BBVA - Av. Bélisario Sosa Peláez 1100"),
+                PuntoInteres(-12.064967288748079, -77.04956569035615, "Cajero BBVA - Jirón Huaraz 1600"),
+                PuntoInteres(-12.054685079582251, -77.05194749195843, "Cajero BBVA- Av. Venezuela 1254")
             )
+            abrirMapa(puntosBBVA, "Cajeros BBVA", R.drawable.logo_bbva)
         }
     }
 
-    private fun abrirMapa(latitud: Double, longitud: Double, titulo: String, idIcono: Int) {
-        // Se crea el Intent para navegar a MapaActivity
+    private fun abrirMapa(puntos: ArrayList<PuntoInteres>, tituloGeneral: String, idIcono: Int) {
         val intent = Intent(this, MapaActivity::class.java).apply {
-            // Se añaden los datos como "extras" al Intent.
-            // Cada extra tiene una clave única (ej. "EXTRA_LATITUD") para poder recuperarlo en la otra pantalla.
-            putExtra("EXTRA_LATITUD", latitud)
-            putExtra("EXTRA_LONGITUD", longitud)
-            putExtra("EXTRA_TITULO", titulo)
-            putExtra("EXTRA_ID_ICONO", idIcono) // Se añade el ID del ícono personalizado
+            putExtra("EXTRA_PUNTOS", puntos)
+            putExtra("EXTRA_TITULO_GENERAL", tituloGeneral)
+            putExtra("EXTRA_ID_ICONO", idIcono)
         }
-        // Inicia la MapaActivity
         startActivity(intent)
     }
 }

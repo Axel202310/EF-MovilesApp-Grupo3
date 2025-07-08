@@ -45,7 +45,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
     }
 
     private fun configurarRecyclerViews() {
-        // Adaptador para la lista de categorías de GASTO
         adaptadorGastos = AdaptadorCategoria(emptyList()) { categoria ->
             manejarClicCategoria(categoria)
         }
@@ -54,7 +53,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
             layoutManager = GridLayoutManager(this@MenuCategoriasActividad, 4)
         }
 
-        // Adaptador para la lista de categorías de INGRESO
         adaptadorIngresos = AdaptadorCategoria(emptyList()) { categoria ->
             manejarClicCategoria(categoria)
         }
@@ -67,8 +65,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
     private fun configurarListeners() {
 
         binding.fabAddCategoria.setOnClickListener {
-            // Lanzamos el formulario sin pasarle ningún extra.
-            // FormularioCategoriaActivity sabrá que está en modo "Creación".
             startActivity(Intent(this, FormularioCategoriaActivity::class.java))
         }
     }
@@ -76,7 +72,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
     private fun configurarTabs() {
         binding.tabLayoutTipoCategoria.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                // Mostramos un RecyclerView y ocultamos el otro según la pestaña seleccionada.
                 if (tab?.position == 0) {
                     binding.recyclerViewGastos.visibility = View.VISIBLE
                     binding.recyclerViewIngresos.visibility = View.GONE
@@ -99,7 +94,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Hacemos ambas llamadas a la API en paralelo para ser más eficientes.
                 val responseGastos = RetrofitClient.webService.obtenerCategorias(idUsuario, "gasto")
                 val responseIngresos = RetrofitClient.webService.obtenerCategorias(idUsuario, "ingreso")
 
@@ -126,17 +120,12 @@ class MenuCategoriasActividad : AppCompatActivity() {
         }
     }
 
-    // --- En MenuCategoriasActividad.kt ---
     private fun manejarClicCategoria(categoria: Categoria) {
-        // Solo las categorías con un idUsuario (las personalizadas) se pueden editar.
         if (categoria.idUsuario != null) {
-            // Creamos el Intent para abrir el formulario en modo EDICIÓN.
             val intent = Intent(this, FormularioCategoriaActivity::class.java)
-            // Pasamos el ID para que la siguiente pantalla sepa qué categoría cargar.
             intent.putExtra("CATEGORIA_ID", categoria.idCategoria)
             startActivity(intent)
         } else {
-            // Las categorías por defecto no son editables.
             Toast.makeText(this, "Las categorías por defecto no se pueden modificar", Toast.LENGTH_SHORT).show()
         }
     }
@@ -187,8 +176,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
         }
     }
 
-    // --- FUNCIÓN AÑADIDA ---
-    // Esta función se encarga de obtener los datos y actualizar el header del menú.
     private fun actualizarHeaderMenuLateral() {
         val headerView = binding.navegacionLateralCategorias.getHeaderView(0)
         val textCorreo = headerView.findViewById<TextView>(R.id.textViewCorreoUsuario)
@@ -201,7 +188,6 @@ class MenuCategoriasActividad : AppCompatActivity() {
         textCorreo.text = correoUsuario
 
         if (idUsuario != -1) {
-            // Hacemos una llamada a la API para obtener el balance total actualizado.
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val response = RetrofitClient.webService.obtenerCuentas(idUsuario)

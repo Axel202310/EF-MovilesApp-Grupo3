@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 data class Categoria(
     @SerializedName("id_categoria")
     val idCategoria: Int,
-    // idUsuario es nullable para las categorías por defecto del sistema
     @SerializedName("id_usuario")
     val idUsuario: Int?,
     @SerializedName("nombre_categoria")

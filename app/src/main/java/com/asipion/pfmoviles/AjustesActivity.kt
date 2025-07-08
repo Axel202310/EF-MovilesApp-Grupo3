@@ -1,4 +1,3 @@
-// --- Archivo: AjustesActivity.kt (Final y Corregido) ---
 package com.asipion.pfmoviles
 
 import android.content.Intent
@@ -33,7 +32,6 @@ class AjustesActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Es una buena práctica actualizar el header cada vez que la pantalla se vuelve visible.
         actualizarHeaderMenuLateral()
     }
 
@@ -103,7 +101,6 @@ class AjustesActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                // No mostramos Toast para no interrumpir al usuario.
             }
         }
     }

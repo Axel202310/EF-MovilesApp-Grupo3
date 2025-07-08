@@ -27,7 +27,6 @@ import java.util.Locale
 
 class AgregarTransaccionActividad : AppCompatActivity() {
 
-    // Vistas de la UI
     private lateinit var tabLayoutTipo: TabLayout
     private lateinit var montoEditText: EditText
     private lateinit var cuentasSpinner: Spinner
@@ -36,12 +35,10 @@ class AgregarTransaccionActividad : AppCompatActivity() {
     private lateinit var btnAnadir: Button
     private lateinit var btnAtras: ImageButton
 
-    // Adaptadores y datos
     private lateinit var categoriaAdapter: CategoriaAdapter
     private var listaCuentas: List<Cuenta> = emptyList()
 
-    // Estado de la selección
-    private var tipoSeleccionado = "gasto" // Por defecto
+    private var tipoSeleccionado = "gasto"
     private var cuentaSeleccionada: Cuenta? = null
     private var categoriaSeleccionada: Categoria? = null
     private var fechaSeleccionada: String = ""
@@ -68,7 +65,6 @@ class AgregarTransaccionActividad : AppCompatActivity() {
             categoriaSeleccionada = categoria
         }
         categoriasRecyclerView.adapter = categoriaAdapter
-        // El GridLayoutManager se define en el XML, así que no es necesario aquí.
     }
 
     private fun configurarListeners() {
@@ -98,10 +94,8 @@ class AgregarTransaccionActividad : AppCompatActivity() {
             guardarTransaccion()
         }
 
-        // --- CAMBIO CLAVE: Listener para el Spinner ---
         cuentasSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // Actualizamos la variable 'cuentaSeleccionada' cada vez que el usuario elige un item.
                 cuentaSeleccionada = listaCuentas.getOrNull(position)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -110,7 +104,6 @@ class AgregarTransaccionActividad : AppCompatActivity() {
         }
     }
 
-    // --- FUNCIÓN MODIFICADA ---
     private fun cargarDatosIniciales() {
         val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
         if (idUsuario == -1) {
@@ -135,15 +128,12 @@ class AgregarTransaccionActividad : AppCompatActivity() {
                         spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_cuenta)
                         cuentasSpinner.adapter = spinnerAdapter
 
-                        // --- INICIO DE LA NUEVA LÓGICA DE SELECCIÓN ---
-                        // Prioridad 1: Usar la cuenta que nos pasó InicioActivity
                         val idCuentaDesdeInicio = intent.getIntExtra("ID_CUENTA", -1)
                         var posicionASeleccionar = -1
 
                         if (idCuentaDesdeInicio != -1) {
                             posicionASeleccionar = listaCuentas.indexOfFirst { it.idCuenta == idCuentaDesdeInicio }
                         } else {
-                            // Prioridad 2: Si no hay, usar la guardada en preferencias
                             val prefsAjustes = getSharedPreferences(PersonalizacionActivity.PREFS_NAME,
                                 Context.MODE_PRIVATE)
                             val idCuentaDefecto = prefsAjustes.getInt(PersonalizacionActivity.KEY_CUENTA_DEFECTO_ID, -1)
@@ -155,7 +145,6 @@ class AgregarTransaccionActividad : AppCompatActivity() {
                         if (posicionASeleccionar != -1) {
                             cuentasSpinner.setSelection(posicionASeleccionar)
                         }
-                        // --- FIN DE LA NUEVA LÓGICA DE SELECCIÓN ---
 
                     } else {
                         Toast.makeText(this@AgregarTransaccionActividad, "Error al cargar cuentas", Toast.LENGTH_SHORT).show()

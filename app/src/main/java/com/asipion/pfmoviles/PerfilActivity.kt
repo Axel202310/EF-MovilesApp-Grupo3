@@ -40,7 +40,6 @@ class PerfilActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Actualizamos el header por si algún dato (como el balance) cambió.
         actualizarHeaderMenuLateral()
     }
 
@@ -200,7 +199,6 @@ class PerfilActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                // No mostramos Toast para no interrumpir al usuario.
             }
         }
     }

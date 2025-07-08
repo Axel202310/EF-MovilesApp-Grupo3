@@ -21,7 +21,6 @@ class PersonalizacionActivity : AppCompatActivity() {
     private lateinit var prefs: SharedPreferences
     private var listaCuentas: List<Cuenta> = emptyList()
 
-    // Definimos las claves para SharedPreferences como constantes para evitar errores de tipeo.
     companion object {
         const val PREFS_NAME = "ajustes_prefs"
         const val KEY_VISTA_DEFECTO = "vista_defecto"
@@ -35,7 +34,6 @@ class PersonalizacionActivity : AppCompatActivity() {
         binding = ActivityPersonalizacionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializamos las SharedPreferences
         prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         configurarListeners()
@@ -45,13 +43,11 @@ class PersonalizacionActivity : AppCompatActivity() {
     private fun configurarListeners() {
         binding.toolbarPersonalizacion.setNavigationOnClickListener { finish() }
 
-        // Asignamos los listeners a los contenedores clicables del layout
         binding.layoutMostrarPorDefecto.setOnClickListener { mostrarDialogoVistaDefecto() }
         binding.layoutPeriodoPorDefecto.setOnClickListener { mostrarDialogoPeriodoDefecto() }
         binding.layoutCuentaPorDefecto.setOnClickListener { mostrarDialogoCuentaDefecto() }
     }
 
-    // Carga los datos necesarios de la API (la lista de cuentas)
     private fun cargarDatosDeCuentas() {
         val idUsuario = getSharedPreferences("mis_prefs", MODE_PRIVATE).getInt("id_usuario", -1)
         if (idUsuario == -1) return
@@ -61,7 +57,6 @@ class PersonalizacionActivity : AppCompatActivity() {
                 val response = RetrofitClient.webService.obtenerCuentas(idUsuario)
                 if(response.isSuccessful) {
                     listaCuentas = response.body()?.listaCuentas ?: emptyList()
-                    // Una vez cargadas las cuentas, actualizamos la UI con las preferencias guardadas
                     withContext(Dispatchers.Main) {
                         cargarPreferenciasGuardadas()
                     }
@@ -74,7 +69,6 @@ class PersonalizacionActivity : AppCompatActivity() {
         }
     }
 
-    // Carga las preferencias guardadas y actualiza los TextViews
     private fun cargarPreferenciasGuardadas() {
         // Vista por defecto
         val vistaGuardada = prefs.getString(KEY_VISTA_DEFECTO, "Balance Total")

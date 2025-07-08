@@ -1,4 +1,3 @@
-// --- Archivo: LoginActivity.kt (NUEVO) ---
 package com.asipion.pfmoviles
 
 import android.content.Intent
@@ -33,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Creamos el objeto Usuario solo con los datos necesarios para el login
             val usuarioLogin = Usuario(idUsuario = 0, correoUsuario = correo, password = password)
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -44,7 +42,6 @@ class LoginActivity : AppCompatActivity() {
                             val mensajeResponse = response.body()
                             val usuario = mensajeResponse?.usuario
                             if (usuario != null) {
-                                // Guardamos los datos de sesión
                                 val prefs = getSharedPreferences("mis_prefs", MODE_PRIVATE)
                                 prefs.edit()
                                     .putInt("id_usuario", usuario.idUsuario)
@@ -53,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 
                                 Toast.makeText(this@LoginActivity, "¡Bienvenido de nuevo!", Toast.LENGTH_SHORT).show()
 
-                                // Redirigimos al Dashboard
                                 val intent = Intent(this@LoginActivity, InicioActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)

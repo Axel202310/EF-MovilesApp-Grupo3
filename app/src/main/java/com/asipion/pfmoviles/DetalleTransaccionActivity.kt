@@ -27,7 +27,7 @@ class DetalleTransaccionActivity : AppCompatActivity() {
 
         val toolbar: MaterialToolbar = findViewById(R.id.toolbar_detalle)
         toolbar.setNavigationOnClickListener {
-            finish() // Cierra esta actividad y vuelve a la anterior
+            finish()
         }
 
         transaccionId = intent.getIntExtra("TRANSACCION_ID", -1)

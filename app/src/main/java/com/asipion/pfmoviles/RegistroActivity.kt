@@ -37,7 +37,6 @@ class RegistroActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Usamos el modelo Usuario solo con los datos necesarios para registrar
             val usuarioRegistro = Usuario(idUsuario = 0, correoUsuario = correo, password = password)
 
             CoroutineScope(Dispatchers.IO).launch {

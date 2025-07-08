@@ -17,7 +17,6 @@ class AgregarCuentaActividad : AppCompatActivity() {
 
     private lateinit var binding: ActividadAgregarCuentaBinding
     private lateinit var iconos: List<ImageView>
-    // Guardaremos el nombre del recurso drawable como un String.
     private var nombreIconoSeleccionado: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,18 +36,13 @@ class AgregarCuentaActividad : AppCompatActivity() {
 
         for (icono in iconos) {
             icono.setOnClickListener {
-                // Obtenemos el nombre del recurso drawable directamente de la vista.
                 val resourceName = resources.getResourceEntryName(it.id)
-                // Para los íconos, usaremos el nombre del drawable que está asignado en el XML.
-                // Es más robusto si lo asociamos a un tag en el XML, pero esto funciona.
-                // Por ejemplo, para iv_yape, guardaremos "ic_yape".
                 nombreIconoSeleccionado = obtenerNombreDrawable(it as ImageView)
                 resaltarIconoSeleccionado(it)
             }
         }
     }
 
-    // Función auxiliar para obtener el nombre del drawable de un ImageView
     private fun obtenerNombreDrawable(imageView: ImageView): String {
         return when (imageView.id) {
             R.id.iv_yape -> "ic_yape"
@@ -117,9 +111,8 @@ class AgregarCuentaActividad : AppCompatActivity() {
 
     private fun resaltarIconoSeleccionado(iconoSeleccionado: View) {
         for (icono in iconos) {
-            // Ponemos un fondo de borde si es el seleccionado, si no, lo quitamos.
             if (icono.id == iconoSeleccionado.id) {
-                icono.setBackgroundResource(R.drawable.bg_icon_selector) // bg_icon_selector es un borde.
+                icono.setBackgroundResource(R.drawable.bg_icon_selector)
             } else {
                 icono.background = null // Quitamos el fondo
             }

@@ -22,7 +22,6 @@ import kotlinx.coroutines.withContext
 
 class FormularioCategoriaActivity : AppCompatActivity() {
 
-    // --- Lista de Iconos Disponibles ---
     private val nombresDeIconosDisponibles = listOf(
         // Iconos de Gastos
         "ic_categoria_gasto_cine",
@@ -92,7 +91,6 @@ class FormularioCategoriaActivity : AppCompatActivity() {
     }
 
     private fun configurarSelectorIconos() {
-        // Usamos la lista 'nombresDeIconosDisponibles' definida al principio de esta clase.
         val adaptador = AdaptadorIcono(this, nombresDeIconosDisponibles) { nombreIcono ->
             iconoSeleccionado = nombreIcono
             actualizarIconoMostrado(nombreIcono)

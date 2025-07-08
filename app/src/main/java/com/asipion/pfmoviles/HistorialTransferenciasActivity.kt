@@ -138,7 +138,6 @@ class HistorialTransferenciasActivity : AppCompatActivity() {
         binding.textViewEmptyHistorial.visibility = if (estaVacio) View.VISIBLE else View.GONE
     }
 
-    // Funciones de comparación de fecha idénticas a las de InicioActivity
     private fun esMismoDia(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
     private fun esMismaSemana(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.WEEK_OF_YEAR) == cal2.get(Calendar.WEEK_OF_YEAR)
     private fun esMismoMes(cal1: Calendar, cal2: Calendar): Boolean = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)

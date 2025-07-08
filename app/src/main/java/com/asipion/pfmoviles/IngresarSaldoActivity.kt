@@ -53,7 +53,7 @@ class IngresarSaldoActivity : AppCompatActivity() {
                 nombreCuenta = "Principal",
                 saldoActual = saldoInicial,
                 moneda = divisaSeleccionada,
-                imgCuenta = null // Pasamos null porque esta cuenta no tiene un ícono específico.
+                imgCuenta = null
             )
             crearPrimeraCuenta(cuentaParaCrear)
         }

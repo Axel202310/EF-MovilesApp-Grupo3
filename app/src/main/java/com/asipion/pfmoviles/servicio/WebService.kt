@@ -28,7 +28,7 @@ interface WebService {
     suspend fun obtenerCuentas(@Path("idUsuario") idUsuario: Int): Response<CuentaResponse>
 
     // Obtener los detalles de una sola cuenta
-    @GET("cuentas/detalle/{id}") // Necesitaremos esta ruta para precargar los datos en la pantalla de edición
+    @GET("cuentas/detalle/{id}")
     suspend fun obtenerDetalleCuenta(@Path("id") idCuenta: Int): Response<Cuenta>
 
     // Actualizar una cuenta
@@ -51,7 +51,6 @@ interface WebService {
 
     @GET("transferencias/historial/{idUsuario}")
     suspend fun obtenerHistorialTransferencias(@Path("idUsuario") idUsuario: Int): Response<HistorialResponse>
-
 
     // --- TRANSACCIONES ---
     @POST("transaccion/agregar")

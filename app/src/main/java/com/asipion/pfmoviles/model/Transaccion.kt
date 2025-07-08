@@ -1,7 +1,6 @@
 package com.asipion.pfmoviles.model
 import com.google.gson.annotations.SerializedName
 
-// Este modelo representa una Transacción COMPLETA que RECIBES de la API
 data class Transaccion(
     @SerializedName("id_transaccion")
     val idTransaccion: Int,
@@ -15,7 +14,6 @@ data class Transaccion(
     val descripcion: String?,
     @SerializedName("fecha_transaccion")
     val fechaTransaccion: String,
-    // --- Campos extra que añade la API con el JOIN ---
     @SerializedName("tipo_categoria")
     val tipoTransaccion: String,
     @SerializedName("nombre_categoria")

@@ -34,7 +34,6 @@ class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
     private lateinit var transaccionAdapter: AdaptadorTransaccion
 
-    // Variables de estado que controlan lo que se muestra en pantalla
     private var todasLasCuentas: List<Cuenta> = emptyList()
     private var todasLasTransacciones: List<Transaccion> = emptyList()
     private var cuentaSeleccionada: Cuenta? = null // null representa la vista "Balance Total"
@@ -72,7 +71,6 @@ class InicioActivity : AppCompatActivity() {
     private fun configurarListeners() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, AgregarTransaccionActividad::class.java)
-            // Si hay una cuenta específica seleccionada, la pasamos. Si no, pasamos la primera de la lista.
             val idCuentaAUsar = cuentaSeleccionada?.idCuenta ?: todasLasCuentas.firstOrNull()?.idCuenta
             idCuentaAUsar?.let { intent.putExtra("ID_CUENTA", it) }
             startActivity(intent)
@@ -80,7 +78,6 @@ class InicioActivity : AppCompatActivity() {
         binding.buttonPreviousDate.setOnClickListener { cambiarFecha(-1) }
         binding.buttonNextDate.setOnClickListener { cambiarFecha(1) }
 
-        // Listener para abrir el diálogo de selección de cuenta
         binding.layoutBalance.setOnClickListener {
             mostrarDialogoSeleccionDeCuenta()
         }
@@ -137,8 +134,6 @@ class InicioActivity : AppCompatActivity() {
                         todasLasCuentas = cuentasResponse.body()?.listaCuentas ?: emptyList()
                         todasLasTransacciones = transaccionesResponse.body()?.listaTransacciones ?: emptyList()
 
-                        // --- CAMBIO CLAVE ---
-                        // Después de cargar todos los datos, aplicamos las preferencias guardadas.
                         aplicarPreferenciasGuardadas()
 
                     } else {
@@ -156,7 +151,6 @@ class InicioActivity : AppCompatActivity() {
     private fun aplicarPreferenciasGuardadas() {
         val prefs = getSharedPreferences(PersonalizacionActivity.PREFS_NAME, MODE_PRIVATE)
 
-        // 1. Aplicar la preferencia de VISTA por defecto (Total o una cuenta)
         val vistaGuardada = prefs.getString(PersonalizacionActivity.KEY_VISTA_DEFECTO, "Balance Total")
         cuentaSeleccionada = if (vistaGuardada == "Balance Total") {
             null
@@ -164,16 +158,12 @@ class InicioActivity : AppCompatActivity() {
             todasLasCuentas.find { it.nombreCuenta == vistaGuardada }
         }
 
-        // 2. Aplicar la preferencia de PERÍODO por defecto
         val periodoIndexGuardado = prefs.getInt(PersonalizacionActivity.KEY_PERIODO_DEFECTO_INDEX, 2) // 2 es "Mes"
 
-        // Seleccionamos la pestaña correspondiente.
-        // Es importante hacerlo con un post para asegurar que el layout esté listo.
         binding.tabLayoutPeriod.post {
             binding.tabLayoutPeriod.getTabAt(periodoIndexGuardado)?.select()
         }
 
-        // Forzamos una actualización inicial de la vista con las nuevas preferencias.
         actualizarVistaCompleta()
     }
 

@@ -50,11 +50,9 @@ class CuentasActividad : AppCompatActivity() {
 
     private fun configurarListeners() {
         binding.fabAddCuenta.setOnClickListener {
-            // Esto ya lanza el formulario para añadir una cuenta nueva. ¡Correcto!
             startActivity(Intent(this, AgregarCuentaActividad::class.java))
         }
         binding.layoutNuevaTransferencia.setOnClickListener {
-            // Esto lanzará la pantalla de transferencia que ya hemos preparado.
             startActivity(Intent(this, TransferenciaActividad::class.java))
         }
         binding.layoutHistorial.setOnClickListener {

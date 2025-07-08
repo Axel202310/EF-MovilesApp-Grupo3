@@ -1,4 +1,3 @@
-// --- Archivo: AdaptadorIcono.kt---
 package com.asipion.pfmoviles
 
 import android.content.Context
@@ -25,7 +24,6 @@ class AdaptadorIcono(
 
     override fun onBindViewHolder(holder: IconoViewHolder, position: Int) {
         val nombreIcono = nombresIconos[position]
-        // Obtenemos el ID del drawable a partir de su nombre como String
         val resourceId = context.resources.getIdentifier(nombreIcono, "drawable", context.packageName)
 
         if (resourceId != 0) {

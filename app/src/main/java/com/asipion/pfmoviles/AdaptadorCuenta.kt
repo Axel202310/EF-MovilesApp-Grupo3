@@ -1,4 +1,3 @@
-// --- Archivo: AdaptadorCuenta.kt ---
 package com.asipion.pfmoviles
 
 import android.content.Intent
@@ -28,22 +27,15 @@ class AdaptadorCuenta(private var listaCuentas: List<Cuenta>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: CuentaViewHolder, position: Int) {
         val cuenta = listaCuentas[position]
 
-        // Asignamos el nombre de la cuenta.
         holder.nombreCuenta.text = cuenta.nombreCuenta
 
-        // Formateamos el saldo para que se vea bien (ej. 1,000.00).
         val formato = DecimalFormat("#,##0.00")
         holder.saldoCuenta.text = "${formato.format(cuenta.saldoActual)} ${cuenta.moneda}"
 
-        // Asignamos un icono por defecto.
-        // En el futuro, aquí podría ir la lógica para mostrar el icono específico de la cuenta.
         holder.iconoCuenta.setImageResource(R.drawable.ic_dollar_placeholder)
 
-        // --- LÓGICA DE NAVEGACIÓN ---
-        // Hacemos que toda la fila (itemView) sea clicable.
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            // Creamos un Intent para abrir la pantalla de formulario en modo "Edición".
             val intent = Intent(context, FormularioCuentaActivity::class.java).apply {
                 putExtra("CUENTA_ID", cuenta.idCuenta)
             }
@@ -57,6 +49,6 @@ class AdaptadorCuenta(private var listaCuentas: List<Cuenta>) : RecyclerView.Ada
 
     fun actualizarDatos(nuevasCuentas: List<Cuenta>) {
         this.listaCuentas = nuevasCuentas
-        notifyDataSetChanged() // Refresca toda la lista.
+        notifyDataSetChanged()
     }
 }

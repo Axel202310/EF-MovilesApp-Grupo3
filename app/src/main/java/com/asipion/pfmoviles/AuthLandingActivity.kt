@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 class AuthLandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Usamos tu layout existente que tiene los dos botones.
         setContentView(R.layout.actividad_registro)
 
         val botonRegistrarse = findViewById<Button>(R.id.boton_registrarse)

@@ -1,4 +1,3 @@
-// --- Archivo: FormularioCuentaActivity.kt  ---
 package com.asipion.pfmoviles
 
 import android.os.Bundle
@@ -25,7 +24,6 @@ class FormularioCuentaActivity : AppCompatActivity() {
     private lateinit var btnGuardar: Button
     private lateinit var btnEliminar: Button
 
-    // Variables de estado
     private var cuentaId: Int = -1
     private var esModoEdicion = false
 
@@ -35,7 +33,6 @@ class FormularioCuentaActivity : AppCompatActivity() {
 
         inicializarVistas()
 
-        // La lógica clave: revisamos si se nos pasó un ID.
         cuentaId = intent.getIntExtra("CUENTA_ID", -1)
         esModoEdicion = cuentaId != -1
 
@@ -60,11 +57,11 @@ class FormularioCuentaActivity : AppCompatActivity() {
         if (esModoEdicion) {
             toolbar.title = "Editar Cuenta"
             btnGuardar.text = "Guardar Cambios"
-            btnEliminar.visibility = View.VISIBLE // Hacemos visible el botón
+            btnEliminar.visibility = View.VISIBLE
         } else {
             toolbar.title = "Añadir Nueva Cuenta"
             btnGuardar.text = "Añadir Cuenta"
-            btnEliminar.visibility = View.GONE // Lo ocultamos si estamos creando
+            btnEliminar.visibility = View.GONE
         }
 
         btnGuardar.setOnClickListener { guardarCuenta() }
@@ -119,7 +116,7 @@ class FormularioCuentaActivity : AppCompatActivity() {
             nombreCuenta = nombre,
             saldoActual = saldo,
             moneda = "PEN",
-            imgCuenta = "ic_dollar_placeholder" // Usamos un ícono por defecto
+            imgCuenta = "ic_dollar_placeholder"
         )
 
         if (esModoEdicion) {

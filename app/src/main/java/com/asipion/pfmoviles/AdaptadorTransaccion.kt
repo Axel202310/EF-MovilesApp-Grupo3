@@ -15,12 +15,8 @@ class AdaptadorTransaccion(
     private val onTransactionClick: (Transaccion) -> Unit
 ) : RecyclerView.Adapter<AdaptadorTransaccion.MiViewHolder>() {
 
-    // Esto le da acceso a las propiedades de la clase externa si fuera necesario,
-    // y es una práctica común.
     inner class MiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        // --- CORRECCIÓN IMPORTANTE: Se llama a findViewById sobre 'itemView' ---
-        // 'itemView' es la vista que representa a toda la fila, heredada de RecyclerView.ViewHolder.
         val iconoCategoria: ImageView = itemView.findViewById(R.id.iv_categoria_icono)
         val textoCategoria: TextView = itemView.findViewById(R.id.tv_categoria_nombre)
         val textoDescripcion: TextView = itemView.findViewById(R.id.tv_descripcion)
@@ -66,8 +62,6 @@ class AdaptadorTransaccion(
     }
 
     override fun onBindViewHolder(holder: MiViewHolder, position: Int) {
-        // --- CORRECCIÓN: Simplificamos la llamada a bind ---
-        // Ya no es necesario pasar el listener, se asigna en el ViewHolder.
         holder.bind(listaTransacciones[position])
     }
 

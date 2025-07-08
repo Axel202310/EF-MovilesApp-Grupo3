@@ -1,4 +1,3 @@
-// --- Archivo: GraficosActivity.kt ---
 package com.asipion.pfmoviles
 
 import android.content.Intent
@@ -36,17 +35,14 @@ class GraficosActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // El binding se genera a partir del nombre del layout XML (actividad_graficos.xml -> ActividadGraficosBinding)
         binding = ActividadGraficosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Usamos el ID correcto del BarChart definido en tu layout
         barChart = binding.barChart
 
         configurarToolbarYMenu()
         configurarTabsDePeriodo()
 
-        // Seleccionamos "Por Mes" por defecto y cargamos los datos iniciales.
         binding.tabsPeriodo.getTabAt(1)?.select()
     }
 
@@ -55,7 +51,6 @@ class GraficosActivity : AppCompatActivity() {
         actualizarHeaderMenuLateral()
     }
 
-    // --- FUNCIÓN COMPLETA PARA LA TOOLBAR Y EL MENÚ LATERAL ---
     private fun configurarToolbarYMenu() {
         setSupportActionBar(binding.toolbar)
         val drawerLayout: DrawerLayout = binding.drawerLayoutGraficos

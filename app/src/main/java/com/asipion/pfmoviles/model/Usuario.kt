@@ -6,6 +6,5 @@ data class Usuario(
     val idUsuario: Int,
     @SerializedName("correo_usuario")
     val correoUsuario: String,
-    // Solo para enviar, nunca para recibir
     var password: String? = null
 )

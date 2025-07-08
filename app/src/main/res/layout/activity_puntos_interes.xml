@@ -20,7 +20,6 @@
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
 
-    <!-- Puedes usar el estilo de botón que prefieras -->
     <Button
         android:id="@+id/btnVerAtmsBcp"
         android:layout_width="match_parent"
@@ -32,13 +31,13 @@
         android:id="@+id/btnVerSucursalesInterbank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sucursales Interbank"
+        android:text="Cajeros Interbank"
         android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/btnVerAgentesYape"
+        android:id="@+id/btnVerAgentesBBVA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Agentes Yape Cercanos"/>
+        android:text="Cajeros BBVA"/>
 
 </LinearLayout>
