@@ -1,8 +1,6 @@
-// --- Archivo: FormularioCategoriaActivity.kt (Final, Completo y Detallado) ---
 package com.asipion.pfmoviles
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -24,6 +22,28 @@ import kotlinx.coroutines.withContext
 
 class FormularioCategoriaActivity : AppCompatActivity() {
 
+    // --- Lista de Iconos Disponibles ---
+    private val nombresDeIconosDisponibles = listOf(
+        // Iconos de Gastos
+        "ic_categoria_gasto_cine",
+        "ic_categoria_gasto_compra",
+        "ic_categoria_gasto_dentista",
+        "ic_categoria_gasto_estadio",
+        "ic_categoria_gasto_gasolineria",
+        "ic_categoria_gasto_gym",
+        "ic_categoria_gasto_juegos",
+        "ic_categoria_gasto_netflix",
+        "ic_categoria_gasto_veterinaria",
+
+        // Iconos de Ingresos
+        "ic_categoria_ingreso_finanza1",
+        "ic_categoria_ingreso_finanza2",
+        "ic_categoria_ingreso_finanza3",
+        "ic_categoria_ingreso_finanza4",
+        "ic_categoria_ingreso_minimoto",
+        "ic_categoria_ingreso_taxi",
+    )
+
     // Vistas
     private lateinit var toolbar: MaterialToolbar
     private lateinit var etNombre: EditText
@@ -37,7 +57,7 @@ class FormularioCategoriaActivity : AppCompatActivity() {
     // Variables de estado
     private var categoriaId: Int = -1
     private var esModoEdicion = false
-    private var iconoSeleccionado: String = "ic_default_category" // Icono por defecto
+    private var iconoSeleccionado: String = "ic_categoria_otros_gastos" // Icono por defecto al crear una nueva
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +72,9 @@ class FormularioCategoriaActivity : AppCompatActivity() {
 
         if (esModoEdicion) {
             cargarDatosCategoria()
+        } else {
+            // Si es una nueva categoría, mostramos el icono por defecto inicial.
+            actualizarIconoMostrado(iconoSeleccionado)
         }
     }
 
@@ -69,14 +92,8 @@ class FormularioCategoriaActivity : AppCompatActivity() {
     }
 
     private fun configurarSelectorIconos() {
-        // Define aquí los nombres de tus archivos drawable para los iconos.
-        val listaNombresIconos = listOf(
-            "educacion", "salud", "transporte", "hogar",
-            "alimentos", "regalos", "otros", "ic_yape", "ic_dollar_placeholder",
-            "ic_default_category" // Añade todos los que necesites
-        )
-
-        val adaptador = AdaptadorIcono(this, listaNombresIconos) { nombreIcono ->
+        // Usamos la lista 'nombresDeIconosDisponibles' definida al principio de esta clase.
+        val adaptador = AdaptadorIcono(this, nombresDeIconosDisponibles) { nombreIcono ->
             iconoSeleccionado = nombreIcono
             actualizarIconoMostrado(nombreIcono)
             recyclerIconos.visibility = View.GONE // Ocultamos la grilla al seleccionar
@@ -91,14 +108,13 @@ class FormularioCategoriaActivity : AppCompatActivity() {
         }
     }
 
-    // Nueva función para actualizar el ImageView del icono
     private fun actualizarIconoMostrado(nombreIcono: String) {
         val resId = resources.getIdentifier(nombreIcono, "drawable", packageName)
         if (resId != 0) {
             ivIconoActual.setImageResource(resId)
         } else {
-            // Si el icono no se encuentra, usamos el por defecto.
-            ivIconoActual.setImageResource(R.drawable.ic_default_category)
+            // Si por alguna razón el icono no se encuentra, usamos uno por defecto.
+            ivIconoActual.setImageResource(R.drawable.ic_categoria_otros_gastos)
         }
     }
 
@@ -109,7 +125,6 @@ class FormularioCategoriaActivity : AppCompatActivity() {
             toolbar.title = "Editar Categoría"
             btnGuardar.text = "Guardar Cambios"
             btnEliminar.visibility = View.VISIBLE
-            // Deshabilitamos el cambio de tipo para una categoría existente
             findViewById<RadioButton>(R.id.radio_gasto).isEnabled = false
             findViewById<RadioButton>(R.id.radio_ingreso).isEnabled = false
         } else {
@@ -135,7 +150,7 @@ class FormularioCategoriaActivity : AppCompatActivity() {
                             } else {
                                 findViewById<RadioButton>(R.id.radio_ingreso).isChecked = true
                             }
-                            iconoSeleccionado = categoria.imgCategoria ?: "ic_default_category"
+                            iconoSeleccionado = categoria.imgCategoria ?: "ic_categoria_otros_gastos"
                             actualizarIconoMostrado(iconoSeleccionado)
                         }
                     } else {

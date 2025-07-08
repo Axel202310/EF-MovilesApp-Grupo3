@@ -1,4 +1,4 @@
-// --- Archivo: FormularioCuentaActivity.kt (Final y Completo) ---
+// --- Archivo: FormularioCuentaActivity.kt  ---
 package com.asipion.pfmoviles
 
 import android.os.Bundle

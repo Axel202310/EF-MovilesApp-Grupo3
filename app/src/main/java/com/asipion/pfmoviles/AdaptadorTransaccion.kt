@@ -1,42 +1,62 @@
 package com.asipion.pfmoviles
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.asipion.pfmoviles.model.Transaccion
 import java.text.DecimalFormat
 
-// AÑADIMOS UN LISTENER AL CONSTRUCTOR:
-// Es una función que la Activity nos pasará para que la llamemos cuando se haga clic.
 class AdaptadorTransaccion(
     private var listaTransacciones: List<Transaccion>,
     private val onTransactionClick: (Transaccion) -> Unit
 ) : RecyclerView.Adapter<AdaptadorTransaccion.MiViewHolder>() {
 
-    class MiViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textoCategoria: TextView = view.findViewById(R.id.text_categoria_nombre)
-        val textoDescripcion: TextView = view.findViewById(R.id.text_transaccion_descripcion)
-        val textoMonto: TextView = view.findViewById(R.id.text_transaccion_monto)
+    // Esto le da acceso a las propiedades de la clase externa si fuera necesario,
+    // y es una práctica común.
+    inner class MiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        // Creamos una función 'bind' para encapsular la lógica de asignación.
-        fun bind(transaccion: Transaccion, clickListener: (Transaccion) -> Unit) {
-            textoCategoria.text = transaccion.nombreCategoria
+        // --- CORRECCIÓN IMPORTANTE: Se llama a findViewById sobre 'itemView' ---
+        // 'itemView' es la vista que representa a toda la fila, heredada de RecyclerView.ViewHolder.
+        val iconoCategoria: ImageView = itemView.findViewById(R.id.iv_categoria_icono)
+        val textoCategoria: TextView = itemView.findViewById(R.id.tv_categoria_nombre)
+        val textoDescripcion: TextView = itemView.findViewById(R.id.tv_descripcion)
+        val textoMonto: TextView = itemView.findViewById(R.id.tv_monto)
+
+        fun bind(transaccion: Transaccion) {
+            textoCategoria.text = transaccion.nombreCategoria ?: "Sin Categoría"
             textoDescripcion.text = transaccion.descripcion ?: "Sin descripción"
 
-            val formato = DecimalFormat("#,##0.00")
-            if (transaccion.tipoTransaccion == "gasto") {
-                textoMonto.text = "- S/ ${formato.format(transaccion.montoTransaccion)}"
-                textoMonto.setTextColor(Color.parseColor("#FF5252")) // Rojo
-            } else {
-                textoMonto.text = "+ S/ ${formato.format(transaccion.montoTransaccion)}"
-                textoMonto.setTextColor(Color.parseColor("#69F0AE")) // Verde
+            val nombreIcono = transaccion.imgCategoria
+            var resourceId = 0
+            if (!nombreIcono.isNullOrEmpty()) {
+                resourceId = itemView.context.resources.getIdentifier(
+                    nombreIcono, "drawable", itemView.context.packageName
+                )
             }
 
-            // Hacemos que toda la fila sea clicable.
-            itemView.setOnClickListener { clickListener(transaccion) }
+            if (resourceId != 0) {
+                iconoCategoria.setImageResource(resourceId)
+            } else {
+                iconoCategoria.setImageResource(R.drawable.ic_categoria_otros_gastos)
+            }
+
+            val formato = DecimalFormat("S/ #,##0.00")
+            val context = itemView.context
+
+            if (transaccion.tipoTransaccion == "gasto") {
+                textoMonto.text = "- ${formato.format(transaccion.montoTransaccion)}"
+                textoMonto.setTextColor(ContextCompat.getColor(context, R.color.rojo_gasto))
+            } else {
+                textoMonto.text = "+ ${formato.format(transaccion.montoTransaccion)}"
+                textoMonto.setTextColor(ContextCompat.getColor(context, R.color.verde_ingreso))
+            }
+
+            // Asignamos el listener al ítem.
+            itemView.setOnClickListener { onTransactionClick(transaccion) }
         }
     }
 
@@ -46,8 +66,9 @@ class AdaptadorTransaccion(
     }
 
     override fun onBindViewHolder(holder: MiViewHolder, position: Int) {
-        // Llamamos a la función bind, pasándole la transacción y el listener.
-        holder.bind(listaTransacciones[position], onTransactionClick)
+        // --- CORRECCIÓN: Simplificamos la llamada a bind ---
+        // Ya no es necesario pasar el listener, se asigna en el ViewHolder.
+        holder.bind(listaTransacciones[position])
     }
 
     override fun getItemCount(): Int {

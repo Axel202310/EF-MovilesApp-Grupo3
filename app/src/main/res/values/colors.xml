@@ -38,4 +38,18 @@
     <color name="grafico_color_4">#5C6BC0</color>
     <color name="grafico_color_5">#29B6F6</color>
 
+
+    <!-- En res/values/colors.xml -->
+    <color name="color_cat_educacion">#448AFF</color>
+    <color name="color_cat_salud">#FF5252</color>
+    <color name="color_cat_transporte">#4CAF50</color>
+    <color name="color_cat_hogar">#FF9800</color>
+    <color name="color_cat_alimentos">#FFC107</color>
+    <color name="color_cat_regalos">#E040FB</color>
+    <color name="color_cat_salario">#69F0AE</color>
+    <color name="color_cat_regalo_recibido">#B388FF</color>
+    <color name="color_cat_intereses">#00E5FF</color>
+    <color name="color_cat_otros">#9E9E9E</color>
+    <color name="color_cat_personalizada">#546E7A</color>
+
 </resources>

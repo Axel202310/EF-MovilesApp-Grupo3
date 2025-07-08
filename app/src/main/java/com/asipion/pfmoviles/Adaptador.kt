@@ -1,4 +1,4 @@
-// --- Archivo: Adaptador.kt (Corregido) ---
+// --- Archivo: Adaptador.kt---
 package com.asipion.pfmoviles
 
 import android.view.LayoutInflater

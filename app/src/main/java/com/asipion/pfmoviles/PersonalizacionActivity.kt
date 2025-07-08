@@ -1,4 +1,4 @@
-// --- Archivo: PersonalizacionActivity.kt (Final y Completo) ---
+// --- Archivo: PersonalizacionActivity.kt  ---
 package com.asipion.pfmoviles
 
 import android.content.Context

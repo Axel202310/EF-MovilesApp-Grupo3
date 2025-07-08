@@ -1,4 +1,4 @@
-// --- Archivo: servicio/HistorialResponse.kt (NUEVO) ---
+// --- Archivo: servicio/HistorialResponse.kt ---
 package com.asipion.pfmoviles.servicio
 import com.asipion.pfmoviles.model.HistorialTransferencia
 import com.google.gson.annotations.SerializedName

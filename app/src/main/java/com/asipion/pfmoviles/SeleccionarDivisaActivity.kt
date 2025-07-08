@@ -1,4 +1,4 @@
-// --- Archivo: SeleccionarDivisaActivity.kt (VERSIÓN FINAL Y CORRECTA) ---
+// --- Archivo: SeleccionarDivisaActivity.kt---
 package com.asipion.pfmoviles
 
 import android.content.Intent

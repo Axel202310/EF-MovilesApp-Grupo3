@@ -1,6 +1,5 @@
 package com.asipion.pfmoviles
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -155,15 +154,14 @@ class InicioActivity : AppCompatActivity() {
     }
 
     private fun aplicarPreferenciasGuardadas() {
-        val prefs = getSharedPreferences(PersonalizacionActivity.PREFS_NAME, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(PersonalizacionActivity.PREFS_NAME, MODE_PRIVATE)
 
         // 1. Aplicar la preferencia de VISTA por defecto (Total o una cuenta)
         val vistaGuardada = prefs.getString(PersonalizacionActivity.KEY_VISTA_DEFECTO, "Balance Total")
-        if (vistaGuardada == "Balance Total") {
-            cuentaSeleccionada = null
+        cuentaSeleccionada = if (vistaGuardada == "Balance Total") {
+            null
         } else {
-            // Buscamos la cuenta guardada por su nombre en nuestra lista de cuentas.
-            cuentaSeleccionada = todasLasCuentas.find { it.nombreCuenta == vistaGuardada }
+            todasLasCuentas.find { it.nombreCuenta == vistaGuardada }
         }
 
         // 2. Aplicar la preferencia de PERÍODO por defecto
@@ -199,7 +197,7 @@ class InicioActivity : AppCompatActivity() {
                 try {
                     val formatoApi1 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
                     val formatoApi2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-                    val fechaTransaccion = try { formatoApi1.parse(transaccion.fechaTransaccion) } catch (e: Exception) { formatoApi2.parse(transaccion.fechaTransaccion) } ?: return@filter false
+                    val fechaTransaccion = try { formatoApi1.parse(transaccion.fechaTransaccion) } catch (_: Exception) { formatoApi2.parse(transaccion.fechaTransaccion) } ?: return@filter false
                     val calTransaccion = Calendar.getInstance().apply { time = fechaTransaccion }
                     when (periodoSeleccionado) {
                         0 -> esMismoDia(calTransaccion, calendarioActual)

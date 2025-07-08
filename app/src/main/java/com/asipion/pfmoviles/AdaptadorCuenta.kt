@@ -1,4 +1,4 @@
-// --- Archivo: AdaptadorCuenta.kt (Final, Completo y con Navegación) ---
+// --- Archivo: AdaptadorCuenta.kt ---
 package com.asipion.pfmoviles
 
 import android.content.Intent

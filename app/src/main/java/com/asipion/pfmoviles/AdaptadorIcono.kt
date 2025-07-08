@@ -1,4 +1,4 @@
-// --- Archivo: AdaptadorIcono.kt (NUEVO) ---
+// --- Archivo: AdaptadorIcono.kt---
 package com.asipion.pfmoviles
 
 import android.content.Context

@@ -69,11 +69,13 @@ class AjustesActivity : AppCompatActivity() {
     }
 
     private fun configurarListeners() {
-        // --- CORRECCIÓN CLAVE ---
-        // Eliminamos los listeners para 'item_pin' y 'item_apariencia'
-        // y nos aseguramos de que el listener para 'item_personalizacion' sea correcto.
         binding.itemPersonalizacion.setOnClickListener {
             startActivity(Intent(this, PersonalizacionActivity::class.java))
+        }
+
+        binding.itemMapaSucursales.setOnClickListener {
+            val intent = Intent(this, PuntosInteresActivity::class.java)
+            startActivity(intent)
         }
     }
 

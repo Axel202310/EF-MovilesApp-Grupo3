@@ -1,16 +1,28 @@
-<!-- Archivo: res/layout/item_transaccion.xml (NUEVO) -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout para mostrar un único ítem en la lista de transacciones recientes.
+    Diseñado para ser compatible con AdaptadorTransaccion.kt.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"> <!-- Efecto de onda al hacer clic -->
 
+    <!-- ImageView para mostrar el icono de la categoría de la transacción. -->
     <ImageView
-        android:id="@+id/icono_categoria"
+        android:id="@+id/iv_categoria_icono"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/icono_cartera" />
+        tools:src="@drawable/ic_categoria_hogar" /> <!-- 'tools:src' para previsualización, no se ve en la app final -->
 
+    <!-- Contenedor para el nombre de la categoría y la descripción. -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,28 +30,31 @@
         android:orientation="vertical"
         android:layout_marginStart="16dp">
 
+        <!-- TextView para el nombre de la categoría. -->
         <TextView
-            android:id="@+id/text_categoria_nombre"
+            android:id="@+id/tv_categoria_nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comida"
             android:textColor="@android:color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:text="Hogar" />
 
+        <!-- TextView para la descripción de la transacción. -->
         <TextView
-            android:id="@+id/text_transaccion_descripcion"
+            android:id="@+id/tv_descripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Almuerzo en restaurante"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/darker_gray"
+            tools:text="Compra de supermercado" />
     </LinearLayout>
 
+    <!-- TextView para mostrar el monto de la transacción. -->
     <TextView
-        android:id="@+id/text_transaccion_monto"
+        android:id="@+id/tv_monto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="- S/ 50.00"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_gravity="center_vertical"/>
+        tools:textColor="@color/rojo_gasto"
+        tools:text="- S/ 150.00" />
 </LinearLayout>

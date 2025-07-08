@@ -1,4 +1,4 @@
-// --- Archivo: GraficosActivity.kt (Final, Corregido para tu Layout Específico) ---
+// --- Archivo: GraficosActivity.kt ---
 package com.asipion.pfmoviles
 
 import android.content.Intent

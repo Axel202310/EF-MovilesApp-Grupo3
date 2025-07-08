@@ -1,4 +1,4 @@
-// --- Archivo: DonutChartView.kt (NUEVO) ---
+// --- Archivo: DonutChartView.kt ---
 package com.asipion.pfmoviles
 
 import android.content.Context

@@ -153,5 +153,6 @@
     <string name="icono_categoria_content_desc">Icono de la categoría</string>
     <string name="balance_total">Balance Total</string>
 
-
+    <!-- res/values/strings.xml -->
+    <string name="descripcion_icono_categoria">Icono de categoría</string>
 </resources>
